@@ -9,34 +9,33 @@ public class DAO {
     private static DAO instance;
     private Connection conn;
 
-   // private PreparedStatement;
+   private PreparedStatement addOfficeStatement, getMaxIdOfficeStatement;
 
     private DAO () {
-        /*try {
+        try {
             conn = DriverManager.getConnection("jdbc:sqlite:database.db");
             try {
-                dajPredmeteStatement = conn.prepareStatement("SELECT predmeti.id, naziv FROM predmeti, studenti, student_predmet sp WHERE " +
-                        "predmeti.id=sp.id_predmeta AND sp.id_studenta=studenti.id AND studenti.prezime=?");
+                addOfficeStatement = conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
             } catch(SQLException e) {
-                regenerisiBazu();
+                regenerateDatabase();
                 try {
-                    dajPredmeteStatement = conn.prepareStatement("SELECT predmeti.id, naziv FROM predmeti, studenti, student_predmet sp WHERE " +
-                            "predmeti.id=sp.id_predmeta AND sp.id_studenta=studenti.id AND studenti.prezime=?");
-                    dajStudenteStatement = conn.prepareStatement("SELECT id, ime, prezime, brojindexa FROM studenti");
-                    dajNoviId = conn.prepareStatement("SELECT MAX(id)+1 FROM studenti");
-                    dodajStudenta = conn.prepareStatement("INSERT INTO studenti VALUES (?,?,?,?)");
-                    dajStudenteNaPredmetu = conn.prepareStatement("SELECT studenti.id, studenti.ime, studenti.prezime, studenti.brojindexa FROM studenti, student_predmet sp, predmeti WHERE " +
+                    addOfficeStatement = conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
+                    //getMaxIdOfficeStatement=conn.prepareStatement("SELECT MAX(id) FROM offices");
+                    //dajStudenteStatement = conn.prepareStatement("SELECT id, ime, prezime, brojindexa FROM studenti");
+                    //dajNoviId = conn.prepareStatement("SELECT MAX(id)+1 FROM studenti");
+                    //dodajStudenta = conn.prepareStatement("INSERT INTO studenti VALUES (?,?,?,?)");
+                    /*dajStudenteNaPredmetu = conn.prepareStatement("SELECT studenti.id, studenti.ime, studenti.prezime, studenti.brojindexa FROM studenti, student_predmet sp, predmeti WHERE " +
                             "sp.id_predmeta=predmeti.id AND sp.id_studenta=studenti.id AND predmeti.naziv=?");
                     dodajNoviPredmet = conn.prepareStatement("INSERT INTO predmeti VALUES (?,?)");
                     dajNoviIdPredmeti = conn.prepareStatement("SELECT MAX(id)+1 FROM predmeti");
-                    dajPredmete = conn.prepareStatement("SELECT * FROM predmeti");
+                    dajPredmete = conn.prepareStatement("SELECT * FROM predmeti");*/
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     private void regenerateDatabase() {
@@ -61,6 +60,7 @@ public class DAO {
             e.printStackTrace();
         }
     }
+
     public static DAO getInstance() {
         if (instance == null) instance = new DAO();
         return instance;
@@ -78,4 +78,17 @@ public class DAO {
             e.printStackTrace();
         }
     }
+
+    public void addOffice(Office office) {
+        try {
+                addOfficeStatement.setString(2,office.getName());
+                addOfficeStatement.setString(3,office.getAddress());
+                addOfficeStatement.setString(4,office.getUsername());
+                addOfficeStatement.setString(5,office.getPassword());
+                addOfficeStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
+
 }

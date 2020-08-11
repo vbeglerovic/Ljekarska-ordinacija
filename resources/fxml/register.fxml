@@ -23,17 +23,17 @@
             <Label text="password:" GridPane.rowIndex="3" />
             <Label text="repeat password:" GridPane.rowIndex="4" />
             <Label text="address:" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <PasswordField prefHeight="26.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fldName" GridPane.columnIndex="1" />
+            <TextField fx:id="fldAddress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fldUsername" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="fldPassword" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="repeatPasswordFld" prefHeight="26.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <ToolBar layoutX="441.0" layoutY="315.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #00BFFF;">
         <items>
-          <Button text="Register" />
-            <Button text="Cancel" />
+          <Button onAction="#registerAction" text="Register" />
+            <Button onAction="#closeAction" text="Cancel" />
         </items>
       </ToolBar>
    </children>

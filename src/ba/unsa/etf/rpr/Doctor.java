@@ -1,0 +1,112 @@
+package ba.unsa.etf.rpr;
+
+import java.util.Date;
+
+public class Doctor {
+    Integer id;
+    String firstName;
+    String lastName;
+    String JMBG;
+    Date birthDate;
+    String birthPlace;
+    String address;
+    String email;
+    Date employmentDate;
+    String specialization;
+
+    public Doctor() {
+    }
+
+    public Doctor(Integer id, String firstName, String lastName, String JMBG, Date birthDate, String birthPlace, String address, String email, Date employmentDate, String specialization) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.JMBG = JMBG;
+        this.birthDate = birthDate;
+        this.birthPlace = birthPlace;
+        this.address = address;
+        this.email = email;
+        this.employmentDate = employmentDate;
+        this.specialization = specialization;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getJMBG() {
+        return JMBG;
+    }
+
+    public void setJMBG(String JMBG) {
+        this.JMBG = JMBG;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getBirthPlace() {
+        return birthPlace;
+    }
+
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getEmploymentDate() {
+        return employmentDate;
+    }
+
+    public void setEmploymentDate(Date employmentDate) {
+        this.employmentDate = employmentDate;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+}

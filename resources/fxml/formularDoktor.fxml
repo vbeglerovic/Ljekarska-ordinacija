@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane hgap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="471.0" style="-fx-background-color: #BBFFFF;" vgap="4.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="105.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="242.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <children>
+        <Label prefHeight="24.0" prefWidth="100.0" text="Ime" />
+        <Label text="Prezime" GridPane.rowIndex="1" />
+        <Label text="JMBG" GridPane.rowIndex="2" />
+        <TextField prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="1" />
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="Datum rodjenja" GridPane.rowIndex="3" />
+        <Label text="Mjesto rodjenja" GridPane.rowIndex="4" />
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <HBox prefHeight="30.0" prefWidth="374.0" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets top="15.0" />
+         </opaqueInsets></HBox>
+        <Label text="Adresa stanovanja" GridPane.rowIndex="5" />
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label text="Email" GridPane.rowIndex="6" />
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <HBox prefHeight="35.0" prefWidth="224.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Dodaj" />
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Odustani">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="70.0" top="5.0" />
+            </padding>
+        </HBox>
+      <Label text="Datum zaposlenja" GridPane.rowIndex="7" />
+      <Label text="Specijalnost" GridPane.rowIndex="8" />
+      <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+    </children>
+</GridPane>

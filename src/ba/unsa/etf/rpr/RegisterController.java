@@ -26,11 +26,11 @@ public class RegisterController {
     }
 
     public void registerAction (ActionEvent actionEvent) {
-        Office office=new Office (1, fldName.getText(), fldAddress.getText(), fldUsername.getText(), fldPassword.getText());
-        dao.addOffice(office);
+       Office office=new Office (0, fldName.getText(), fldAddress.getText(), fldUsername.getText(), fldPassword.getText());
+        if (dao==null) System.out.println("null");
+       dao.addOffice(office);
         Stage stage=(Stage) fldAddress.getScene().getWindow();
-        stage.close();
-
+       stage.close();
     }
 
 

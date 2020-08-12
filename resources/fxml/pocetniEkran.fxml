@@ -23,7 +23,7 @@
          <children>
             <Label prefHeight="22.0" prefWidth="95.0" text="Username" GridPane.rowIndex="1" />
             <Label prefHeight="22.0" prefWidth="79.0" text="Password" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" text="Sign In" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#signInAction"/>
+            <Button text="Sign In" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#signInAction"/>
             <TextField fx:id="fldUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <PasswordField fx:id="fldPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>

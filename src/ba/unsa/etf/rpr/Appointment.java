@@ -9,6 +9,7 @@ public class Appointment {
     Patient patient;
     Doctor doctor;
     Boolean kontrola;
+    String report;
 
 
 

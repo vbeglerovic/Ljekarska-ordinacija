@@ -19,17 +19,13 @@ public class DAO {
         }
             try {
                 addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
-            //} catch(SQLException e) {
-                //regenerateDatabase();
-                //try {
-                    getOfficesStatement=conn.prepareStatement("SELECT * FROM offices");
-                    addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
-                    getOfficeWithUsernameStatement=conn.prepareStatement("SELECT * FROM offices WHERE username=?");
-                    getPasswordFromOfficeStatement=conn.prepareStatement("SELECT password FROM offices WHERE id=?");
+                getOfficesStatement=conn.prepareStatement("SELECT * FROM offices");
+                addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
+                getOfficeWithUsernameStatement=conn.prepareStatement("SELECT * FROM offices WHERE username=?");
+                getPasswordFromOfficeStatement=conn.prepareStatement("SELECT password FROM offices WHERE id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-           // }
     }
 
     private void regenerateDatabase() {
@@ -79,7 +75,6 @@ public class DAO {
                 addOfficeStatement.setString(3, office.getAddress());
                 addOfficeStatement.setString(4, office.getUsername());
                 addOfficeStatement.setString(5, office.getPassword());
-
                 addOfficeStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

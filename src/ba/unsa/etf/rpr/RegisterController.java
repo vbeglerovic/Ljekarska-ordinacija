@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr;
 
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,10 +28,17 @@ public class RegisterController {
 
     public void registerAction (ActionEvent actionEvent) {
        Office office=new Office (0, fldName.getText(), fldAddress.getText(), fldUsername.getText(), fldPassword.getText());
-        if (dao==null) System.out.println("null");
-       dao.addOffice(office);
-        Stage stage=(Stage) fldAddress.getScene().getWindow();
-       stage.close();
+       if (dao.getOfficeWithUsername(fldUsername.getText())!=null) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Information Dialog");
+           alert.setHeaderText(null);
+           alert.setContentText("Username "+fldUsername.getText()+" vec postoji, koristite neki drugi!");
+           alert.showAndWait();
+       } else {
+           dao.addOffice(office);
+           Stage stage = (Stage) fldAddress.getScene().getWindow();
+           stage.close();
+       }
     }
 
 

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,13 +14,11 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class OfficeController {
     private DAO dao;
     private Office office;
+    public Button pregledBtn;
 
     public OfficeController(Office office) {
         dao=DAO.getInstance();
         this.office=office;
-    }
-    public OfficeController() {
-        dao = DAO.getInstance();
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
@@ -44,7 +43,7 @@ public class OfficeController {
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pregledi.fxml"));
-        PreglediController preglediController = new PreglediController();
+        AppointmentController preglediController = new AppointmentController();
         loader.setController(preglediController);
         try {
             root = loader.load();
@@ -55,6 +54,12 @@ public class OfficeController {
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
+    }
+
+    public void signOutAction (ActionEvent actionEvent) {
+        office=null;
+        Stage stage = (Stage) pregledBtn.getScene().getWindow();
+        stage.close();
     }
 
 }

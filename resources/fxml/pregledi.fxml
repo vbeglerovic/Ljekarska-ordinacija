@@ -28,10 +28,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="24.0" prefWidth="79.0" text="Pacijent" GridPane.columnIndex="2" />
+            <Label prefHeight="24.0" prefWidth="62.0" text="Pacijent" GridPane.columnIndex="2" />
             <Label prefHeight="32.0" prefWidth="63.0" text="Doktor" GridPane.columnIndex="3" />
-            <ChoiceBox prefHeight="25.0" prefWidth="135.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="patientsChoiceBox" prefHeight="25.0" prefWidth="135.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <HBox prefHeight="38.0" prefWidth="206.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
                   <DatePicker prefHeight="25.0" prefWidth="139.0" />
@@ -48,6 +48,10 @@
          </children>
       </GridPane>
       <Button layoutX="527.0" layoutY="120.0" mnemonicParsing="false" text="Izdvoji" />
-      <Button layoutX="552.0" layoutY="379.0" mnemonicParsing="false" text="Izvjestaj" />
+      <ToolBar layoutX="553.0" layoutY="377.0" prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: #00BFFF;">
+        <items>
+          <Button mnemonicParsing="false" onAction="#closeAction" text="Cancel" />
+        </items>
+      </ToolBar>
    </children>
 </AnchorPane>

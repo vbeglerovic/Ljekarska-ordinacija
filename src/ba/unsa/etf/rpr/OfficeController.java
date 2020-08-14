@@ -26,8 +26,8 @@ public class OfficeController {
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/zakaziPregled.fxml"));
-        ZakaziPregledController zakaziPregledController = new ZakaziPregledController();
-        loader.setController(zakaziPregledController);
+        MakeAppointmentController makeAppointmentController = new MakeAppointmentController();
+        loader.setController(makeAppointmentController);
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -56,10 +56,47 @@ public class OfficeController {
         stage.show();
     }
 
+    public void patientsAction (ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Parent root = null;
+        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
+        PatientsController patientsController = new PatientsController();
+        loader.setController(patientsController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Patients");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void doctorsAction (ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Parent root = null;
+        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"));
+        DoctorsController doctorsController = new DoctorsController();
+        loader.setController(doctorsController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Doctors");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
+        stage.show();
+    }
+
     public void signOutAction (ActionEvent actionEvent) {
         office=null;
         Stage stage = (Stage) pregledBtn.getScene().getWindow();
         stage.close();
     }
+
 
 }

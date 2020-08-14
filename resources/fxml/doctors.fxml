@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="421.0" prefWidth="691.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TableView layoutX="10.0" layoutY="102.0" prefHeight="212.0" prefWidth="670.0" style="-fx-background-color: #00BFFF;">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Ime" />
+                <TableColumn prefWidth="75.0" text="Prezime" />
+                <TableColumn prefWidth="75.0" text="JMBG" />
+                <TableColumn prefWidth="96.0" text="Datum rodjenja" />
+                <TableColumn prefWidth="108.0" text="Mjesto rodjenja" />
+                <TableColumn prefWidth="75.0" text="Adresa" />
+                <TableColumn prefWidth="75.0" text="Specijalnost" />
+                <TableColumn prefWidth="90.0" text="Email" />
+
+
+            </columns>
+        </TableView>
+        <ToolBar layoutX="459.0" layoutY="332.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-color: #00BFFF;">
+            <items>
+                <Button mnemonicParsing="false" text="Uredi" />
+                <Button mnemonicParsing="false" text="Obrisi" />
+                <Button  onAction="#addDoctorAction" text="Dodaj" />
+            <Button onAction="#closeAction" text="Cancel" />
+            </items>
+        </ToolBar>
+        <TextField fx:id="searchFld" layoutX="365.0" layoutY="41.0" prefHeight="25.0" prefWidth="218.0" />
+        <ToolBar layoutX="605.0" layoutY="33.0" prefHeight="40.0" prefWidth="72.0" style="-fx-background-color: #00BFFF;">
+            <items>
+                <Button mnemonicParsing="false" text="Pretrazi" />
+            </items>
+        </ToolBar>
+    </children>
+</AnchorPane>

@@ -3,14 +3,18 @@ package ba.unsa.etf.rpr;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DAO {
     private static DAO instance;
     private Connection conn;
 
-   private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement;
-
+   private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
+    private PreparedStatement addPatientStatement;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -23,6 +27,9 @@ public class DAO {
                 addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
                 getOfficeWithUsernameStatement=conn.prepareStatement("SELECT * FROM offices WHERE username=?");
                 getPasswordFromOfficeStatement=conn.prepareStatement("SELECT password FROM offices WHERE id=?");
+                getPatientsStatement=conn.prepareStatement("SELECT * FROM patients");
+                addPatientStatement=conn.prepareStatement("INSERT INTO patients VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -118,4 +125,70 @@ public class DAO {
         }
         return false;
     }
+
+    public void addPatient(Patient patient) {
+        try {
+            addPatientStatement.setString(2,patient.getFirstName());
+            addPatientStatement.setString(3,patient.getLastName());
+            addPatientStatement.setString(4,patient.getJMBG());
+            addPatientStatement.setString(5, patient.getGender().toString());
+            addPatientStatement.setString(6,patient.getBirthDate().toString());
+            addPatientStatement.setString(7,patient.getBirthPlace());
+            addPatientStatement.setString(8,patient.getAddress());
+            addPatientStatement.setString(9,patient.getStatus().toString());
+            addPatientStatement.setString(10,patient.getEmail());
+            addPatientStatement.setInt(11, 1);
+            addPatientStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Patient> patients() {
+        ArrayList<Patient> p=new ArrayList<>();
+        try {
+            ResultSet rs=getPatientsStatement.executeQuery();
+            while (rs.next()) {
+                Patient patient=getPatientFromResultSet(rs);
+                p.add(patient);
+            }
+        } catch (SQLException e) {
+        }
+        return p;
+    }
+
+
+    Patient getPatientFromResultSet(ResultSet rs) {
+        Patient patient= null;
+        Gender gender=Gender.MUSKO;
+        Status status=Status.EMPLOYEE;
+        String s= null;
+        try {
+            s = rs.getString(9);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (s=="RETIREE")
+                status=Status.RETIREE;
+        else if (s=="EMPLOYEE")
+            status=Status.EMPLOYEE;
+        else if (s=="OTHER")
+            status=Status.OTHER;
+        try {
+            if (rs.getString(5)=="ZENSKO")
+                gender=Gender.ZENSKO;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("DD-MM-YYYY");
+        try {
+            patient = new Patient(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),gender, LocalDate.parse(rs.getString(6),df),rs.getString(7), rs.getString(8),status, rs.getString(10));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //patient.setDrzava(dajDrzavu(rs.getInt(4), grad));
+        return patient;
+    }
+
 }
+

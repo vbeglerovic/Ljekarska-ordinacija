@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ public class Patient {
     String lastName;
     String JMBG;
     Gender gender;
-    Date birthDate;
+    LocalDate birthDate;
     String birthPlace;
     String address;
     Status status;
@@ -18,7 +19,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(Integer id, String firstName, String lastName, String JMBG, Gender gender, Date birthDate, String birthPlace, String address, Status status, String email) {
+    public Patient(Integer id, String firstName, String lastName, String JMBG, Gender gender, LocalDate birthDate, String birthPlace, String address, Status status, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,11 +72,11 @@ public class Patient {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

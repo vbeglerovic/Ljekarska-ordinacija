@@ -69,7 +69,10 @@ public class PatientController {
             addressFld.setText(patient.getAddress());
             emailFld.setText(patient.getEmail());
             POBFld.setText(patient.getBirthPlace());
+            yearFld.setText(String.valueOf(patient.getBirthDate().getYear()));
+            monthChoiceBox.getSelectionModel().select(patient.getBirthDate().getMonthValue()-1);
             statusChoiceBox.getSelectionModel().select(patient.getStatus());
+            daySpinner.getValueFactory().setValue(patient.getBirthDate().getDayOfMonth());
         if (patient.getGender() == Gender.MUSKO)
             musko.setSelected(true);
         else
@@ -94,7 +97,7 @@ public class PatientController {
         patient.setAddress(addressFld.getText());
         patient.setEmail(emailFld.getText());
         if (musko.isSelected()) patient.setGender(Gender.MUSKO);
-        else patient.setGender(Gender.ZENSKO);
+        else if (zensko.isSelected()) patient.setGender(Gender.ZENSKO);
         patient.setStatus((Status) statusChoiceBox.getValue());
         /*DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         patient.setBirthDate(LocalDate.parse(getDate(),df));*/

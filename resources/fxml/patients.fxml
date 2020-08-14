@@ -22,8 +22,8 @@
       </TableView>
       <ToolBar layoutX="459.0" layoutY="332.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-color: #00BFFF;">
         <items>
-          <Button mnemonicParsing="false" text="Uredi" />
-            <Button mnemonicParsing="false" text="Obrisi" />
+          <Button onAction="#editPatientAction" text="Uredi" />
+            <Button onAction="#deletePatientAction" text="Obrisi" />
             <Button onAction="#addPatientAction" text="Dodaj" />
             <Button onAction="#closeAction" text="Cancel" />
         </items>

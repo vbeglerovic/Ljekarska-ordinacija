@@ -14,7 +14,7 @@ public class DAO {
     private Connection conn;
 
    private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
-    private PreparedStatement addPatientStatement;
+    private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -29,6 +29,9 @@ public class DAO {
                 getPasswordFromOfficeStatement=conn.prepareStatement("SELECT password FROM offices WHERE id=?");
                 getPatientsStatement=conn.prepareStatement("SELECT * FROM patients");
                 addPatientStatement=conn.prepareStatement("INSERT INTO patients VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=? WHERE id=?");
+                deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE JMBG=?");
+                getPatientByJMBGStatement=conn.prepareStatement("SELECT * FROM patients WHERE JMBG=?");
 
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -168,14 +171,14 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (s=="RETIREE")
+        if (s.equals("RETIREE"))
                 status=Status.RETIREE;
-        else if (s=="EMPLOYEE")
+        else if (s.equals("EMPLOYEE"))
             status=Status.EMPLOYEE;
-        else if (s=="OTHER")
+        else if (s.equals("OTHER"))
             status=Status.OTHER;
         try {
-            if (rs.getString(5)=="ZENSKO")
+            if (rs.getString(5).equals("ZENSKO"))
                 gender=Gender.ZENSKO;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,5 +193,35 @@ public class DAO {
         return patient;
     }
 
+    public void editPatient(Patient patient) {
+        try {
+            updatePatientStatment.setString(1, patient.getFirstName());
+            updatePatientStatment.setString(2, patient.getLastName());
+            updatePatientStatment.setString(3, patient.getJMBG());
+            updatePatientStatment.setString(4, patient.getGender().toString());
+            updatePatientStatment.setString(5, patient.getBirthDate().toString());
+            updatePatientStatment.setString(6, patient.getBirthPlace());
+            updatePatientStatment.setString(7, patient.getAddress());
+            updatePatientStatment.setString(8, patient.getStatus().toString());
+            updatePatientStatment.setString(9, patient.getEmail());
+            updatePatientStatment.setInt(10, patient.getId());
+            updatePatientStatment.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePatient(String jmbg) {
+        try {
+            getPatientByJMBGStatement.setString(1,jmbg);
+            ResultSet rs=getPatientByJMBGStatement.executeQuery();
+            if (rs.next()==false) return;
+            Patient patient=getPatientFromResultSet(rs);
+            deletePatientStatement.setString(1,patient.getJMBG());
+            deletePatientStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

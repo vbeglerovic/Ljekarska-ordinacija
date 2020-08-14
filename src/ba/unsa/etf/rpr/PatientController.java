@@ -42,7 +42,7 @@ public class PatientController {
         dao=DAO.getInstance();
         this.patient=patient;
     }
-    private String getDate () {
+    /*private String getDate () {
         String day,month;
         if (daySpinner.getValue().toString().length()<2)
             day="0"+daySpinner.getValue();
@@ -55,7 +55,7 @@ public class PatientController {
             month=m.toString();
         String date=day+"-"+month+"-"+yearFld.getText();
         return date;
-    }
+    }*/
     @FXML
     public void initialize() {
         monthChoiceBox.setItems(mjeseci);
@@ -96,8 +96,9 @@ public class PatientController {
         if (musko.isSelected()) patient.setGender(Gender.MUSKO);
         else patient.setGender(Gender.ZENSKO);
         patient.setStatus((Status) statusChoiceBox.getValue());
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        patient.setBirthDate(LocalDate.parse(getDate(),df));
+        /*DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        patient.setBirthDate(LocalDate.parse(getDate(),df));*/
+        patient.setBirthDate(LocalDate.of(Integer.parseInt(yearFld.getText()),mjeseci.indexOf(monthChoiceBox.getValue())+1, Integer.parseInt(daySpinner.getValue().toString())));
         Stage stage = (Stage) nameFld.getScene().getWindow();
         stage.close();
     }

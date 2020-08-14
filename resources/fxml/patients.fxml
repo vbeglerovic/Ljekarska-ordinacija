@@ -5,16 +5,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="702.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="10.0" layoutY="102.0" prefHeight="212.0" prefWidth="670.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewPatients" layoutX="10.0" layoutY="102.0" prefHeight="212.0" prefWidth="670.0" style="-fx-background-color: #00BFFF;">
         <columns>
-          <TableColumn prefWidth="75.0" text="Ime" />
-          <TableColumn prefWidth="75.0" text="Prezime" />
-          <TableColumn prefWidth="75.0" text="JMBG" />
-          <TableColumn prefWidth="96.0" text="Datum rodjenja" />
-          <TableColumn prefWidth="108.0" text="Mjesto rodjenja" />
-            <TableColumn prefWidth="75.0" text="Adresa" />
-            <TableColumn prefWidth="75.0" text="Status" />
-            <TableColumn prefWidth="90.0" text="Email" />
+          <TableColumn fx:id="colPatientName" prefWidth="75.0" text="Ime" />
+          <TableColumn fx:id="colPatientLastName" prefWidth="75.0" text="Prezime" />
+          <TableColumn fx:id="colPatientJMBG" prefWidth="75.0" text="JMBG" />
+            <TableColumn fx:id="colPatientGender" prefWidth="75.0" text="Spol" />
+          <TableColumn fx:id="colPatientDOB" prefWidth="96.0" text="Datum rodjenja" />
+          <TableColumn fx:id="colPatientPOB" prefWidth="108.0" text="Mjesto rodjenja" />
+            <TableColumn fx:id="colPatientAddress" prefWidth="75.0" text="Adresa" />
+            <TableColumn fx:id="colPatientStatus" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="colPatientEmail" prefWidth="90.0" text="Email" />
 
 
         </columns>

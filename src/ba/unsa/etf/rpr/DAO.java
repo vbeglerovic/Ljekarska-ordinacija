@@ -180,7 +180,7 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("DD-MM-YYYY");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             patient = new Patient(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),gender, LocalDate.parse(rs.getString(6),df),rs.getString(7), rs.getString(8),status, rs.getString(10));
         } catch (SQLException e) {

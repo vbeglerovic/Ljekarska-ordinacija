@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class PatientsController {
 
     private DAO dao;
     private ObservableList<Patient> patientsList;
+    private Office office;
 
     public TableColumn<Patient, String> colPatientName;
     public TableColumn<Patient, String> colPatientLastName;
@@ -35,9 +37,10 @@ public class PatientsController {
     public TextField searchFld;
     public TableView<Patient> tableViewPatients;
 
-    public PatientsController() {
+    public PatientsController(Office office) {
         dao=DAO.getInstance();
-        patientsList= FXCollections.observableArrayList(dao.patients());
+        patientsList= FXCollections.observableArrayList(dao.patients(office.getId()));
+        this.office=office;
     }
 
     @FXML
@@ -64,7 +67,7 @@ public class PatientsController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularPacijent.fxml"));
-            PatientController patientController = new PatientController(null);
+            PatientController patientController = new PatientController(null,office);
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");
@@ -75,8 +78,8 @@ public class PatientsController {
             stage.setOnHiding(event -> {
                 Patient patient = patientController.getPatient();
                 if (patient != null) {
-                    dao.addPatient(patient);
-                    patientsList.setAll(dao.patients());
+                    dao.addPatient(patient,office.getId());
+                    patientsList.setAll(dao.patients(office.getId()));
                 }
             });
         } catch (IOException e) {
@@ -91,7 +94,7 @@ public class PatientsController {
             Parent root = null;
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularPacijent.fxml"));
-                PatientController patientController = new PatientController(p);
+                PatientController patientController = new PatientController(p,office);
                 loader.setController(patientController);
                 root = loader.load();
                 stage.setTitle("Patient");
@@ -103,7 +106,7 @@ public class PatientsController {
                     Patient patient = patientController.getPatient();
                     if (patient != null) {
                         dao.editPatient(patient);
-                        patientsList.setAll(dao.patients());
+                        patientsList.setAll(dao.patients(office.getId()));
                     }
                 } );
             } catch (IOException e) {
@@ -117,12 +120,17 @@ public class PatientsController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Potvrda brisanja");
             alert.setHeaderText("Brisanje pacijenta " + patient.getFirstName() + " " + patient.getLastName());
-            alert.setContentText("Da li ste sigurni da želite obrisati pacijenta " + patient.getFirstName() + " " + patient.getLastName());
+            alert.setContentText("Da li ste sigurni da želite obrisati pacijenta " + patient.getFirstName() + " " + patient.getLastName()+"?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 dao.deletePatient(patient.getJMBG());
-                patientsList.setAll(dao.patients());
+                patientsList.setAll(dao.patients(office.getId()));
             }
+        }
+        public void searchPatientAction (ActionEvent actionEvent) {
+         String [] p=searchFld.getText().split(" ");
+            patientsList=FXCollections.observableArrayList(dao.searchPatients(office.getId(),p[0], p[1]));
+            tableViewPatients.setItems(patientsList);
         }
 }
 

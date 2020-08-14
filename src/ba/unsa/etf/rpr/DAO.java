@@ -1,9 +1,10 @@
 package ba.unsa.etf.rpr;
 
+import javafx.collections.ObservableList;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class DAO {
     private Connection conn;
 
    private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
-    private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement;
+    private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -27,11 +28,12 @@ public class DAO {
                 addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
                 getOfficeWithUsernameStatement=conn.prepareStatement("SELECT * FROM offices WHERE username=?");
                 getPasswordFromOfficeStatement=conn.prepareStatement("SELECT password FROM offices WHERE id=?");
-                getPatientsStatement=conn.prepareStatement("SELECT * FROM patients");
+                getPatientsStatement=conn.prepareStatement("SELECT * FROM patients WHERE office_id=?");
                 addPatientStatement=conn.prepareStatement("INSERT INTO patients VALUES (?,?,?,?,?,?,?,?,?,?,?)");
                 updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=? WHERE id=?");
                 deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE JMBG=?");
                 getPatientByJMBGStatement=conn.prepareStatement("SELECT * FROM patients WHERE JMBG=?");
+                getPatientsByNameStatement=conn.prepareStatement("SELECT * FROM patients WHERE office_id=? AND firstName=? AND lastName=?");
 
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -129,7 +131,7 @@ public class DAO {
         return false;
     }
 
-    public void addPatient(Patient patient) {
+    public void addPatient(Patient patient, int officeId) {
         try {
             addPatientStatement.setString(2,patient.getFirstName());
             addPatientStatement.setString(3,patient.getLastName());
@@ -140,16 +142,17 @@ public class DAO {
             addPatientStatement.setString(8,patient.getAddress());
             addPatientStatement.setString(9,patient.getStatus().toString());
             addPatientStatement.setString(10,patient.getEmail());
-            addPatientStatement.setInt(11, 1);
+            addPatientStatement.setInt(11, officeId);
             addPatientStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Patient> patients() {
+    public ArrayList<Patient> patients(int officeId) {
         ArrayList<Patient> p=new ArrayList<>();
         try {
+            getPatientsStatement.setInt(1,officeId);
             ResultSet rs=getPatientsStatement.executeQuery();
             while (rs.next()) {
                 Patient patient=getPatientFromResultSet(rs);
@@ -185,7 +188,7 @@ public class DAO {
         }
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            patient = new Patient(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),gender, LocalDate.parse(rs.getString(6),df),rs.getString(7), rs.getString(8),status, rs.getString(10));
+            patient = new Patient(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),gender, LocalDate.parse(rs.getString(6),df),rs.getString(7), rs.getString(8),status, rs.getString(10), rs.getInt(11));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -222,6 +225,22 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Patient> searchPatients (int officeId, String firstName, String lastName) {
+        ArrayList<Patient> p=new ArrayList<>();
+        try {
+            getPatientsByNameStatement.setInt(1,officeId);
+            getPatientsByNameStatement.setString(2,firstName);
+            getPatientsByNameStatement.setString(3,lastName);
+            ResultSet rs=getPatientsByNameStatement.executeQuery();
+            while (rs.next()) {
+                Patient patient=getPatientFromResultSet(rs);
+                p.add(patient);
+            }
+        } catch (SQLException e) {
+        }
+        return p;
     }
 }
 

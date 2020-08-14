@@ -16,6 +16,7 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class MakeAppointmentController {
     private DAO dao;
+    private Office office;
     public Button closeButton;
     public ChoiceBox patientsChoiceBox;
     public ChoiceBox doctorsChoiceBox;
@@ -37,7 +38,7 @@ public class MakeAppointmentController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularPacijent.fxml"));
-            PatientController patientController = new PatientController(null);
+            PatientController patientController = new PatientController(null,office);
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");

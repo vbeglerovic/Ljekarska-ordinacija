@@ -61,7 +61,7 @@ public class OfficeController {
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
-        PatientsController patientsController = new PatientsController();
+        PatientsController patientsController = new PatientsController(office);
         loader.setController(patientsController);
         try {
             root = loader.load();

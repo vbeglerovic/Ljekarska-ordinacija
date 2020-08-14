@@ -6,8 +6,10 @@ import javafx.stage.Stage;
 
 public class DoctorController {
     public TextField nameFld;
+    private Office office;
 
-    public DoctorController() {
+    public DoctorController(Office office) {
+        this.office=office;
     }
 
     public void closeAction (ActionEvent actionEvent) {

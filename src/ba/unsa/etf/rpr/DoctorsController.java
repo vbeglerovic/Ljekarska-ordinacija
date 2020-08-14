@@ -16,7 +16,10 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class DoctorsController {
 
     public TextField searchFld;
+    private Office office;
+
     public DoctorsController() {
+
     }
 
     public void closeAction (ActionEvent actionEvent) {
@@ -29,7 +32,7 @@ public class DoctorsController {
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularDoktor.fxml"));
-        DoctorController doctorController = new DoctorController();
+        DoctorController doctorController = new DoctorController(office);
         loader.setController(doctorController);
         try {
             root = loader.load();

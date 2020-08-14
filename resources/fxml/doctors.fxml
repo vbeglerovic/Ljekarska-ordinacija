@@ -23,11 +23,11 @@
             <items>
                 <Button mnemonicParsing="false" text="Uredi" />
                 <Button mnemonicParsing="false" text="Obrisi" />
-                <Button  onAction="#addDoctorAction" text="Dodaj" />
+                <Button onAction="#addDoctorAction" text="Dodaj" />
             <Button onAction="#closeAction" text="Cancel" />
             </items>
         </ToolBar>
-        <TextField fx:id="searchFld" layoutX="365.0" layoutY="41.0" prefHeight="25.0" prefWidth="218.0" />
+        <TextField fx:id="searchFld" layoutX="365.0" layoutY="41.0" prefHeight="25.0" prefWidth="218.0" promptText="ime i prezime" />
         <ToolBar layoutX="605.0" layoutY="33.0" prefHeight="40.0" prefWidth="72.0" style="-fx-background-color: #00BFFF;">
             <items>
                 <Button mnemonicParsing="false" text="Pretrazi" />

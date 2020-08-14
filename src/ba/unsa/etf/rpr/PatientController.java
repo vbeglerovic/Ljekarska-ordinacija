@@ -36,11 +36,14 @@ public class PatientController {
     public ChoiceBox statusChoiceBox;
     public TextField emailFld;
 
+    private Office office;
 
 
-    public PatientController(Patient patient) {
+
+    public PatientController(Patient patient, Office office) {
         dao=DAO.getInstance();
         this.patient=patient;
+        this.office=office;
     }
     /*private String getDate () {
         String day,month;

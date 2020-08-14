@@ -15,11 +15,12 @@ public class Patient {
     String address;
     Status status;
     String email;
+    Integer officeId;
 
     public Patient() {
     }
 
-    public Patient(Integer id, String firstName, String lastName, String JMBG, Gender gender, LocalDate birthDate, String birthPlace, String address, Status status, String email) {
+    public Patient(Integer id, String firstName, String lastName, String JMBG, Gender gender, LocalDate birthDate, String birthPlace, String address, Status status, String email, Integer officeId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +31,15 @@ public class Patient {
         this.address = address;
         this.status = status;
         this.email = email;
+        this.officeId=officeId;
+    }
+
+    public Integer getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Integer officeId) {
+        this.officeId = officeId;
     }
 
     public Integer getId() {
@@ -115,6 +125,5 @@ public class Patient {
     @Override
     public String toString() {
         return firstName+" "+lastName;
-
     }
 }

@@ -1,11 +1,10 @@
 package ba.unsa.etf.rpr;
 
-import javafx.collections.ObservableList;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,6 +15,7 @@ public class DAO {
 
    private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
+    private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -34,6 +34,11 @@ public class DAO {
                 deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE JMBG=?");
                 getPatientByJMBGStatement=conn.prepareStatement("SELECT * FROM patients WHERE JMBG=?");
                 getPatientsByNameStatement=conn.prepareStatement("SELECT * FROM patients WHERE office_id=? AND firstName=? AND lastName=?");
+                addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?)");
+                getAppointmentsStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
+                getPatientStatement=conn.prepareStatement("SELECT * FROM patients WHERE id=?");
+                getDoctorStatement=conn.prepareStatement("SELECT * FROM doctors WHERE id=?");
+                getDoctorsStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=?");
 
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -239,8 +244,89 @@ public class DAO {
                 p.add(patient);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return p;
+    }
+
+    public ArrayList<Appointment> appointments(int officeId) {
+        ArrayList<Appointment> a=new ArrayList<>();
+        try {
+            getAppointmentsStatement.setInt(1,officeId);
+            ResultSet rs=getAppointmentsStatement.executeQuery();
+            while (rs.next()) {
+                Appointment appointment=getAppointmentFromResultSet(rs);
+                a.add(appointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a;
+    }
+
+    private Appointment getAppointmentFromResultSet(ResultSet rs) {
+        Appointment appointment=null;
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH-MM");
+        boolean kontrola=false;
+        Patient p=new Patient();
+        Doctor d=new Doctor();
+        try {
+            if (rs.getString(6).equals("Kontrola"))
+                kontrola=true;
+            getPatientStatement.setInt(1,rs.getInt(4));
+            ResultSet rez=getPatientStatement.executeQuery();
+            p=getPatientFromResultSet(rez);
+            getDoctorStatement.setInt(1,rs.getInt(5));
+            rez=getDoctorStatement.executeQuery();
+            d=getDoctorFromResultSet(rez);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),p,d, kontrola, "");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointment;
+    }
+
+    private Doctor getDoctorFromResultSet(ResultSet rs) {
+        return null;
+    }
+
+    public void addAppointment(Appointment appointment, int officeId) {
+        try {
+            addAppointmentStatement.setString(2, appointment.getDate().toString());
+            addAppointmentStatement.setString(3,appointment.getTime().toString());
+            addAppointmentStatement.setInt(4,appointment.getPatient().getId());
+            addAppointmentStatement.setInt(5,appointment.getDoctor().getId());
+            String s;
+            if (appointment.isKontrola())  s="Kontrola";
+            else s="";
+            addAppointmentStatement.setString(6,s);
+            addAppointmentStatement.setString(7,"");
+            addAppointmentStatement.setInt(8,officeId);
+            addAppointmentStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public ArrayList<Doctor> doctors(int officeId) {
+        ArrayList<Doctor> d=new ArrayList<>();
+        try {
+            getDoctorsStatement.setInt(1,officeId);
+            ResultSet rs=getDoctorsStatement.executeQuery();
+            while (rs.next()) {
+                Doctor doctor=getDoctorFromResultSet(rs);
+                d.add(doctor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return d;
     }
 }
 

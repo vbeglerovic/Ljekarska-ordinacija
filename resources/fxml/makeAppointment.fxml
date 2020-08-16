@@ -26,22 +26,22 @@
             <Label text="Datum:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Vrijeme:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Doktor:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <DatePicker GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <children>
-                  <Spinner />
-                  <Spinner />
+                  <Spinner fx:id="hoursSpinner" />
+                  <Spinner fx:id="minutesSpinner" />
                </children>
             </HBox>
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button onAction="#addPatientAction" text="Dodaj" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <CheckBox mnemonicParsing="false" text="Kontrola" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <ToolBar layoutX="408.0" layoutY="324.0" prefHeight="40.0" prefWidth="133.0" style="-fx-background-color: #00BFFF;">
         <items>
-          <Button mnemonicParsing="false" text="Zakazi" />
+          <Button mnemonicParsing="false" onAction="#makeAppointmentAction" text="Zakazi" />
             <Button fx:id="closeButton" onAction="#closeAction" text="Odustani" />
         </items>
       </ToolBar>

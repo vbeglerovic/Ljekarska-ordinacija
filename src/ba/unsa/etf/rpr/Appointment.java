@@ -1,20 +1,26 @@
 package ba.unsa.etf.rpr;
 
 
+import javafx.collections.FXCollections;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Appointment {
-    Date date;
-    String time;
+    Integer id;
+    LocalDate date;
+    LocalTime time;
     Patient patient;
     Doctor doctor;
-    Boolean kontrola;
+    boolean kontrola;
     String report;
 
     public Appointment() {
     }
 
-    public Appointment(Date date, String time, Patient patient, Doctor doctor, Boolean kontrola, String report) {
+    public Appointment(Integer id, LocalDate date, LocalTime time, Patient patient, Doctor doctor, boolean kontrola, String report) {
+        this.id = id;
         this.date = date;
         this.time = time;
         this.patient = patient;
@@ -23,19 +29,27 @@ public class Appointment {
         this.report = report;
     }
 
-    public Date getDate() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -55,11 +69,11 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public Boolean getKontrola() {
+    public boolean isKontrola() {
         return kontrola;
     }
 
-    public void setKontrola(Boolean kontrola) {
+    public void setKontrola(boolean kontrola) {
         this.kontrola = kontrola;
     }
 

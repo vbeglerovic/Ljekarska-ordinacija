@@ -8,10 +8,10 @@
     <children>
         <GridPane layoutX="48.0" layoutY="30.0" prefHeight="291.0" prefWidth="505.0" style="-fx-background-color: #00BFFF;">
     <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="36.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="136.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="226.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="91.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="24.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="146.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="294.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="23.0" />
             <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
@@ -31,37 +31,41 @@
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
     <children>
-        <Label prefHeight="24.0" prefWidth="100.0" text="Ime:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label text="Prezime:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label prefHeight="24.0" prefWidth="100.0" text="Prezime:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="Ime:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="JMBG:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <TextField fx:id="lastNameFld" prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
         <TextField fx:id="nameFld" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <TextField fx:id="JMBGFld" GridPane.columnIndex="2" GridPane.rowIndex="3" />
         <Label text="Datum rodjenja" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <Label text="Mjesto rodjenja" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <TextField GridPane.columnIndex="2" GridPane.rowIndex="5" />
-        <HBox prefHeight="30.0" prefWidth="374.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
-         <GridPane.margin>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-         </GridPane.margin>
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" />
-         </padding>
-         <opaqueInsets>
-            <Insets top="15.0" />
-         </opaqueInsets></HBox>
+        <TextField fx:id="POBFld" GridPane.columnIndex="2" GridPane.rowIndex="5" />
         <Label text="Adresa stanovanja" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <TextField GridPane.columnIndex="2" GridPane.rowIndex="6" />
+        <TextField fx:id="addressFld" GridPane.columnIndex="2" GridPane.rowIndex="6" />
         <Label text="Email" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <TextField GridPane.columnIndex="2" GridPane.rowIndex="7" />
+        <TextField fx:id="emailFld" GridPane.columnIndex="2" GridPane.rowIndex="7" />
       <Label text="Datum zaposlenja" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <Label text="Specijalnost" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <TextField fx:id="specialtyFld" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+               <children>
+                  <Spinner fx:id="daySpinner1" />
+                  <ChoiceBox fx:id="monthChoiceBox1" prefWidth="150.0" />
+                  <TextField fx:id="yearFld1" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8">
+               <children>
+                  <Spinner fx:id="daySpinner2" />
+                  <ChoiceBox fx:id="monthChoiceBox2" prefWidth="150.0" />
+                  <TextField fx:id="yearFld2" />
+               </children>
+            </HBox>
     </children>
 </GridPane>
       <ToolBar layoutX="440.0" layoutY="336.0" prefHeight="40.0" prefWidth="112.0" style="-fx-background-color: #00BFFF;">
         <items>
-          <Button mnemonicParsing="false" text="Add" />
+          <Button mnemonicParsing="false" onAction="#addDoctorACtion" text="Add" />
             <Button onAction="#closeAction" text="Cancel" />
         </items>
       </ToolBar>

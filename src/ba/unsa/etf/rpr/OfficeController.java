@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,37 +16,46 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class OfficeController {
     private DAO dao;
     private Office office;
+    private ObservableList<Appointment> appointmentList;
     public Button pregledBtn;
 
     public OfficeController(Office office) {
         dao=DAO.getInstance();
         this.office=office;
+        appointmentList= FXCollections.observableArrayList(dao.appointments(office.getId()));
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
-        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/zakaziPregled.fxml"));
-        MakeAppointmentController makeAppointmentController = new MakeAppointmentController();
-        loader.setController(makeAppointmentController);
         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/makeAppointment.fxml"));
+            MakeAppointmentController makeAppointmentController = new MakeAppointmentController(null, office);
+            loader.setController(makeAppointmentController);
             root = loader.load();
+            stage.setTitle("Appointment");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(true);
+            stage.show();
+
+            stage.setOnHiding( event -> {
+                Appointment appointment = makeAppointmentController.getAppointment();
+                if (appointment != null) {
+                    dao.addAppointment(appointment, office.getId());
+                    appointmentList.setAll(dao.appointments(office.getId()));
+                }
+            } );
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.setTitle("Zakazi pregled");
-        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        stage.setResizable(false);
-        stage.show();
     }
     public void reviewAction (ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pregledi.fxml"));
-        AppointmentController preglediController = new AppointmentController();
-        loader.setController(preglediController);
+        AppointmentsController appointmentsController = new AppointmentsController();
+        loader.setController(appointmentsController);
         try {
             root = loader.load();
         } catch (IOException e) {

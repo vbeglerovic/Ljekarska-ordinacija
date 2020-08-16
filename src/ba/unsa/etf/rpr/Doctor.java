@@ -1,23 +1,23 @@
 package ba.unsa.etf.rpr;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Doctor {
     Integer id;
     String firstName;
     String lastName;
     String JMBG;
-    Date birthDate;
+    LocalDate birthDate;
     String birthPlace;
     String address;
     String email;
-    Date employmentDate;
+    LocalDate employmentDate;
     String specialization;
 
     public Doctor() {
     }
 
-    public Doctor(Integer id, String firstName, String lastName, String JMBG, Date birthDate, String birthPlace, String address, String email, Date employmentDate, String specialization) {
+    public Doctor(Integer id, String firstName, String lastName, String JMBG, LocalDate birthDate, String birthPlace, String address, String email, LocalDate employmentDate, String specialization) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -62,11 +62,11 @@ public class Doctor {
         this.JMBG = JMBG;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -94,11 +94,11 @@ public class Doctor {
         this.email = email;
     }
 
-    public Date getEmploymentDate() {
+    public LocalDate getEmploymentDate() {
         return employmentDate;
     }
 
-    public void setEmploymentDate(Date employmentDate) {
+    public void setEmploymentDate(LocalDate employmentDate) {
         this.employmentDate = employmentDate;
     }
 

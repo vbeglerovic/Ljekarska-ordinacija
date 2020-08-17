@@ -10,18 +10,16 @@
                 <TableColumn fx:id="colDoctorName" prefWidth="66.0" text="Ime" />
                 <TableColumn fx:id="colDoctorLastName" prefWidth="84.0" text="Prezime" />
                 <TableColumn fx:id="colDoctorJMBG" prefWidth="75.0" text="JMBG" />
+                <TableColumn fx:id="colDoctorDOB" prefWidth="96.0" text="Datum rodjenja" />
                 <TableColumn fx:id="colDoctorPOB" prefWidth="108.0" text="Mjesto rodjenja" />
                 <TableColumn fx:id="colDoctorAddress" prefWidth="49.0" text="Adresa" />
                 <TableColumn fx:id="colDoctorDOE" prefWidth="108.0" text="Datum zaposlenja" />
                 <TableColumn fx:id="colDoctorEmail" prefWidth="98.0" text="Email" />
                 <TableColumn fx:id="colDoctorSpecialty" prefWidth="75.0" text="Specijalnost" />
-                <TableColumn fx:id="colDoctorDOB" prefWidth="96.0" text="Datum rodjenja" />
+
 
 
             </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
         </TableView>
         <ToolBar layoutX="361.0" layoutY="340.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-color: #00BFFF;">
             <items>

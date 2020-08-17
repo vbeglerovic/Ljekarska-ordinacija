@@ -17,7 +17,7 @@ public class OfficeController {
     private DAO dao;
     private Office office;
    // private ObservableList<Appointment> appointmentList;
-    public Button pregledBtn;
+    public Button btnSignOut;
 
     public OfficeController(Office office) {
         dao=DAO.getInstance();
@@ -50,7 +50,7 @@ public class OfficeController {
         }
     }
     public void reviewAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) pregledBtn.getScene().getWindow();
+        Stage stage=(Stage) btnSignOut.getScene().getWindow();
         //Stage stage=new Stage();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -69,7 +69,7 @@ public class OfficeController {
     }
 
     public void patientsAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) pregledBtn.getScene().getWindow();
+        Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
@@ -87,7 +87,7 @@ public class OfficeController {
     }
 
     public void doctorsAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) pregledBtn.getScene().getWindow();
+        Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"));
@@ -105,7 +105,7 @@ public class OfficeController {
     }
 
     public void signOutAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) pregledBtn.getScene().getWindow();
+        Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root=null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pocetniEkran.fxml"));

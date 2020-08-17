@@ -4,3 +4,6 @@
 .poljeNijeIspravno {
     -fx-control-inner-background: lightpink;
 }
+#btnSignOut{
+    -fx-background-image: url("/slike/logOut.png");
+}

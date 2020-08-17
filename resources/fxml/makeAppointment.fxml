@@ -36,7 +36,7 @@
             <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button onAction="#addPatientAction" text="Dodaj" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <CheckBox mnemonicParsing="false" text="Kontrola" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <CheckBox fx:id="kontrolaCheckBox" mnemonicParsing="false" text="Kontrola" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <ToolBar layoutX="408.0" layoutY="324.0" prefHeight="40.0" prefWidth="133.0" style="-fx-background-color: #00BFFF;">

@@ -2,6 +2,8 @@ package ba.unsa.etf.rpr;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -55,6 +57,30 @@ public class DoctorsController {
         colDoctorEmail.setCellValueFactory(new PropertyValueFactory("email"));
         colDoctorSpecialty.setCellValueFactory(new PropertyValueFactory("specialization"));
         colDoctorDOE.setCellValueFactory(new PropertyValueFactory("employmentDate"));
+        FilteredList<Doctor> filteredData=new FilteredList<>(doctorsList, b->true);
+        searchFld.textProperty().addListener((observable,oldValue, newValue)->{
+            filteredData.setPredicate(doctor -> {
+                if (newValue==null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter=newValue.toLowerCase();
+                if (doctor.getFirstName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return  true;
+                } else if (doctor.getLastName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                } else if (doctor.getJMBG().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                } else if ((doctor.getFirstName().toLowerCase()+" "+doctor.getLastName()).toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                } else if (doctor.getSpecialization().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                }else
+                    return false;
+            });
+        });
+        SortedList<Doctor> sortedData=new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewDoctors.comparatorProperty());
+        tableViewDoctors.setItems(sortedData);
     }
 
     public void closeAction (ActionEvent actionEvent) {

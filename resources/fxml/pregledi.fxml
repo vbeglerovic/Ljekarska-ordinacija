@@ -5,13 +5,15 @@
 
 <AnchorPane prefHeight="449.0" prefWidth="684.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="64.0" layoutY="102.0" prefHeight="244.0" prefWidth="545.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewAppointments" layoutX="64.0" layoutY="102.0" prefHeight="244.0" prefWidth="545.0" style="-fx-background-color: #00BFFF;">
         <columns>
-           <TableColumn text="Datum" />
-           <TableColumn prefWidth="109.0" text="Vrijeme" />
-           <TableColumn prefWidth="139.0" text="Pacijent" />
-          <TableColumn prefWidth="88.0" text="Doktor" />
-          <TableColumn prefWidth="176.0" text="Vrsta" />
+           <TableColumn fx:id="colAppointmentDate" text="Datum" />
+           <TableColumn fx:id="colAppointmentTime" prefWidth="109.0" text="Vrijeme" />
+           <TableColumn fx:id="colAppointmentPatient" prefWidth="139.0" text="Pacijent" />
+          <TableColumn fx:id="colAppointmentDoctor" prefWidth="88.0" text="Doktor" />
+          <TableColumn fx:id="colAppointmentType" prefWidth="176.0" text="Vrsta" />
+            <TableColumn fx:id="colAppointmentReport" prefWidth="176.0" text="Report" />
+
         </columns>
       </TableView>
       <ToolBar layoutX="591.0" layoutY="377.0" prefHeight="40.0" prefWidth="68.0" style="-fx-background-color: #00BFFF;">
@@ -19,7 +21,7 @@
           <Button mnemonicParsing="false" onAction="#closeAction" text="Cancel" />
         </items>
       </ToolBar>
-      <TextField layoutX="163.0" layoutY="41.0" prefHeight="25.0" prefWidth="274.0" />
+      <TextField fx:id="searchFld" layoutX="163.0" layoutY="41.0" prefHeight="25.0" prefWidth="274.0" />
       <Label layoutX="113.0" layoutY="41.0" prefHeight="25.0" prefWidth="41.0" text="Search" />
    </children>
 </AnchorPane>

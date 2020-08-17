@@ -36,7 +36,7 @@ public class DAO {
                 getPatientByJMBGStatement=conn.prepareStatement("SELECT * FROM patients WHERE JMBG=?");
                 getPatientsByNameStatement=conn.prepareStatement("SELECT * FROM patients WHERE office_id=? AND firstName=? AND lastName=?");
                 addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?)");
-                getAppointmentsStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
+                getAppointmentsStatement=conn.prepareStatement("SELECT * FROM appointments WHERE office_id=?");
                 getPatientStatement=conn.prepareStatement("SELECT * FROM patients WHERE id=?");
                 getDoctorStatement=conn.prepareStatement("SELECT * FROM doctors WHERE id=?");
                 getDoctorsStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=?");
@@ -277,8 +277,6 @@ public class DAO {
         Patient p=new Patient();
         Doctor d=new Doctor();
         try {
-            if (rs.getString(6).equals("Kontrola"))
-                kontrola=true;
             getPatientStatement.setInt(1,rs.getInt(4));
             ResultSet rez=getPatientStatement.executeQuery();
             p=getPatientFromResultSet(rez);
@@ -289,7 +287,7 @@ public class DAO {
             e.printStackTrace();
         }
         try {
-            appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),p,d, kontrola, "");
+            appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),p,d, rs.getString(6), "");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -315,9 +313,7 @@ public class DAO {
             addAppointmentStatement.setInt(4,appointment.getPatient().getId());
             addAppointmentStatement.setInt(5,appointment.getDoctor().getId());
             String s;
-            if (appointment.isKontrola())  s="Kontrola";
-            else s="";
-            addAppointmentStatement.setString(6,s);
+            addAppointmentStatement.setString(6,appointment.getType());
             addAppointmentStatement.setString(7,"");
             addAppointmentStatement.setInt(8,officeId);
             addAppointmentStatement.executeUpdate();

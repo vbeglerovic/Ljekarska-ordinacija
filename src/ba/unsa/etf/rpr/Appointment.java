@@ -17,7 +17,7 @@ public class Appointment {
     private SimpleObjectProperty<LocalTime> time;
     private SimpleObjectProperty<Patient> patient;
     private SimpleObjectProperty<Doctor> doctor;
-    private SimpleBooleanProperty kontrola;
+    private SimpleStringProperty type;
     private SimpleStringProperty report;
    /* Integer id;
     LocalDate date;
@@ -27,22 +27,22 @@ public class Appointment {
     boolean kontrola;
     String report;*/
 
-    public Appointment(SimpleIntegerProperty id, SimpleObjectProperty<LocalDate> date, SimpleObjectProperty<LocalTime> time, SimpleObjectProperty<Patient> patient, SimpleObjectProperty<Doctor> doctor, SimpleBooleanProperty kontrola, SimpleStringProperty report) {
+    public Appointment(SimpleIntegerProperty id, SimpleObjectProperty<LocalDate> date, SimpleObjectProperty<LocalTime> time, SimpleObjectProperty<Patient> patient, SimpleObjectProperty<Doctor> doctor, SimpleStringProperty type, SimpleStringProperty report) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.patient = patient;
         this.doctor = doctor;
-        this.kontrola = kontrola;
+        this.type = type;
         this.report = report;
     }
-    public Appointment (Integer id, LocalDate date, LocalTime time, Patient patient, Doctor doctor, boolean kontrola, String report) {
+    public Appointment (Integer id, LocalDate date, LocalTime time, Patient patient, Doctor doctor, String type, String report) {
         this.id=new SimpleIntegerProperty(id);
         this.date=new SimpleObjectProperty<>(date);
         this.time=new SimpleObjectProperty<>(time);
         this.patient=new SimpleObjectProperty<>(patient);
         this.doctor=new SimpleObjectProperty<>(doctor);
-        this.kontrola=new SimpleBooleanProperty(kontrola);
+        this.type=new SimpleStringProperty(type);
         this.report=new SimpleStringProperty(report);
     }
 
@@ -52,7 +52,7 @@ public class Appointment {
         this.time=new SimpleObjectProperty<>();
         this.patient=new SimpleObjectProperty<>();
         this.doctor=new SimpleObjectProperty<>();
-        this.kontrola=new SimpleBooleanProperty();
+        this.type=new SimpleStringProperty();
         this.report=new SimpleStringProperty();
     }
 
@@ -116,16 +116,16 @@ public class Appointment {
         this.doctor.set(doctor);
     }
 
-    public boolean isKontrola() {
-        return kontrola.get();
+    public String getType() {
+        return type.get();
     }
 
-    public SimpleBooleanProperty kontrolaProperty() {
-        return kontrola;
+    public SimpleStringProperty typeProperty() {
+        return type;
     }
 
-    public void setKontrola(boolean kontrola) {
-        this.kontrola.set(kontrola);
+    public void setType(String type) {
+        this.type.set(type);
     }
 
     public String getReport() {

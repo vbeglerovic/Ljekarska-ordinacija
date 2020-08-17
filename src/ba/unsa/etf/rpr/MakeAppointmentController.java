@@ -66,6 +66,7 @@ public class MakeAppointmentController {
         appointment.setDate(datePicker.getValue());
         appointment.setPatient(patientsChoiceBox.getValue());
         appointment.setDoctor(doctorsChoiceBox.getValue());
+        if (kontrolaCheckBox.isSelected()) appointment.setType("Kontrola");
         Stage stage = (Stage) patientsChoiceBox.getScene().getWindow();
         stage.close();
     }

@@ -16,13 +16,13 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class OfficeController {
     private DAO dao;
     private Office office;
-    private ObservableList<Appointment> appointmentList;
+   // private ObservableList<Appointment> appointmentList;
     public Button pregledBtn;
 
     public OfficeController(Office office) {
         dao=DAO.getInstance();
         this.office=office;
-        appointmentList= FXCollections.observableArrayList(dao.appointments(office.getId()));
+       //appointmentList= FXCollections.observableArrayList(dao.appointments(office.getId()));
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
@@ -42,7 +42,7 @@ public class OfficeController {
                 Appointment appointment = makeAppointmentController.getAppointment();
                 if (appointment != null) {
                     dao.addAppointment(appointment, office.getId());
-                    appointmentList.setAll(dao.appointments(office.getId()));
+                    //appointmentList.setAll(dao.appointments(office.getId()));
                 }
             } );
         } catch (IOException e) {

@@ -15,7 +15,8 @@ public class DAO {
 
    private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
-    private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement;
+    private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
+    private PreparedStatement getDoctorsByNameStatement, getDoctorByJMBGStatement, deleteDoctorStatement,updateDoctorStatment;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -39,7 +40,11 @@ public class DAO {
                 getPatientStatement=conn.prepareStatement("SELECT * FROM patients WHERE id=?");
                 getDoctorStatement=conn.prepareStatement("SELECT * FROM doctors WHERE id=?");
                 getDoctorsStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=?");
-
+                addDoctorStatement=conn.prepareStatement("INSERT INTO doctors VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                getDoctorsByNameStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=? AND firstName=? AND lastName=?");
+                getDoctorByJMBGStatement=conn.prepareStatement("SELECT * FROM doctors WHERE JMBG=?");
+                deleteDoctorStatement=conn.prepareStatement("DELETE FROM doctors WHERE JMBG=?");
+                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specijalnost=? WHERE id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -267,7 +272,7 @@ public class DAO {
     private Appointment getAppointmentFromResultSet(ResultSet rs) {
         Appointment appointment=null;
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH-MM");
+        DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:MM");
         boolean kontrola=false;
         Patient p=new Patient();
         Doctor d=new Doctor();
@@ -292,7 +297,15 @@ public class DAO {
     }
 
     private Doctor getDoctorFromResultSet(ResultSet rs) {
-        return null;
+        Doctor doctor= null;
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+        doctor = new Doctor(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),LocalDate.parse(rs.getString(5),df),rs.getString(6), rs.getString(7), rs.getString(8),LocalDate.parse(rs.getString(9),df), rs.getString(10));
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    //patient.setDrzava(dajDrzavu(rs.getInt(4), grad));
+        return doctor;
     }
 
     public void addAppointment(Appointment appointment, int officeId) {
@@ -311,7 +324,6 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public ArrayList<Doctor> doctors(int officeId) {
@@ -327,6 +339,72 @@ public class DAO {
             e.printStackTrace();
         }
         return d;
+    }
+
+    public void addDoctor(Doctor doctor, int officeId) {
+        try {
+            addDoctorStatement.setString(2,doctor.getFirstName());
+            addDoctorStatement.setString(3,doctor.getLastName());
+            addDoctorStatement.setString(4,doctor.getJMBG());
+            addDoctorStatement.setString(5, doctor.getBirthDate().toString());
+            addDoctorStatement.setString(6,doctor.getBirthPlace());
+            addDoctorStatement.setString(7,doctor.getAddress());
+            addDoctorStatement.setString(8,doctor.getEmail());
+            addDoctorStatement.setString(9,doctor.getEmploymentDate().toString());
+            addDoctorStatement.setString(10,doctor.getSpecialization());
+            addDoctorStatement.setInt(11, officeId);
+            addDoctorStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editDoctor(Doctor doctor) {
+        try {
+            updateDoctorStatment.setString(1, doctor.getFirstName());
+            updateDoctorStatment.setString(2, doctor.getLastName());
+            updateDoctorStatment.setString(3, doctor.getJMBG());
+            updateDoctorStatment.setString(4, doctor.getBirthDate().toString());
+            updateDoctorStatment.setString(5, doctor.getBirthPlace());
+            updateDoctorStatment.setString(6, doctor.getAddress());
+            updateDoctorStatment.setString(7, doctor.getEmail());
+            updateDoctorStatment.setString(8, doctor.getEmploymentDate().toString());
+            updateDoctorStatment.setString(9, doctor.getSpecialization());
+            updateDoctorStatment.setInt(10, doctor.getId());
+            updateDoctorStatment.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Doctor> searchDoctors(int officeId, String firstName, String lastName) {
+        ArrayList<Doctor> d=new ArrayList<>();
+        try {
+            getDoctorsByNameStatement.setInt(1,officeId);
+            getDoctorsByNameStatement.setString(2,firstName);
+            getDoctorsByNameStatement.setString(3,lastName);
+            ResultSet rs=getDoctorsByNameStatement.executeQuery();
+            while (rs.next()) {
+                Doctor doctor=getDoctorFromResultSet(rs);
+                d.add(doctor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return d;
+    }
+
+    public void deleteDoctor(String jmbg) {
+        try {
+            getDoctorByJMBGStatement.setString(1,jmbg);
+            ResultSet rs=getDoctorByJMBGStatement.executeQuery();
+            if (rs.next()==false) return;
+            Doctor doctor=getDoctorFromResultSet(rs);
+            deleteDoctorStatement.setString(1,doctor.getJMBG());
+            deleteDoctorStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -5,24 +5,25 @@
 
 <AnchorPane prefHeight="421.0" prefWidth="691.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TableView layoutX="10.0" layoutY="102.0" prefHeight="212.0" prefWidth="670.0" style="-fx-background-color: #00BFFF;">
+        <TableView fx:id="tableViewDoctors" layoutX="10.0" layoutY="102.0" prefHeight="212.0" prefWidth="689.0" style="-fx-background-color: #00BFFF;">
             <columns>
-                <TableColumn prefWidth="75.0" text="Ime" />
-                <TableColumn prefWidth="75.0" text="Prezime" />
-                <TableColumn prefWidth="75.0" text="JMBG" />
-                <TableColumn prefWidth="96.0" text="Datum rodjenja" />
-                <TableColumn prefWidth="108.0" text="Mjesto rodjenja" />
-                <TableColumn prefWidth="75.0" text="Adresa" />
-                <TableColumn prefWidth="75.0" text="Specijalnost" />
-                <TableColumn prefWidth="90.0" text="Email" />
+                <TableColumn fx:id="colDoctorName" prefWidth="75.0" text="Ime" />
+                <TableColumn fx:id="colDoctorLastName" prefWidth="75.0" text="Prezime" />
+                <TableColumn fx:id="colDoctorJMBG" prefWidth="75.0" text="JMBG" />
+                <TableColumn fx:id="colDoctorDOB" prefWidth="96.0" text="Datum rodjenja" />
+                <TableColumn fx:id="colDoctorPOB" prefWidth="108.0" text="Mjesto rodjenja" />
+                <TableColumn fx:id="colDoctorAddress" prefWidth="49.0" text="Adresa" />
+                <TableColumn fx:id="colDoctorDOE" prefWidth="108.0" text="Datum zaposlenja" />
+                <TableColumn fx:id="colDoctorEmail" prefWidth="98.0" text="Email" />
+                <TableColumn fx:id="colDoctorSpecialty" prefWidth="75.0" text="Specijalnost" />
 
 
             </columns>
         </TableView>
         <ToolBar layoutX="459.0" layoutY="332.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-color: #00BFFF;">
             <items>
-                <Button mnemonicParsing="false" text="Uredi" />
-                <Button mnemonicParsing="false" text="Obrisi" />
+                <Button onAction="#editDoctorAction" text="Uredi" />
+                <Button onAction="#deleteDoctorAction" text="Obrisi" />
                 <Button onAction="#addDoctorAction" text="Dodaj" />
             <Button onAction="#closeAction" text="Cancel" />
             </items>
@@ -30,7 +31,7 @@
         <TextField fx:id="searchFld" layoutX="365.0" layoutY="41.0" prefHeight="25.0" prefWidth="218.0" promptText="ime i prezime" />
         <ToolBar layoutX="605.0" layoutY="33.0" prefHeight="40.0" prefWidth="72.0" style="-fx-background-color: #00BFFF;">
             <items>
-                <Button mnemonicParsing="false" text="Pretrazi" />
+                <Button mnemonicParsing="false" onAction="#searchPatientAction" text="Pretrazi" />
             </items>
         </ToolBar>
     </children>

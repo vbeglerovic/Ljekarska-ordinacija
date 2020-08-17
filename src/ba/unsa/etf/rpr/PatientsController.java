@@ -3,6 +3,8 @@ package ba.unsa.etf.rpr;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +57,29 @@ public class PatientsController {
         colPatientAddress.setCellValueFactory(new PropertyValueFactory("address"));
         colPatientStatus.setCellValueFactory(new PropertyValueFactory("status"));
         colPatientEmail.setCellValueFactory(new PropertyValueFactory("email"));
+
+        FilteredList<Patient> filteredData=new FilteredList<>(patientsList, b->true);
+        searchFld.textProperty().addListener((observable,oldValue, newValue)->{
+            filteredData.setPredicate(patient -> {
+                if (newValue==null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter=newValue.toLowerCase();
+                if (patient.getFirstName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return  true;
+                } else if (patient.getLastName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                } else if (patient.getJMBG().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                } else if ((patient.getFirstName().toLowerCase()+" "+patient.getLastName()).toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                }else
+                        return false;
+            });
+        });
+        SortedList<Patient> sortedData=new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewPatients.comparatorProperty());
+        tableViewPatients.setItems(sortedData);
     }
 
     public void closeAction (ActionEvent actionEvent) {

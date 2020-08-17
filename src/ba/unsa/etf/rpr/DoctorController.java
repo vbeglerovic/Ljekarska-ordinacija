@@ -27,12 +27,15 @@ public class DoctorController {
     public TextField specialtyFld;
     public TextField emailFld;
 
+    private DAO dao;
     private Office office;
     private Doctor doctor;
     private ObservableList<Months> mjeseci= FXCollections.observableArrayList(Months.Januar,Months.Februar,Months.Mart,Months.April, Months.Maj, Months.Juni, Months.Juli, Months.August,Months.Septembar, Months.Oktobar, Months.Novembar, Months.Decembar);
 
 
-    public DoctorController(Office office) {
+    public DoctorController(Doctor doctor, Office office) {
+        dao=DAO.getInstance();
+        this.doctor=doctor;
         this.office=office;
     }
 
@@ -40,9 +43,10 @@ public class DoctorController {
     public void initialize() {
         monthChoiceBox1.setItems(mjeseci);
         monthChoiceBox2.setItems(mjeseci);
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1);
-        daySpinner1.setValueFactory(valueFactory);
-        daySpinner2.setValueFactory(valueFactory);
+        SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1);
+        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1);
+        daySpinner1.setValueFactory(valueFactory1);
+        daySpinner2.setValueFactory(valueFactory2);
         if (doctor != null) {
             nameFld.setText(doctor.getFirstName());
             lastNameFld.setText(doctor.getLastName());
@@ -79,5 +83,8 @@ public class DoctorController {
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) nameFld.getScene().getWindow();
         stage.close();
+    }
+    public Doctor getDoctor () {
+        return doctor;
     }
 }

@@ -47,12 +47,11 @@ public class MakeAppointmentController {
         hoursSpinner.setValueFactory(valueFactory1);
         SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55, 0,5);
         minutesSpinner.setValueFactory(valueFactory2);
-        //doctorsChoiceBox.setItems(doctors);
+        doctorsChoiceBox.setItems(doctors);
        if (appointment != null) {
            patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
            doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
            datePicker.setValue(appointment.getDate());
-
        }
     }
 
@@ -66,7 +65,7 @@ public class MakeAppointmentController {
         appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()),Integer.parseInt(minutesSpinner.getValue().toString())));
         appointment.setDate(datePicker.getValue());
         appointment.setPatient(patientsChoiceBox.getValue());
-        appointment.setDoctor(new Doctor());
+        appointment.setDoctor(doctorsChoiceBox.getValue());
         Stage stage = (Stage) patientsChoiceBox.getScene().getWindow();
         stage.close();
     }
@@ -82,6 +81,16 @@ public class MakeAppointmentController {
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(true);
             stage.show();
+
+            stage.setOnHiding(event -> {
+                Patient patient = patientController.getPatient();
+                if (patient != null) {
+                    dao.addPatient(patient,office.getId());
+                    patients=FXCollections.observableArrayList(dao.patients(office.getId()));
+                    patientsChoiceBox.setItems(patients);
+
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

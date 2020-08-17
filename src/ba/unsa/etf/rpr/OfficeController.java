@@ -54,7 +54,7 @@ public class OfficeController {
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pregledi.fxml"));
-        AppointmentsController appointmentsController = new AppointmentsController();
+        AppointmentsController appointmentsController = new AppointmentsController(office);
         loader.setController(appointmentsController);
         try {
             root = loader.load();
@@ -90,7 +90,7 @@ public class OfficeController {
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"));
-        DoctorsController doctorsController = new DoctorsController();
+        DoctorsController doctorsController = new DoctorsController(office);
         loader.setController(doctorsController);
         try {
             root = loader.load();

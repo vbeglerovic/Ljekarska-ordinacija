@@ -2,11 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="449.0" prefWidth="684.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="64.0" layoutY="163.0" prefHeight="183.0" prefWidth="545.0" style="-fx-background-color: #00BFFF;">
+      <TableView layoutX="64.0" layoutY="102.0" prefHeight="244.0" prefWidth="545.0" style="-fx-background-color: #00BFFF;">
         <columns>
            <TableColumn text="Datum" />
            <TableColumn prefWidth="109.0" text="Vrijeme" />
@@ -20,25 +19,7 @@
           <Button mnemonicParsing="false" onAction="#closeAction" text="Cancel" />
         </items>
       </ToolBar>
-      <ToolBar layoutX="26.0" layoutY="42.0" prefHeight="40.0" prefWidth="623.0" style="-fx-background-color: #00BFFF;">
-        <items>
-            <DatePicker prefHeight="25.0" prefWidth="139.0" />
-            <Label prefHeight="23.0" prefWidth="25.0" text="  -">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <DatePicker prefHeight="25.0" prefWidth="139.0" />
-            <ChoiceBox fx:id="patientsChoiceBox" prefHeight="25.0" prefWidth="135.0" />
-            <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" />
-        </items>
-      </ToolBar>
-      <ToolBar layoutX="581.0" layoutY="99.0" prefHeight="40.0" prefWidth="68.0" style="-fx-background-color: #00BFFF;">
-        <items>
-          <Button mnemonicParsing="false" onAction="#searchAction" text="Pretrazi" />
-        </items>
-      </ToolBar>
-      <Label layoutX="385.0" layoutY="14.0" text="Pacijent" />
-      <Label layoutX="537.0" layoutY="14.0" text="Doktor" />
+      <TextField layoutX="163.0" layoutY="41.0" prefHeight="25.0" prefWidth="274.0" />
+      <Label layoutX="113.0" layoutY="41.0" prefHeight="25.0" prefWidth="41.0" text="Search" />
    </children>
 </AnchorPane>

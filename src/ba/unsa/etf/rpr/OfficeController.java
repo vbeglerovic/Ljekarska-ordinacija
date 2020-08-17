@@ -26,7 +26,7 @@ public class OfficeController {
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
-        Stage stage = new Stage();
+        Stage stage=new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/makeAppointment.fxml"));
@@ -34,8 +34,8 @@ public class OfficeController {
             loader.setController(makeAppointmentController);
             root = loader.load();
             stage.setTitle("Appointment");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(true);
+            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            //stage.setResizable(true);
             stage.show();
 
             stage.setOnHiding( event -> {
@@ -50,7 +50,8 @@ public class OfficeController {
         }
     }
     public void reviewAction (ActionEvent actionEvent) {
-        Stage stage = new Stage();
+        Stage stage=(Stage) pregledBtn.getScene().getWindow();
+        //Stage stage=new Stage();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pregledi.fxml"));
@@ -62,13 +63,13 @@ public class OfficeController {
             e.printStackTrace();
         }
         stage.setTitle("Pregledi");
-        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        stage.setResizable(false);
+        stage.setScene(new Scene(root, 600, 400));
+        //stage.setResizable(false);
         stage.show();
     }
 
     public void patientsAction (ActionEvent actionEvent) {
-        Stage stage = new Stage();
+        Stage stage=(Stage) pregledBtn.getScene().getWindow();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
@@ -80,13 +81,13 @@ public class OfficeController {
             e.printStackTrace();
         }
         stage.setTitle("Patients");
-        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setScene(new Scene(root, 600, 400));
         stage.setResizable(false);
         stage.show();
     }
 
     public void doctorsAction (ActionEvent actionEvent) {
-        Stage stage = new Stage();
+        Stage stage=(Stage) pregledBtn.getScene().getWindow();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"));
@@ -98,15 +99,26 @@ public class OfficeController {
             e.printStackTrace();
         }
         stage.setTitle("Doctors");
-        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setScene(new Scene(root, 600, 400));
         stage.setResizable(false);
         stage.show();
     }
 
     public void signOutAction (ActionEvent actionEvent) {
-        office=null;
-        Stage stage = (Stage) pregledBtn.getScene().getWindow();
-        stage.close();
+        Stage stage=(Stage) pregledBtn.getScene().getWindow();
+        Parent root=null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pocetniEkran.fxml"));
+            Controller ctrl = new Controller();
+            loader.setController(ctrl);
+            root = loader.load();
+            stage.setTitle("Pocetna");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

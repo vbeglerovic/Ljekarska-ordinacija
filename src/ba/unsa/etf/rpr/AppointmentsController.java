@@ -7,12 +7,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 public class AppointmentsController {
     private DAO dao;
@@ -56,8 +61,8 @@ public class AppointmentsController {
                     return  true;
                 } else if (appointment.getTime().toString().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
-                } else if (appointment.getPatient().toString().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
-                    return true;
+               } else if (appointment.getPatient().toString().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                  return true;
                 } else if (appointment.getDoctor().toString().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
                 }else
@@ -70,6 +75,38 @@ public class AppointmentsController {
     }
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) searchFld.getScene().getWindow();
-        stage.close();
+        Parent root = null;
+        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"));
+        OfficeController officeController = new OfficeController(office);
+        loader.setController(officeController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Office");
+        stage.setScene(new Scene(root, 600, 400));
+        stage.setResizable(false);
+        stage.show();
     }
+    public void deleteAppointmentAction (ActionEvent actionEvent) {
+        Appointment appointment = tableViewAppointments.getSelectionModel().getSelectedItem();
+        if (appointment == null) return;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potvrda otkazivanja");
+        alert.setContentText("Da li ste sigurni da želite otkazati pregled? ");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            dao.deleteAppointment(appointment.getId());
+            appointmentsList.setAll(dao.appointments(office.getId()));
+        }
+    }
+
+    public void makeAppointmentAction (ActionEvent actionEvent) {
+    }
+
+    public void editAppointmentAction (ActionEvent actionEvent) {
+    }
+
 }

@@ -26,7 +26,7 @@ public class Controller {
     }
 
     public void registerAction(ActionEvent actionEvent) {
-        Stage stage = new Stage();
+        Stage stage = (Stage) fldUsername.getScene().getWindow();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
@@ -38,7 +38,7 @@ public class Controller {
             e.printStackTrace();
         }
         stage.setTitle("Register");
-        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setScene(new Scene(root, 600, 400));
         stage.setResizable(false);
         stage.show();
 
@@ -60,7 +60,7 @@ public class Controller {
             alert.setContentText("Pogresan password!");
             alert.showAndWait();
         } else {
-            Stage stage = new Stage();
+            Stage stage = (Stage) fldUsername.getScene().getWindow();
             Parent root = null;
             //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"));
@@ -72,8 +72,8 @@ public class Controller {
                 e.printStackTrace();
             }
             stage.setTitle("Office");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(false);
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setResizable(true);
             stage.show();
         }
     }

@@ -85,11 +85,26 @@ public class DoctorsController {
 
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) searchFld.getScene().getWindow();
-        stage.close();
+        Parent root = null;
+        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"));
+        OfficeController officeController = new OfficeController(office);
+        loader.setController(officeController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Office");
+        stage.setScene(new Scene(root, 600, 400));
+        //stage.setResizable(false);
+        stage.show();
+        //stage.close();
     }
 
     public void addDoctorAction (ActionEvent actionEvent) {
-        Stage stage = new Stage();
+        Stage stage=new Stage();
+        //Stage stage = (Stage) searchFld.getScene().getWindow();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularDoktor.fxml"));
@@ -97,8 +112,8 @@ public class DoctorsController {
             loader.setController(doctorController);
             root = loader.load();
             stage.setTitle("Doctor");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(true);
+            stage.setScene(new Scene(root, 600, 400));
+            //stage.setResizable(true);
             stage.show();
 
             stage.setOnHiding(event -> {
@@ -117,7 +132,7 @@ public class DoctorsController {
         Doctor d = tableViewDoctors.getSelectionModel().getSelectedItem();
         if (d == null) return;
 
-        Stage stage = new Stage();
+        Stage stage=new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularDoktor.fxml"));
@@ -125,7 +140,7 @@ public class DoctorsController {
             loader.setController(doctorController);
             root = loader.load();
             stage.setTitle("Doktor");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setScene(new Scene(root, 600, 400));
             stage.setResizable(true);
             stage.show();
 

@@ -84,7 +84,20 @@ public class PatientsController {
 
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) searchFld.getScene().getWindow();
-        stage.close();
+        Parent root = null;
+        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"));
+        OfficeController officeController = new OfficeController(office);
+        loader.setController(officeController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Office");
+        stage.setScene(new Scene(root, 600, 400));
+        //stage.setResizable(false);
+        stage.show();
     }
 
     public void addPatientAction (ActionEvent actionEvent) {
@@ -96,8 +109,8 @@ public class PatientsController {
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(true);
+            stage.setScene(new Scene(root, 600, 400));
+            //stage.setResizable(true);
             stage.show();
 
             stage.setOnHiding(event -> {
@@ -123,8 +136,8 @@ public class PatientsController {
                 loader.setController(patientController);
                 root = loader.load();
                 stage.setTitle("Patient");
-                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                stage.setResizable(true);
+                stage.setScene(new Scene(root, 600, 400));
+                //stage.setResizable(true);
                 stage.show();
 
                 stage.setOnHiding( event -> {

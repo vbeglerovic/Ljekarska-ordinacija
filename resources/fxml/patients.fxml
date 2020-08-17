@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="702.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400" prefWidth="600" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableViewPatients" layoutX="10.0" layoutY="102.0" prefHeight="212.0" prefWidth="670.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewPatients" layoutX="27.0" layoutY="109.0" prefHeight="172.0" prefWidth="541.0" style="-fx-background-color: #00BFFF;">
         <columns>
           <TableColumn fx:id="colPatientName" prefWidth="75.0" text="Ime" />
           <TableColumn fx:id="colPatientLastName" prefWidth="75.0" text="Prezime" />
@@ -20,7 +20,7 @@
 
         </columns>
       </TableView>
-      <ToolBar layoutX="459.0" layoutY="332.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="359.0" layoutY="325.0" prefHeight="43.0" prefWidth="219.0" style="-fx-background-color: #00BFFF;">
         <items>
           <Button onAction="#editPatientAction" text="Uredi" />
             <Button onAction="#deletePatientAction" text="Obrisi" />
@@ -28,11 +28,7 @@
             <Button onAction="#closeAction" text="Cancel" />
         </items>
       </ToolBar>
-      <TextField fx:id="searchFld" layoutX="365.0" layoutY="41.0" prefHeight="25.0" prefWidth="218.0" promptText="ime i prezime" />
-      <ToolBar layoutX="605.0" layoutY="33.0" prefHeight="40.0" prefWidth="72.0" style="-fx-background-color: #00BFFF;">
-        <items>
-          <Button mnemonicParsing="false" onAction="#searchPatientAction" text="Pretrazi" />
-        </items>
-      </ToolBar>
+      <TextField fx:id="searchFld" layoutX="78.0" layoutY="57.0" prefHeight="25.0" prefWidth="225.0" promptText="ime i prezime" />
+      <Label layoutX="27.0" layoutY="61.0" text="Search" />
    </children>
 </AnchorPane>

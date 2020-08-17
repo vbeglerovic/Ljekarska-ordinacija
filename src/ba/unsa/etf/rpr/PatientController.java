@@ -4,9 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -85,7 +89,20 @@ public class PatientController {
 
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) nameFld.getScene().getWindow();
-        stage.close();
+        Parent root = null;
+        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
+        PatientsController patientsController = new PatientsController(office);
+        loader.setController(patientsController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Patients");
+        stage.setScene(new Scene(root, 600, 400));
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void addPatient (ActionEvent actionEvent) {
@@ -102,7 +119,7 @@ public class PatientController {
         /*DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         patient.setBirthDate(LocalDate.parse(getDate(),df));*/
         patient.setBirthDate(LocalDate.of(Integer.parseInt(yearFld.getText()),mjeseci.indexOf(monthChoiceBox.getValue())+1, Integer.parseInt(daySpinner.getValue().toString())));
-        Stage stage = (Stage) nameFld.getScene().getWindow();
+        Stage stage=(Stage) nameFld.getScene().getWindow();
         stage.close();
     }
 

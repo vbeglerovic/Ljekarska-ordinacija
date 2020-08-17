@@ -4,12 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class DoctorController {
@@ -77,13 +81,15 @@ public class DoctorController {
         doctor.setBirthDate(LocalDate.of(Integer.parseInt(yearFld1.getText()),mjeseci.indexOf(monthChoiceBox1.getValue())+1, Integer.parseInt(daySpinner1.getValue().toString())));
         doctor.setEmploymentDate(LocalDate.of(Integer.parseInt(yearFld2.getText()),mjeseci.indexOf(monthChoiceBox2.getValue())+1, Integer.parseInt(daySpinner2.getValue().toString())));
         doctor.setSpecialization(specialtyFld.getText());
-        Stage stage = (Stage) nameFld.getScene().getWindow();
+        Stage stage=(Stage) nameFld.getScene().getWindow();
         stage.close();
     }
+
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) nameFld.getScene().getWindow();
         stage.close();
     }
+
     public Doctor getDoctor () {
         return doctor;
     }

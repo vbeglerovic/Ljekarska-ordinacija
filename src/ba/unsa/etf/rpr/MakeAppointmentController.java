@@ -67,8 +67,7 @@ public class MakeAppointmentController {
         appointment.setPatient(patientsChoiceBox.getValue());
         appointment.setDoctor(doctorsChoiceBox.getValue());
         if (kontrolaCheckBox.isSelected()) appointment.setType("Kontrola");
-        Stage stage = (Stage) patientsChoiceBox.getScene().getWindow();
-        stage.close();
+        closeAction(null);
     }
     public void addPatientAction (ActionEvent actionEvent) {
         Stage stage = new Stage();
@@ -79,7 +78,7 @@ public class MakeAppointmentController {
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setScene(new Scene(root, 600, 400));
             stage.setResizable(true);
             stage.show();
 

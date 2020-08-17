@@ -12,22 +12,22 @@ import java.time.LocalTime;
 import java.util.Date;
 
 public class Appointment {
-    private SimpleIntegerProperty id;
+   /* private SimpleIntegerProperty id;
     private SimpleObjectProperty<LocalDate> date;
     private SimpleObjectProperty<LocalTime> time;
     private SimpleObjectProperty<Patient> patient;
     private SimpleObjectProperty<Doctor> doctor;
     private SimpleStringProperty type;
-    private SimpleStringProperty report;
-   /* Integer id;
+    private SimpleStringProperty report;*/
+    Integer id;
     LocalDate date;
     LocalTime time;
     Patient patient;
     Doctor doctor;
-    boolean kontrola;
-    String report;*/
+    String type;
+    String report;
 
-    public Appointment(SimpleIntegerProperty id, SimpleObjectProperty<LocalDate> date, SimpleObjectProperty<LocalTime> time, SimpleObjectProperty<Patient> patient, SimpleObjectProperty<Doctor> doctor, SimpleStringProperty type, SimpleStringProperty report) {
+   /* public Appointment(SimpleIntegerProperty id, SimpleObjectProperty<LocalDate> date, SimpleObjectProperty<LocalTime> time, SimpleObjectProperty<Patient> patient, SimpleObjectProperty<Doctor> doctor, SimpleStringProperty type, SimpleStringProperty report) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -138,5 +138,74 @@ public class Appointment {
 
     public void setReport(String report) {
         this.report.set(report);
+    }*/
+
+    public Appointment() {
+    }
+
+    public Appointment(Integer id, LocalDate date, LocalTime time, Patient patient, Doctor doctor, String type, String report) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.patient = patient;
+        this.doctor = doctor;
+        this.type = type;
+        this.report = report;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
     }
 }

@@ -3,10 +3,15 @@ package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class RegisterController {
@@ -23,8 +28,20 @@ public class RegisterController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) fldName.getScene().getWindow();
-        stage.close();
+        Stage stage=(Stage) fldName.getScene().getWindow();
+        Parent root=null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pocetniEkran.fxml"));
+            Controller ctrl = new Controller();
+            loader.setController(ctrl);
+            root = loader.load();
+            stage.setTitle("Pocetna");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void registerAction (ActionEvent actionEvent) {
@@ -37,8 +54,7 @@ public class RegisterController {
            alert.showAndWait();
        } else {
            dao.addOffice(office);
-           Stage stage = (Stage) fldAddress.getScene().getWindow();
-           stage.close();
+           closeAction(null);
        }
     }
 

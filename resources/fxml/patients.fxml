@@ -5,12 +5,12 @@
 
 <AnchorPane prefHeight="400" prefWidth="600" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableViewPatients" layoutX="27.0" layoutY="109.0" prefHeight="172.0" prefWidth="541.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewPatients" layoutX="27.0" layoutY="147.0" prefHeight="171.0" prefWidth="541.0" style="-fx-background-color: #00BFFF;">
         <columns>
           <TableColumn fx:id="colPatientName" prefWidth="75.0" text="Ime" />
           <TableColumn fx:id="colPatientLastName" prefWidth="75.0" text="Prezime" />
-          <TableColumn fx:id="colPatientJMBG" prefWidth="75.0" text="JMBG" />
-            <TableColumn fx:id="colPatientGender" prefWidth="75.0" text="Spol" />
+          <TableColumn fx:id="colPatientJMBG" prefWidth="78.0" text="JMBG" />
+            <TableColumn fx:id="colPatientGender" prefWidth="72.0" text="Spol" />
           <TableColumn fx:id="colPatientDOB" prefWidth="96.0" text="Datum rodjenja" />
           <TableColumn fx:id="colPatientPOB" prefWidth="108.0" text="Mjesto rodjenja" />
             <TableColumn fx:id="colPatientAddress" prefWidth="75.0" text="Adresa" />
@@ -28,7 +28,7 @@
             <Button onAction="#closeAction" text="Cancel" />
         </items>
       </ToolBar>
-      <TextField fx:id="searchFld" layoutX="78.0" layoutY="57.0" prefHeight="25.0" prefWidth="225.0" promptText="ime i prezime" />
-      <Label layoutX="27.0" layoutY="61.0" text="Search" />
+      <TextField fx:id="searchFld" layoutX="75.0" layoutY="106.0" prefHeight="25.0" prefWidth="225.0" promptText="ime i prezime" />
+      <Label layoutX="27.0" layoutY="110.0" text="Search" />
    </children>
 </AnchorPane>

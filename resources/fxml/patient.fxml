@@ -6,11 +6,13 @@
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane layoutX="44.0" layoutY="41.0" prefHeight="294.0" prefWidth="509.0" style="-fx-background-color: #00BFFF;">
+        <Pane prefHeight="400.0" prefWidth="310.0" style="-fx-background-color: #00BFFF;" />
+        <GridPane layoutX="60.0" layoutY="30.0" prefHeight="319.0" prefWidth="493.0" style="-fx-background-color: transparent; -fx-border-color: black;">
             <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="66.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="144.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="204.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="92.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="147.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="46.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="153.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="0.0" prefWidth="74.0" />
   </columnConstraints>
   <rowConstraints>
@@ -23,8 +25,8 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="21.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -34,31 +36,31 @@
       <Label text="Prezime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="JMBG" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Label text="Spol" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <TextField fx:id="nameFld" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TextField fx:id="lastNameFld" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <TextField fx:id="JMBGFld" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="nameFld" prefHeight="28.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <TextField fx:id="lastNameFld" prefHeight="20.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <TextField fx:id="JMBGFld" GridPane.columnIndex="3" GridPane.rowIndex="3" />
        <Label text="Datum rodjenja" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Label text="Mjesto rodjenja" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField fx:id="POBFld" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <TextField fx:id="POBFld" GridPane.columnIndex="3" GridPane.rowIndex="6" />
        <fx:define>
            <ToggleGroup fx:id="$group1" />
        </fx:define>
        
 
-       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <children>
                   <Spinner fx:id="daySpinner" />
                   <ChoiceBox fx:id="monthChoiceBox" prefWidth="150.0" />
                   <TextField fx:id="yearFld" />
                </children></HBox>
       <Label text="Adresa stanovanja" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <TextField fx:id="addressFld" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <TextField fx:id="addressFld" GridPane.columnIndex="3" GridPane.rowIndex="7" />
       <Label text="Email" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <TextField fx:id="emailFld" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <TextField fx:id="emailFld" GridPane.columnIndex="3" GridPane.rowIndex="9" />
       <Label GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <Label text="Status" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+      <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
                 <children>
                     <RadioButton fx:id="musko" text="Musko" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <toggleGroup>

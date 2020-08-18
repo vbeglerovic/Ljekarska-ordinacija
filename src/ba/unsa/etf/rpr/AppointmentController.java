@@ -14,10 +14,7 @@ import java.io.IOException;
 
 import java.time.LocalTime;
 
-
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-
-public class MakeAppointmentController {
+public class AppointmentController {
 
     private Appointment appointment;
     private DAO dao;
@@ -32,7 +29,7 @@ public class MakeAppointmentController {
     public Spinner minutesSpinner;
     public CheckBox kontrolaCheckBox;
 
-    public MakeAppointmentController(Appointment appointment,Office office) {
+    public AppointmentController(Appointment appointment, Office office) {
         this.appointment=appointment;
         this.office=office;
         dao=DAO.getInstance();
@@ -73,7 +70,7 @@ public class MakeAppointmentController {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularPacijent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
             PatientController patientController = new PatientController(null,office);
             loader.setController(patientController);
             root = loader.load();

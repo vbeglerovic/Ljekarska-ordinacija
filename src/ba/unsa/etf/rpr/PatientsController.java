@@ -18,8 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-
 public class PatientsController {
 
     private DAO dao;
@@ -104,7 +102,7 @@ public class PatientsController {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularPacijent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
             PatientController patientController = new PatientController(null,office);
             loader.setController(patientController);
             root = loader.load();
@@ -131,7 +129,7 @@ public class PatientsController {
             Stage stage = new Stage();
             Parent root = null;
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularPacijent.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
                 PatientController patientController = new PatientController(p,office);
                 loader.setController(patientController);
                 root = loader.load();

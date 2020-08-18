@@ -6,13 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ResourceBundle;
-
 public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception{
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pocetniEkran.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"));
         Controller ctrl = new Controller();
         loader.setController(ctrl);
         Parent root = loader.load();

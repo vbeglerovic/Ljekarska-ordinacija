@@ -1,23 +1,23 @@
 package ba.unsa.etf.rpr;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class OfficeController {
     private DAO dao;
     private Office office;
    // private ObservableList<Appointment> appointmentList;
-    public Button btnSignOut;
+    public Button btnSignOut,patientBtn;
 
     public OfficeController(Office office) {
         dao=DAO.getInstance();
@@ -25,13 +25,16 @@ public class OfficeController {
        //appointmentList= FXCollections.observableArrayList(dao.appointments(office.getId()));
     }
 
+    @FXML
+    public void initialize() {
+    }
     public void makeAppointmentAction (ActionEvent actionEvent) {
         Stage stage=new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/makeAppointment.fxml"));
-            MakeAppointmentController makeAppointmentController = new MakeAppointmentController(null, office);
-            loader.setController(makeAppointmentController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"));
+            AppointmentController appointmentController = new AppointmentController(null, office);
+            loader.setController(appointmentController);
             root = loader.load();
             stage.setTitle("Appointment");
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
@@ -39,7 +42,7 @@ public class OfficeController {
             stage.show();
 
             stage.setOnHiding( event -> {
-                Appointment appointment = makeAppointmentController.getAppointment();
+                Appointment appointment = appointmentController.getAppointment();
                 if (appointment != null) {
                     dao.addAppointment(appointment, office.getId());
                     //appointmentList.setAll(dao.appointments(office.getId()));
@@ -54,7 +57,7 @@ public class OfficeController {
         //Stage stage=new Stage();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pregledi.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"));
         AppointmentsController appointmentsController = new AppointmentsController(office);
         loader.setController(appointmentsController);
         try {
@@ -108,7 +111,7 @@ public class OfficeController {
         Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root=null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pocetniEkran.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"));
             Controller ctrl = new Controller();
             loader.setController(ctrl);
             root = loader.load();

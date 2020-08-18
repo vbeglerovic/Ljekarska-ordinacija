@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-
 
 public class DoctorsController {
 
@@ -107,7 +105,7 @@ public class DoctorsController {
         //Stage stage = (Stage) searchFld.getScene().getWindow();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularDoktor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"));
             DoctorController doctorController = new DoctorController(null,office);
             loader.setController(doctorController);
             root = loader.load();
@@ -135,7 +133,7 @@ public class DoctorsController {
         Stage stage=new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formularDoktor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"));
             DoctorController doctorController = new DoctorController(d,office);
             loader.setController(doctorController);
             root = loader.load();

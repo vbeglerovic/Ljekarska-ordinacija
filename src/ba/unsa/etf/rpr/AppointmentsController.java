@@ -107,9 +107,9 @@ public class AppointmentsController {
         Stage stage=new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/makeAppointment.fxml"));
-            MakeAppointmentController makeAppointmentController = new MakeAppointmentController(null, office);
-            loader.setController(makeAppointmentController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"));
+            AppointmentController appointmentController = new AppointmentController(null, office);
+            loader.setController(appointmentController);
             root = loader.load();
             stage.setTitle("Appointment");
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
@@ -117,7 +117,7 @@ public class AppointmentsController {
             stage.show();
 
             stage.setOnHiding( event -> {
-                Appointment appointment = makeAppointmentController.getAppointment();
+                Appointment appointment = appointmentController.getAppointment();
                 if (appointment != null) {
                     dao.addAppointment(appointment, office.getId());
                     //appointmentList.setAll(dao.appointments(office.getId()));

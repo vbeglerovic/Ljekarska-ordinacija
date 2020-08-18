@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr;
 
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,7 +30,7 @@ public class RegisterController {
         Stage stage=(Stage) fldName.getScene().getWindow();
         Parent root=null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pocetniEkran.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"));
             Controller ctrl = new Controller();
             loader.setController(ctrl);
             root = loader.load();

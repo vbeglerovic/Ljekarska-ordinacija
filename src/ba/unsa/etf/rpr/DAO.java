@@ -16,7 +16,7 @@ public class DAO {
    private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
-    private PreparedStatement getDoctorsByNameStatement, getDoctorByJMBGStatement, deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement;
+    private PreparedStatement getDoctorsByNameStatement, getDoctorByJMBGStatement, deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -47,6 +47,7 @@ public class DAO {
                 updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specijalnost=? WHERE id=?");
                 deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
+                updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, report=? WHERE id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -420,6 +421,21 @@ public class DAO {
             Appointment appointment=getAppointmentFromResultSet(rs);
             deleteAppointmentStatement.setInt(1,appointment.getId());
             deleteAppointmentStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editAppointment(Appointment appointment) {
+        try {
+            updateAppointmentStatment.setString(1, appointment.getDate().toString());
+            updateAppointmentStatment.setString(2, appointment.getTime().toString());
+            updateAppointmentStatment.setInt(3, appointment.getPatient().getId());
+            updateAppointmentStatment.setInt(4, appointment.getDoctor().getId());
+            updateAppointmentStatment.setString(5, appointment.getType());
+            updateAppointmentStatment.setString(6, appointment.getReport());
+            updateAppointmentStatment.setInt(7,appointment.getId());
+            updateAppointmentStatment.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

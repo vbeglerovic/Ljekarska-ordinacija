@@ -64,6 +64,7 @@ public class DoctorController {
             yearFld2.setText(String.valueOf(doctor.getEmploymentDate().getYear()));
             monthChoiceBox2.getSelectionModel().select(doctor.getEmploymentDate().getMonthValue()-1);
             daySpinner2.getValueFactory().setValue(doctor.getEmploymentDate().getDayOfMonth());
+            specialtyFld.setText(doctor.getSpecialization());
         } else {
             monthChoiceBox1.getSelectionModel().selectFirst();
             monthChoiceBox2.getSelectionModel().selectFirst();

@@ -26,8 +26,9 @@ public class AppointmentController {
     public ChoiceBox<Doctor> doctorsChoiceBox;
     public DatePicker datePicker;
     public Spinner hoursSpinner;
-    public Spinner minutesSpinner;
+    public ChoiceBox<String> minutesChoiceBox;
     public CheckBox kontrolaCheckBox;
+    public ListView<String> listView;
 
     public AppointmentController(Appointment appointment, Office office) {
         this.appointment=appointment;
@@ -42,13 +43,17 @@ public class AppointmentController {
         patientsChoiceBox.setItems(patients);
         SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 22, 1);
         hoursSpinner.setValueFactory(valueFactory1);
-        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55, 0,5);
-        minutesSpinner.setValueFactory(valueFactory2);
+        minutesChoiceBox.setItems(FXCollections.observableArrayList("00","30"));
         doctorsChoiceBox.setItems(doctors);
+        listView.setVisible(false);
        if (appointment != null) {
+           hoursSpinner.getValueFactory().setValue(appointment.getTime().getHour());
+           minutesChoiceBox.getSelectionModel().select(appointment.getTime().getMinute());
            patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
            doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
            datePicker.setValue(appointment.getDate());
+           if (appointment.getType().toLowerCase().equals("kontrola"))
+               kontrolaCheckBox.setSelected(true);
        }
     }
 
@@ -59,7 +64,7 @@ public class AppointmentController {
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
         if (appointment==null) appointment=new Appointment();
-        appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()),Integer.parseInt(minutesSpinner.getValue().toString())));
+        appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()),Integer.parseInt(minutesChoiceBox.getValue())));
         appointment.setDate(datePicker.getValue());
         appointment.setPatient(patientsChoiceBox.getValue());
         appointment.setDoctor(doctorsChoiceBox.getValue());
@@ -92,7 +97,9 @@ public class AppointmentController {
             e.printStackTrace();
         }
     }
-
+public void showListAction (ActionEvent actionEvent) {
+        listView.setVisible(true);
+}
     public Appointment getAppointment() {
         return appointment;
     }

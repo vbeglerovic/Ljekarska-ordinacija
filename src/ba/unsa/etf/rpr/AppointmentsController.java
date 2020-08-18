@@ -103,7 +103,7 @@ public class AppointmentsController {
         }
     }
 
-    public void makeAppointmentAction (ActionEvent actionEvent) {
+    public void c (ActionEvent actionEvent) {
         Stage stage=new Stage();
         Parent root = null;
         try {
@@ -129,6 +129,30 @@ public class AppointmentsController {
     }
 
     public void editAppointmentAction (ActionEvent actionEvent) {
+        Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
+        if (a == null) return;
+        Stage stage=new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"));
+            AppointmentController appointmentController = new AppointmentController(a, office);
+            loader.setController(appointmentController);
+            root = loader.load();
+            stage.setTitle("Appointment");
+            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            //stage.setResizable(true);
+            stage.show();
+
+            stage.setOnHiding( event -> {
+                Appointment appointment = appointmentController.getAppointment();
+                if (appointment != null) {
+                    dao.editAppointment(appointment);
+                    appointmentsList.setAll(dao.appointments(office.getId()));
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

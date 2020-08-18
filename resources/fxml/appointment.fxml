@@ -2,48 +2,76 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="66.0" layoutY="47.0" prefHeight="254.0" prefWidth="451.0" style="-fx-background-color: #00BFFF;">
+       <Pane prefHeight="400.0" prefWidth="309.0" style="-fx-background-color: #00BFFF;" />
+      <GridPane layoutX="40.0" layoutY="60.0" prefHeight="281.0" prefWidth="521.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="49.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="81.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="151.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="237.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="31.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="73.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="163.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="124.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="109.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="19.0" />
+            <ColumnConstraints />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Pacijent:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Datum:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Vrijeme:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Doktor:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <DatePicker fx:id="datePicker" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <Label text="Datum:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Vrijeme:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <children>
                   <Spinner fx:id="hoursSpinner" />
-                  <Spinner fx:id="minutesSpinner" />
+                  <ChoiceBox fx:id="minutesChoiceBox" prefWidth="150.0" />
                </children>
             </HBox>
             <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button onAction="#addPatientAction" text="Dodaj" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button onAction="#addPatientAction" prefHeight="24.0" prefWidth="48.0" text="Dodaj" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <CheckBox fx:id="kontrolaCheckBox" mnemonicParsing="false" text="Kontrola" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+          <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="52.0" prefWidth="149.0" style="-fx-background-color: transparent;" text="Zakazi" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2">
+               <children>
+                  <Label layoutX="118.0" layoutY="-3.0" prefHeight="42.0" prefWidth="89.0" text="Pregled" textFill="DEEPSKYBLUE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <children>
+                  <Button layoutY="5.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: transparent;" text="Slobodni termini" textFill="DEEPSKYBLUE" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+               </children>
+            </Pane>
+            <Label text="Doktor:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Pane prefHeight="203.0" prefWidth="122.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
+               <children>
+                  <ListView layoutX="15.0" layoutY="8.0" prefHeight="158.0" prefWidth="96.0" style="-fx-background-color: #00BFFF;" />
+               </children></Pane>
          </children>
       </GridPane>
-      <ToolBar layoutX="437.0" layoutY="335.0" prefHeight="40.0" prefWidth="133.0" style="-fx-background-color: #00BFFF;">
-        <items>
-          <Button mnemonicParsing="false" onAction="#makeAppointmentAction" text="Zakazi" />
-            <Button fx:id="closeButton" onAction="#closeAction" text="Odustani" />
-        </items>
-      </ToolBar>
+      <Button fx:id="closeButton" layoutX="500.0" layoutY="351.0" onAction="#closeAction" style="-fx-background-color: transparent;" text="Cancel" textFill="DEEPSKYBLUE" underline="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

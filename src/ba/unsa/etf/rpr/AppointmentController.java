@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class AppointmentController {
 
@@ -21,6 +22,8 @@ public class AppointmentController {
     private Office office;
     private ObservableList<Patient> patients;
     private ObservableList<Doctor> doctors;
+    private ArrayList<String> termini;
+    //private ObservableList<String> appointments;
 
     public ChoiceBox<Patient> patientsChoiceBox;
     public ChoiceBox<Doctor> doctorsChoiceBox;
@@ -29,6 +32,7 @@ public class AppointmentController {
     public ChoiceBox<String> minutesChoiceBox;
     public CheckBox kontrolaCheckBox;
     public ListView<String> listView;
+    public Label labelDoctor, labelDate;
 
     public AppointmentController(Appointment appointment, Office office) {
         this.appointment=appointment;
@@ -36,6 +40,13 @@ public class AppointmentController {
         dao=DAO.getInstance();
         patients=FXCollections.observableArrayList(dao.patients(office.getId()));
         doctors=FXCollections.observableArrayList(dao.doctors(office.getId()));
+        LocalTime lt=LocalTime.of(8,0);
+        termini=new ArrayList<>();
+        for (int i=0; i<28; i++) {
+            termini.add(lt.toString());
+            lt=lt.plusMinutes(30);
+        }
+
     }
 
     @FXML
@@ -46,12 +57,16 @@ public class AppointmentController {
         minutesChoiceBox.setItems(FXCollections.observableArrayList("00","30"));
         doctorsChoiceBox.setItems(doctors);
         listView.setVisible(false);
+        labelDate.setVisible(false);
+        labelDoctor.setVisible(false);
        if (appointment != null) {
            hoursSpinner.getValueFactory().setValue(appointment.getTime().getHour());
            minutesChoiceBox.getSelectionModel().select(appointment.getTime().getMinute());
            patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
            doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
            datePicker.setValue(appointment.getDate());
+           labelDoctor.setText(doctorsChoiceBox.getValue().toString());
+           labelDate.setText(datePicker.getValue().toString());
            if (appointment.getType().toLowerCase().equals("kontrola"))
                kontrolaCheckBox.setSelected(true);
        }
@@ -98,7 +113,19 @@ public class AppointmentController {
         }
     }
 public void showListAction (ActionEvent actionEvent) {
+        ArrayList<String> free=new ArrayList<>();
+        ArrayList<String> zauzeti=dao.getAppointments(doctorsChoiceBox.getValue(),datePicker.getValue(),office.getId());
+        for (String s :termini ) {
+            if (!zauzeti.contains(s))
+                free.add(s);
+        }
+        labelDoctor.setText(doctorsChoiceBox.getValue().toString());
+        labelDoctor.setVisible(true);
+        labelDate.setText(datePicker.getValue().toString());
+        labelDate.setVisible(true);
+        listView.setItems(FXCollections.observableArrayList(free));
         listView.setVisible(true);
+
 }
     public Appointment getAppointment() {
         return appointment;

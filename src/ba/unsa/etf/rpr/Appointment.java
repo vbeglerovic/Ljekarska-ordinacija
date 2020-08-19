@@ -1,10 +1,7 @@
 package ba.unsa.etf.rpr;
 
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 
 import java.time.LocalDate;
@@ -26,8 +23,20 @@ public class Appointment {
     Doctor doctor;
     String type;
     String report;
+    private ObjectProperty<String> trenutnoVrijeme = null;
 
-   /* public Appointment(SimpleIntegerProperty id, SimpleObjectProperty<LocalDate> date, SimpleObjectProperty<LocalTime> time, SimpleObjectProperty<Patient> patient, SimpleObjectProperty<Doctor> doctor, SimpleStringProperty type, SimpleStringProperty report) {
+    public String getTrenutnoVrijeme() {
+        return trenutnoVrijeme.get();
+    }
+
+    public ObjectProperty<String> trenutnoVrijemeProperty() {
+        return trenutnoVrijeme;
+    }
+
+    public void setTrenutnoVrijeme(String trenutnoVrijeme) {
+        this.trenutnoVrijeme.set(trenutnoVrijeme);
+    }
+/* public Appointment(SimpleIntegerProperty id, SimpleObjectProperty<LocalDate> date, SimpleObjectProperty<LocalTime> time, SimpleObjectProperty<Patient> patient, SimpleObjectProperty<Doctor> doctor, SimpleStringProperty type, SimpleStringProperty report) {
         this.id = id;
         this.date = date;
         this.time = time;

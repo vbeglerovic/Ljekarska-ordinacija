@@ -7,7 +7,7 @@
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
        <Pane prefHeight="400.0" prefWidth="309.0" style="-fx-background-color: #00BFFF;" />
-      <GridPane layoutX="40.0" layoutY="60.0" prefHeight="281.0" prefWidth="521.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
+      <GridPane layoutX="24.0" layoutY="60.0" prefHeight="281.0" prefWidth="557.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="31.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="73.0" />
@@ -54,17 +54,26 @@
                </children></Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <Button layoutY="5.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: transparent;" text="Slobodni termini" textFill="DEEPSKYBLUE" underline="true">
+                  <Button layoutY="17.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: transparent;" text="Slobodni termini" textFill="DEEPSKYBLUE" underline="true">
                      <font>
                         <Font size="14.0" />
-                     </font></Button>
-               </children>
-            </Pane>
+                     </font>
+                  </Button>
+               </children></Pane>
             <Label text="Doktor:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Pane prefHeight="203.0" prefWidth="122.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
+            <Pane prefHeight="219.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="6">
                <children>
-                  <ListView layoutX="15.0" layoutY="8.0" prefHeight="158.0" prefWidth="96.0" style="-fx-background-color: #00BFFF;" />
+                  <ListView fx:id="listView" layoutX="15.0" layoutY="59.0" prefHeight="147.0" prefWidth="96.0" style="-fx-background-color: #00BFFF;" />
+                  <Label fx:id="labelDoctor" layoutX="-2.0" layoutY="-2.0" prefHeight="30.0" prefWidth="144.0" textFill="RED">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label fx:id="labelDate" layoutX="-7.0" layoutY="27.0" prefHeight="25.0" prefWidth="140.0" textFill="RED">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children></Pane>
          </children>
       </GridPane>

@@ -103,30 +103,6 @@ public class AppointmentsController {
         }
     }
 
-    public void c (ActionEvent actionEvent) {
-        Stage stage=new Stage();
-        Parent root = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"));
-            AppointmentController appointmentController = new AppointmentController(null, office);
-            loader.setController(appointmentController);
-            root = loader.load();
-            stage.setTitle("Appointment");
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-            //stage.setResizable(true);
-            stage.show();
-
-            stage.setOnHiding( event -> {
-                Appointment appointment = appointmentController.getAppointment();
-                if (appointment != null) {
-                    dao.addAppointment(appointment, office.getId());
-                    //appointmentList.setAll(dao.appointments(office.getId()));
-                }
-            } );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void editAppointmentAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();

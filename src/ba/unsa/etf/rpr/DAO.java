@@ -17,6 +17,7 @@ public class DAO {
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
     private PreparedStatement getDoctorsByNameStatement, getDoctorByJMBGStatement, deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment;
+    private PreparedStatement getAppointmentsByDate;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -48,6 +49,7 @@ public class DAO {
                 deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
                 updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, report=? WHERE id=?");
+                getAppointmentsByDate=conn.prepareStatement("SELECT * FROM appointments WHERE doctor_id=? AND date=? AND office_id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -274,7 +276,7 @@ public class DAO {
     private Appointment getAppointmentFromResultSet(ResultSet rs) {
         Appointment appointment=null;
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:MM");
+        DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:mm");
         try {
             appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),null,null, rs.getString(6), "");
             appointment.setPatient(getPatient(rs.getInt(4)));
@@ -439,6 +441,24 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<String> getAppointments(Doctor doctor, LocalDate date, int office_id) {
+        ArrayList<String> appointments=new ArrayList<>();
+        try {
+            getAppointmentsByDate.setInt(1,doctor.getId());
+            getAppointmentsByDate.setString(2, date.toString());
+            getAppointmentsByDate.setInt(3, office_id);
+            ResultSet rs=getAppointmentsByDate.executeQuery();
+            while (rs.next()) {
+                Appointment appointment=getAppointmentFromResultSet(rs);
+                appointments.add(appointment.getTime().toString());
+            }
+            return appointments;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 

@@ -30,6 +30,7 @@
             <Label text="Pacijent:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Datum:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Vrijeme:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+             <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <DatePicker fx:id="datePicker" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <children>
@@ -37,7 +38,6 @@
                   <ChoiceBox fx:id="minutesChoiceBox" prefWidth="150.0" />
                </children>
             </HBox>
-            <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button onAction="#addPatientAction" prefHeight="24.0" prefWidth="48.0" text="Dodaj" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <CheckBox fx:id="kontrolaCheckBox" mnemonicParsing="false" text="Kontrola" GridPane.columnIndex="2" GridPane.rowIndex="5" />
           <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="52.0" prefWidth="149.0" style="-fx-background-color: transparent;" text="Zakazi" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.rowIndex="6">

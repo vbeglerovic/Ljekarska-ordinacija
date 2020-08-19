@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AppointmentController {
@@ -56,6 +57,7 @@ public class AppointmentController {
         SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 22, 1);
         hoursSpinner.setValueFactory(valueFactory1);
         minutesChoiceBox.setItems(FXCollections.observableArrayList("00","30"));
+        minutesChoiceBox.getSelectionModel().selectFirst();
         doctorsChoiceBox.setItems(doctors);
         listView.setVisible(false);
         labelDate.setVisible(false);
@@ -63,7 +65,10 @@ public class AppointmentController {
         button.setDisable(true);
        if (appointment != null) {
            hoursSpinner.getValueFactory().setValue(appointment.getTime().getHour());
-           minutesChoiceBox.getSelectionModel().select(appointment.getTime().getMinute());
+           if (appointment.getTime().getMinute()==0)
+               minutesChoiceBox.getSelectionModel().selectFirst();
+           else
+               minutesChoiceBox.getSelectionModel().selectLast();
            patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
            doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
            datePicker.setValue(appointment.getDate());
@@ -79,6 +84,14 @@ public class AppointmentController {
         datePicker.valueProperty().addListener((observable, oldValue, newValue)->{
             if (newValue!=null && doctorsChoiceBox.getValue()!=null) button.setDisable(false);
             else if (newValue==null) button.setDisable(true);
+        });
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
+            hoursSpinner.getValueFactory().setValue(LocalTime.parse(newValue).getHour());
+            DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:mm");
+            if (LocalTime.parse(newValue,tf).getMinute()==0)
+                minutesChoiceBox.getSelectionModel().selectFirst();
+            else
+                minutesChoiceBox.getSelectionModel().selectLast();
         });
     }
 

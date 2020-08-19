@@ -113,6 +113,7 @@ public class AppointmentController {
         }
     }
 public void showListAction (ActionEvent actionEvent) {
+        if (doctorsChoiceBox.getValue()==null || datePicker.getValue()==null) return;
         ArrayList<String> free=new ArrayList<>();
         ArrayList<String> zauzeti=dao.getAppointments(doctorsChoiceBox.getValue(),datePicker.getValue(),office.getId());
         for (String s :termini ) {

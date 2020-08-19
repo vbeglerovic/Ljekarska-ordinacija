@@ -33,6 +33,7 @@ public class AppointmentController {
     public CheckBox kontrolaCheckBox;
     public ListView<String> listView;
     public Label labelDoctor, labelDate;
+    public Button button;
 
     public AppointmentController(Appointment appointment, Office office) {
         this.appointment=appointment;
@@ -59,6 +60,7 @@ public class AppointmentController {
         listView.setVisible(false);
         labelDate.setVisible(false);
         labelDoctor.setVisible(false);
+        button.setDisable(true);
        if (appointment != null) {
            hoursSpinner.getValueFactory().setValue(appointment.getTime().getHour());
            minutesChoiceBox.getSelectionModel().select(appointment.getTime().getMinute());
@@ -70,6 +72,14 @@ public class AppointmentController {
            if (appointment.getType().toLowerCase().equals("kontrola"))
                kontrolaCheckBox.setSelected(true);
        }
+       doctorsChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue )->{
+           if (newValue!=null && datePicker.getValue()!=null) button.setDisable(false);
+           else if (newValue==null) button.setDisable(true);
+       });
+        datePicker.valueProperty().addListener((observable, oldValue, newValue)->{
+            if (newValue!=null && doctorsChoiceBox.getValue()!=null) button.setDisable(false);
+            else if (newValue==null) button.setDisable(true);
+        });
     }
 
     public void closeAction (ActionEvent actionEvent) {

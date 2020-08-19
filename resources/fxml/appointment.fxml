@@ -54,7 +54,7 @@
                </children></Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <Button layoutY="17.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: transparent;" text="Slobodni termini" textFill="DEEPSKYBLUE" underline="true">
+                  <Button fx:id="button" layoutY="17.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: transparent;" text="Slobodni termini" textFill="DEEPSKYBLUE" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -65,11 +65,11 @@
             <Pane prefHeight="219.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="6">
                <children>
                   <ListView fx:id="listView" layoutX="15.0" layoutY="59.0" prefHeight="147.0" prefWidth="96.0" style="-fx-background-color: #00BFFF;" />
-                  <Label fx:id="labelDoctor" layoutX="-2.0" layoutY="-2.0" prefHeight="30.0" prefWidth="144.0" textFill="RED">
+                  <Label fx:id="labelDoctor" layoutX="-3.0" layoutY="-2.0" prefHeight="30.0" prefWidth="145.0" textFill="RED">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <Label fx:id="labelDate" layoutX="-7.0" layoutY="27.0" prefHeight="25.0" prefWidth="140.0" textFill="RED">
+                  <Label fx:id="labelDate" layoutX="3.0" layoutY="27.0" prefHeight="25.0" prefWidth="130.0" textFill="RED">
                      <font>
                         <Font size="14.0" />
                      </font>

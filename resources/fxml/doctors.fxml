@@ -21,8 +21,9 @@
 
             </columns>
         </TableView>
-        <ToolBar layoutX="361.0" layoutY="340.0" prefHeight="40.0" prefWidth="218.0" style="-fx-background-color: #00BFFF;">
+        <ToolBar layoutX="301.0" layoutY="340.0" prefHeight="40.0" prefWidth="278.0" style="-fx-background-color: #00BFFF;">
             <items>
+            <Button mnemonicParsing="false" onAction="#printReportAction" text="Report" />
                 <Button onAction="#editDoctorAction" text="Uredi" />
                 <Button onAction="#deleteDoctorAction" text="Obrisi" />
                 <Button onAction="#addDoctorAction" text="Dodaj" />

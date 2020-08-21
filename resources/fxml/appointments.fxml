@@ -16,7 +16,7 @@
 
         </columns>
       </TableView>
-      <ToolBar layoutX="140.0" layoutY="335.0" prefHeight="45.0" prefWidth="424.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="289.0" layoutY="335.0" prefHeight="45.0" prefWidth="275.0" style="-fx-background-color: #00BFFF;">
          <items>
             <Button mnemonicParsing="false" onAction="#deleteAppointmentAction" text="Otkazi" />
             <Button mnemonicParsing="false" onAction="#editAppointmentAction" text="Uredi" />

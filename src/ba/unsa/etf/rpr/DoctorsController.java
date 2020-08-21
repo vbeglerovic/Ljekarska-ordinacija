@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -171,6 +173,14 @@ public class DoctorsController {
         String [] p=searchFld.getText().split(" ");
         doctorsList=FXCollections.observableArrayList(dao.searchDoctors(office.getId(),p[0], p[1]));
         tableViewDoctors.setItems(doctorsList);
+    }
+
+    public void printReportAction (ActionEvent actionEvent) {
+        try {
+            new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/doctorsReport.jrxml").getFile());
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
     }
 }
 

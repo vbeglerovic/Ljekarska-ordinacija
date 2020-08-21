@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -151,7 +152,7 @@ public class AppointmentsController {
 
     }
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) searchFld.getScene().getWindow();
+        Stage stage = (Stage) patientFld.getScene().getWindow();
         Parent root = null;
         //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"));

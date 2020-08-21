@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr;
 
+import javafx.event.ActionEvent;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -11,9 +13,13 @@ import java.util.Scanner;
 
 public class DAO {
     private static DAO instance;
-    private Connection conn;
+    private static Connection conn;
 
-   private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
+    public static Connection getConn() {
+        return conn;
+    }
+
+    private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
     private PreparedStatement getDoctorsByNameStatement, getDoctorByJMBGStatement, deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment;
@@ -464,6 +470,8 @@ public class DAO {
         }
         return null;
     }
+
+
 
 }
 

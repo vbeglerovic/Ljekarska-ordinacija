@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 
 import java.io.IOException;
@@ -168,5 +169,12 @@ public class PatientsController {
             patientsList=FXCollections.observableArrayList(dao.searchPatients(office.getId(),p[0], p[1]));
             tableViewPatients.setItems(patientsList);
         }
+    public void printReportAction(ActionEvent actionEvent) {
+        try {
+            new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/patientsReport.jrxml").getFile());
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
+    }
 }
 

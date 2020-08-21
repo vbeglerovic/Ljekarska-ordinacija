@@ -20,8 +20,9 @@
 
         </columns>
       </TableView>
-      <ToolBar layoutX="359.0" layoutY="325.0" prefHeight="43.0" prefWidth="219.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="242.0" layoutY="325.0" prefHeight="43.0" prefWidth="336.0" style="-fx-background-color: #00BFFF;">
         <items>
+            <Button mnemonicParsing="false" onAction="#printReportAction" text="Report" />
           <Button onAction="#editPatientAction" text="Uredi" />
             <Button onAction="#deletePatientAction" text="Obrisi" />
             <Button onAction="#addPatientAction" text="Dodaj" />

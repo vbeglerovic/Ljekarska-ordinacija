@@ -5,7 +5,7 @@
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableViewAppointments" layoutX="40.0" layoutY="154.0" prefHeight="161.0" prefWidth="472.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewAppointments" layoutX="40.0" layoutY="111.0" prefHeight="204.0" prefWidth="472.0" style="-fx-background-color: #00BFFF;">
         <columns>
            <TableColumn fx:id="colAppointmentDate" text="Datum" />
            <TableColumn fx:id="colAppointmentTime" minWidth="0.0" prefWidth="78.0" text="Vrijeme" />
@@ -16,7 +16,7 @@
 
         </columns>
       </TableView>
-      <ToolBar layoutX="290.0" layoutY="335.0" prefHeight="45.0" prefWidth="274.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="140.0" layoutY="335.0" prefHeight="45.0" prefWidth="424.0" style="-fx-background-color: #00BFFF;">
          <items>
             <Button mnemonicParsing="false" onAction="#deleteAppointmentAction" text="Otkazi" />
             <Button mnemonicParsing="false" onAction="#editAppointmentAction" text="Uredi" />
@@ -24,8 +24,6 @@
           <Button mnemonicParsing="false" onAction="#closeAction" text="Cancel" />
          </items>
       </ToolBar>
-      <TextField fx:id="searchFld" layoutX="108.0" layoutY="109.0" prefHeight="25.0" prefWidth="274.0" />
-      <Label layoutX="59.0" layoutY="109.0" prefHeight="25.0" prefWidth="41.0" text="Search" />
       <ToolBar layoutX="7.0" layoutY="51.0" prefHeight="40.0" prefWidth="591.0" style="-fx-background-color: #00BFFF;">
          <items>
             <TextField fx:id="doctorFld" prefHeight="25.0" prefWidth="134.0" promptText="doktor" />

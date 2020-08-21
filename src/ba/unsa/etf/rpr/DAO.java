@@ -318,8 +318,12 @@ public class DAO {
         return doctor;
     }
 
-    public void addAppointment(Appointment appointment, int officeId) {
+    public void addAppointment(Appointment appointment, int officeId) throws ReservedAppointmentExcepction {
+        ArrayList<String> terms=new ArrayList<>();
+        terms=getAppointments(appointment.getDoctor(),appointment.getDate(),officeId);
+        if (terms.contains(appointment.getTime().toString())) throw new ReservedAppointmentExcepction("Termin zauzet");
         try {
+
             addAppointmentStatement.setString(2, appointment.getDate().toString());
             addAppointmentStatement.setString(3,appointment.getTime().toString());
             addAppointmentStatement.setInt(4,appointment.getPatient().getId());
@@ -460,5 +464,6 @@ public class DAO {
         }
         return null;
     }
+
 }
 

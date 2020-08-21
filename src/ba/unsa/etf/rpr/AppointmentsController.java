@@ -17,12 +17,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class AppointmentsController {
     private DAO dao;
     private ObservableList<Appointment> appointmentsList;
     private Office office;
+    private ObservableList<Patient> patientsList;
+    private List<Appointment> appointments;
 
     public TableColumn<Appointment, LocalDate> colAppointmentDate;
     public TableColumn<Appointment, LocalTime> colAppointmentTime;
@@ -31,6 +38,11 @@ public class AppointmentsController {
     public TableColumn<Appointment,String> colAppointmentType;
     public TableColumn<Appointment,String> colAppointmentReport;
 
+    public TextField d1Fld;
+    public TextField d2Fld;
+    public TextField patientFld;
+    public TextField doctorFld;
+
     public TextField searchFld;
     public TableView<Appointment> tableViewAppointments;
 
@@ -38,6 +50,7 @@ public class AppointmentsController {
         dao=DAO.getInstance();
         this.office=office;
         appointmentsList= FXCollections.observableArrayList(dao.appointments(office.getId()));
+        patientsList=FXCollections.observableArrayList(dao.patients(office.getId()));
     }
 
     @FXML
@@ -50,7 +63,8 @@ public class AppointmentsController {
         colAppointmentType.setCellValueFactory(new PropertyValueFactory("type"));
         colAppointmentReport.setCellValueFactory(new PropertyValueFactory("report"));
 
-        FilteredList<Appointment> filteredData=new FilteredList<>(appointmentsList, b->true);
+        /*FilteredList<Appointment> filteredData=new FilteredList<>(appointmentsList, b->true);
+
         searchFld.textProperty().addListener((observable,oldValue, newValue)->{
             filteredData.setPredicate(appointment -> {
                 if (newValue==null || newValue.isEmpty()) {
@@ -71,7 +85,70 @@ public class AppointmentsController {
         });
         SortedList<Appointment> sortedData=new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewAppointments.comparatorProperty());
+        tableViewAppointments.setItems(sortedData);*/
+        /*FilteredList<Appointment> filteredData=new FilteredList<>(tableViewAppointments.getItems(), b->true);
+        patientFld.textProperty().addListener((observable,oldValue, newValue)->{
+            filteredData.setPredicate(appointment -> {
+                if (newValue==null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter=newValue.toLowerCase();
+                if (appointment.getPatient().getFirstName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return  true;
+                } else if (appointment.getPatient().getLastName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+               } else if ((appointment.getPatient().getFirstName()+" "+appointment.getPatient().getLastName()).toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                  return true;
+                }else
+                    return false;
+            });
+        });
+        SortedList<Appointment> sortedData=new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewAppointments.comparatorProperty());
         tableViewAppointments.setItems(sortedData);
+
+        FilteredList<Appointment> filteredData2=new FilteredList<>(tableViewAppointments.getItems(), b->true);
+        doctorFld.textProperty().addListener((observable,oldValue, newValue)->{
+            filteredData2.setPredicate(appointment -> {
+                if (newValue==null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter=newValue.toLowerCase();
+                if (appointment.getDoctor().getFirstName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return  true;
+                } else if (appointment.getDoctor().getLastName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                } else if ((appointment.getDoctor().getFirstName()+" "+appointment.getDoctor().getLastName()).toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                    return true;
+                }else
+                    return false;
+            });
+        });
+        SortedList<Appointment> sortedData2=new SortedList<>(filteredData2);
+        sortedData.comparatorProperty().bind(tableViewAppointments.comparatorProperty());
+        tableViewAppointments.setItems(sortedData2);
+
+        /*FilteredList<Appointment> filteredData3=new FilteredList<>(tableViewAppointments.getItems(), b->true);
+        d1Fld.textProperty().addListener((observable,oldValue, newValue)->{
+            filteredData2.setPredicate(appointment -> {
+                if (newValue==null || newValue.isEmpty()) {
+                    return true;
+                }
+                DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate d=LocalDate.parse(newValue,df);
+                if (appointment.getDate().isAfter(d) || appointment.getDate().equals(d)) {
+                    return  true;
+                }else
+                    return false;
+            });
+        });
+        SortedList<Appointment> sortedData3=new SortedList<>(filteredData3);
+        sortedData.comparatorProperty().bind(tableViewAppointments.comparatorProperty());
+        tableViewAppointments.setItems(sortedData3);*/
+
+
+
+
     }
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) searchFld.getScene().getWindow();
@@ -129,6 +206,71 @@ public class AppointmentsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public List<Appointment> filterAppointment(Function<Appointment,Boolean> comp) {
+        ArrayList<Appointment> result = new ArrayList<>();
+            for (Appointment a : appointments) {
+                if (comp.apply(a)) {
+                    result.add(a);
+                }
+            }
+        return result;
+    }
+
+    public List<Appointment> afterDate(LocalDate localDate) {
+        return filterAppointment((Appointment a) -> { return a.getDate().isAfter(localDate) || a.getDate().equals(localDate);});
+    }
+    public List<Appointment> beforeDate(LocalDate localDate) {
+        return filterAppointment((Appointment a) -> { return a.getDate().isBefore(localDate) || a.getDate().equals(localDate);});
+    }
+    public List<Appointment> afterAndBeforeDate(LocalDate localDate1, LocalDate localDate2) {
+        return filterAppointment((Appointment a) -> { return (a.getDate().isBefore(localDate2) && a.getDate().isAfter(localDate1))|| a.getDate().equals(localDate2);});
+    }
+    public List<Appointment> appointmentsOfPatient (String patient) {
+        return filterAppointment((Appointment a) -> { return a.getPatient().toString().equals(patient);});
+    }
+    public List<Appointment> appointmentsOfDoctor (String doctor) {
+        return filterAppointment((Appointment a) -> { return a.getDoctor().toString().equals(doctor);});
+    }
+
+public void search (ActionEvent actionEvent) {
+        boolean ok=true;
+    DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate d1=LocalDate.of(1999,1,1);
+    LocalDate d2=LocalDate.of(1999,1,1);
+    try {
+            d1 = LocalDate.parse(d1Fld.getText(), df);
+    } catch (DateTimeParseException e) {
+        ok=false;
+    }
+    try {
+        d2 = LocalDate.parse(d2Fld.getText(), df);
+    } catch (DateTimeParseException e) {
+        ok=false;
+    }
+    /*if (ok) {
+        tableViewAppointments.setItems(FXCollections.observableArrayList(afterAndBeforeDate(d1,d2)));
+    } else if (d1Fld.getText().equals(""))
+    tableViewAppointments.setItems(FXCollections.observableArrayList(beforeDate(d2)));
+    else if (d2Fld.getText().equals(""))
+        tableViewAppointments.setItems(FXCollections.observableArrayList(afterDate(d1)));
+    System.out.println("Ovdje sam");*/
+            /*else if (d2Fld.getText()!=null)
+                tableViewAppointments.setItems(FXCollections.observableArrayList(beforeDate(d2)));*/
+            appointments=dao.appointments(office.getId());
+            if (!patientFld.getText().isEmpty())
+                 appointments=appointmentsOfPatient(patientFld.getText());
+            if (!doctorFld.getText().isEmpty())
+                appointments=appointmentsOfDoctor(doctorFld.getText());
+            if (!d1Fld.getText().isEmpty())
+                appointments=afterDate(d1);
+            if (!d2Fld.getText().isEmpty())
+                appointments=beforeDate(d2);
+            tableViewAppointments.setItems(FXCollections.observableList(appointments));
+
+}
+    public void addReportAction (ActionEvent actionEvent) {
+
     }
 
 }

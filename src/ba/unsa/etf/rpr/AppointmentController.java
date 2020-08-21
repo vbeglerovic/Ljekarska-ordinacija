@@ -103,11 +103,12 @@ public class AppointmentController {
     public void makeAppointmentAction (ActionEvent actionEvent) {
         if (appointment==null) appointment=new Appointment();
         appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()),Integer.parseInt(minutesChoiceBox.getValue())));
+        appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()),Integer.parseInt(minutesChoiceBox.getValue())));
         appointment.setDate(datePicker.getValue());
         appointment.setPatient(patientsChoiceBox.getValue());
         appointment.setDoctor(doctorsChoiceBox.getValue());
         if (kontrolaCheckBox.isSelected()) appointment.setType("Kontrola");
-        closeAction(null);
+        closeAction(actionEvent);
     }
     public void addPatientAction (ActionEvent actionEvent) {
         Stage stage = new Stage();

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -44,7 +45,18 @@ public class OfficeController {
             stage.setOnHiding( event -> {
                 Appointment appointment = appointmentController.getAppointment();
                 if (appointment != null) {
-                    dao.addAppointment(appointment, office.getId());
+                    try {
+                        dao.addAppointment(appointment, office.getId());
+                    } catch (ReservedAppointmentExcepction reservedAppointmentExcepction) {
+                       //reservedAppointmentExcepction.printStackTrace();
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error Dialog");
+                        alert.setHeaderText("Appointment reserved!");
+                        alert.setContentText("See free appointments!");
+
+                        alert.showAndWait();
+                        makeAppointmentAction(null);
+                    }
                     //appointmentList.setAll(dao.appointments(office.getId()));
                 }
             } );

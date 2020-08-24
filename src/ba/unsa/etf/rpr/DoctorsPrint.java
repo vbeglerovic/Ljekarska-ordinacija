@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class FilePrint implements Runnable {
+public class DoctorsPrint implements Runnable {
     private DAO dao;
     private Office office;
-    public FilePrint (Office office) {
+    public DoctorsPrint(Office office) {
         dao=DAO.getInstance();
         this.office=office;
     }
@@ -16,18 +16,17 @@ public class FilePrint implements Runnable {
     @Override
     public void run() {
         PrintWriter out;
-        ArrayList<Patient> patients=new ArrayList<>();
-        patients=dao.patients(office.getId());
+        ArrayList<Doctor> doctors=new ArrayList<>();
+        doctors=dao.doctors(office.getId());
         try {
-            out = new PrintWriter(new FileWriter("report.txt"));
+            out = new PrintWriter(new FileWriter("Doctors.txt"));
         } catch(IOException e) {
-            System.out.println("Datoteka  se ne može otvoriti za pisanje.");
-            System.out.println("Greška: " + e);
+            System.out.println("Datoteka se ne može otvoriti za pisanje.");
             return;
         }
         try{
-            for (Patient patient:patients)
-                out.println(patient.toString());
+            for (Doctor doctor:doctors)
+                out.println(doctor.toString());
         } catch(Exception e) {
 
         } finally {

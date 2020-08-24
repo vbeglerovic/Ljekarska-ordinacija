@@ -16,7 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -175,6 +178,9 @@ public class DoctorsController {
 
     public void printReportAction (ActionEvent actionEvent) {
         try {
+            DoctorsPrint doctorsPrint =new DoctorsPrint(office);
+            Thread thread=new Thread(doctorsPrint);
+            thread.start();
             new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/doctorsReport.jrxml").getFile());
         } catch (JRException e1) {
             e1.printStackTrace();

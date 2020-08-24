@@ -15,14 +15,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import java.util.ResourceBundle;
 
 
 public class PatientController {
     private DAO dao;
     private Patient patient;
-    private ObservableList<Months> mjeseci= FXCollections.observableArrayList(Months.Januar,Months.Februar,Months.Mart,Months.April, Months.Maj, Months.Juni, Months.Juli, Months.August,Months.Septembar, Months.Oktobar, Months.Novembar, Months.Decembar);
-    private ObservableList<Status> statusi=FXCollections.observableArrayList(Status.EMPLOYEE, Status.RETIREE, Status.STUDENT, Status.OTHER);
+    private ObservableList<String> months= FXCollections.observableArrayList("January","February","March","April", "May", "June", "July", "August","September", "October", "November", "December");
+    private ObservableList<Status> statusList=FXCollections.observableArrayList(Status.EMPLOYEE, Status.RETIREE, Status.STUDENT, Status.OTHER);
     public TextField nameFld;
     public TextField lastNameFld;
     public TextField JMBGFld;
@@ -46,26 +46,12 @@ public class PatientController {
         this.patient=patient;
         this.office=office;
     }
-    /*private String getDate () {
-        String day,month;
-        if (daySpinner.getValue().toString().length()<2)
-            day="0"+daySpinner.getValue();
-        else
-            day=daySpinner.getValue().toString();
-        Integer m=mjeseci.indexOf(monthChoiceBox.getValue())+1;
-        if (m<10)
-            month="0"+m;
-        else
-            month=m.toString();
-        String date=day+"-"+month+"-"+yearFld.getText();
-        return date;
-    }*/
     @FXML
     public void initialize() {
-        monthChoiceBox.setItems(mjeseci);
+        monthChoiceBox.setItems(months);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1);
         daySpinner.setValueFactory(valueFactory);
-        statusChoiceBox.setItems(statusi);
+        statusChoiceBox.setItems(statusList);
         if (patient != null) {
             nameFld.setText(patient.getFirstName());
             lastNameFld.setText(patient.getLastName());
@@ -77,7 +63,7 @@ public class PatientController {
             monthChoiceBox.getSelectionModel().select(patient.getBirthDate().getMonthValue()-1);
             statusChoiceBox.getSelectionModel().select(patient.getStatus());
             daySpinner.getValueFactory().setValue(patient.getBirthDate().getDayOfMonth());
-        if (patient.getGender() == Gender.MUSKO)
+        if (patient.getGender() == Gender.MALE)
             musko.setSelected(true);
         else
             zensko.setSelected(true);
@@ -90,8 +76,8 @@ public class PatientController {
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) nameFld.getScene().getWindow();
         Parent root = null;
-        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"),bundle);
         PatientsController patientsController = new PatientsController(office);
         loader.setController(patientsController);
         try {
@@ -113,12 +99,10 @@ public class PatientController {
         patient.setBirthPlace(POBFld.getText());
         patient.setAddress(addressFld.getText());
         patient.setEmail(emailFld.getText());
-        if (musko.isSelected()) patient.setGender(Gender.MUSKO);
-        else if (zensko.isSelected()) patient.setGender(Gender.ZENSKO);
+        if (musko.isSelected()) patient.setGender(Gender.MALE);
+        else if (zensko.isSelected()) patient.setGender(Gender.FEMALE);
         patient.setStatus((Status) statusChoiceBox.getValue());
-        /*DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        patient.setBirthDate(LocalDate.parse(getDate(),df));*/
-        patient.setBirthDate(LocalDate.of(Integer.parseInt(yearFld.getText()),mjeseci.indexOf(monthChoiceBox.getValue())+1, Integer.parseInt(daySpinner.getValue().toString())));
+        patient.setBirthDate(LocalDate.of(Integer.parseInt(yearFld.getText()),months.indexOf(monthChoiceBox.getValue())+1, Integer.parseInt(daySpinner.getValue().toString())));
         Stage stage=(Stage) nameFld.getScene().getWindow();
         stage.close();
     }

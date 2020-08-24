@@ -18,6 +18,7 @@ import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 
 public class DoctorsController {
@@ -86,8 +87,8 @@ public class DoctorsController {
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) searchFld.getScene().getWindow();
         Parent root = null;
-        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
         OfficeController officeController = new OfficeController(office);
         loader.setController(officeController);
         try {
@@ -107,7 +108,8 @@ public class DoctorsController {
         //Stage stage = (Stage) searchFld.getScene().getWindow();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"),bundle);
             DoctorController doctorController = new DoctorController(null,office);
             loader.setController(doctorController);
             root = loader.load();
@@ -135,7 +137,8 @@ public class DoctorsController {
         Stage stage=new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"),bundle);
             DoctorController doctorController = new DoctorController(d,office);
             loader.setController(doctorController);
             root = loader.load();
@@ -165,14 +168,9 @@ public class DoctorsController {
         alert.setContentText("Da li ste sigurni da želite obrisati doktora " + doctor.getFirstName() + " " + doctor.getLastName()+"?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            dao.deleteDoctor(doctor.getJMBG());
+            dao.deleteDoctor(doctor.getId());
             doctorsList.setAll(dao.doctors(office.getId()));
         }
-    }
-    public void searchPatientAction (ActionEvent actionEvent) {
-        String [] p=searchFld.getText().split(" ");
-        doctorsList=FXCollections.observableArrayList(dao.searchDoctors(office.getId(),p[0], p[1]));
-        tableViewDoctors.setItems(doctorsList);
     }
 
     public void printReportAction (ActionEvent actionEvent) {

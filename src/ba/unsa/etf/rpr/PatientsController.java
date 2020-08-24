@@ -18,6 +18,7 @@ import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class PatientsController {
 
@@ -84,8 +85,8 @@ public class PatientsController {
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) searchFld.getScene().getWindow();
         Parent root = null;
-        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
         OfficeController officeController = new OfficeController(office);
         loader.setController(officeController);
         try {
@@ -103,7 +104,8 @@ public class PatientsController {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
             PatientController patientController = new PatientController(null,office);
             loader.setController(patientController);
             root = loader.load();
@@ -130,7 +132,8 @@ public class PatientsController {
             Stage stage = new Stage();
             Parent root = null;
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
+                ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
                 PatientController patientController = new PatientController(p,office);
                 loader.setController(patientController);
                 root = loader.load();
@@ -164,11 +167,7 @@ public class PatientsController {
                 patientsList.setAll(dao.patients(office.getId()));
             }
         }
-        public void searchPatientAction (ActionEvent actionEvent) {
-         String [] p=searchFld.getText().split(" ");
-            patientsList=FXCollections.observableArrayList(dao.searchPatients(office.getId(),p[0], p[1]));
-            tableViewPatients.setItems(patientsList);
-        }
+
     public void printReportAction(ActionEvent actionEvent) {
         try {
             new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/patientsReport.jrxml").getFile());

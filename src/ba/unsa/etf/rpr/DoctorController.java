@@ -4,16 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 
 public class DoctorController {
@@ -34,7 +28,7 @@ public class DoctorController {
     private DAO dao;
     private Office office;
     private Doctor doctor;
-    private ObservableList<Months> mjeseci= FXCollections.observableArrayList(Months.Januar,Months.Februar,Months.Mart,Months.April, Months.Maj, Months.Juni, Months.Juli, Months.August,Months.Septembar, Months.Oktobar, Months.Novembar, Months.Decembar);
+    private ObservableList<String> months= FXCollections.observableArrayList("January","February","March","April", "May", "June", "July", "August","September", "October", "November", "December");
 
 
     public DoctorController(Doctor doctor, Office office) {
@@ -45,8 +39,8 @@ public class DoctorController {
 
     @FXML
     public void initialize() {
-        monthChoiceBox1.setItems(mjeseci);
-        monthChoiceBox2.setItems(mjeseci);
+        monthChoiceBox1.setItems(months);
+        monthChoiceBox2.setItems(months);
         SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1);
         SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1);
         daySpinner1.setValueFactory(valueFactory1);
@@ -69,25 +63,54 @@ public class DoctorController {
             monthChoiceBox1.getSelectionModel().selectFirst();
             monthChoiceBox2.getSelectionModel().selectFirst();
         }
+        yearFld1.textProperty().addListener((obs, oldValue, newValue)-> {
+            try {
+                Integer.parseInt(newValue);
+                yearFld1.getStyleClass().removeAll("notOk");
+                yearFld1.getStyleClass().add("ok");
+            } catch (NumberFormatException e) {
+                yearFld1.getStyleClass().removeAll("ok");
+                yearFld1.getStyleClass().add("notOk");
+            }
+        });
+        yearFld2.textProperty().addListener((obs, oldValue, newValue)-> {
+            try {
+                Integer.parseInt(newValue);
+                yearFld2.getStyleClass().removeAll("notOk");
+                yearFld2.getStyleClass().add("ok");
+            } catch (NumberFormatException e) {
+                yearFld2.getStyleClass().removeAll("ok");
+                yearFld2.getStyleClass().add("notOk");
+            }
+        });
     }
 
     public void addDoctorACtion (ActionEvent actionEvent) {
         if (doctor == null) doctor= new Doctor();
-        doctor.setFirstName(nameFld.getText());
-        doctor.setLastName(lastNameFld.getText());
-        doctor.setJMBG(JMBGFld.getText());
-        doctor.setBirthPlace(POBFld.getText());
-        doctor.setAddress(addressFld.getText());
-        doctor.setEmail(emailFld.getText());
-        doctor.setBirthDate(LocalDate.of(Integer.parseInt(yearFld1.getText()),mjeseci.indexOf(monthChoiceBox1.getValue())+1, Integer.parseInt(daySpinner1.getValue().toString())));
-        doctor.setEmploymentDate(LocalDate.of(Integer.parseInt(yearFld2.getText()),mjeseci.indexOf(monthChoiceBox2.getValue())+1, Integer.parseInt(daySpinner2.getValue().toString())));
-        doctor.setSpecialization(specialtyFld.getText());
-        Stage stage=(Stage) nameFld.getScene().getWindow();
-        stage.close();
+        if (nameFld.getText().isEmpty() || lastNameFld.getText().isEmpty() || JMBGFld.getText().isEmpty() || POBFld.getText().isEmpty()
+                || addressFld.getText().isEmpty() || specialtyFld.getText().isEmpty() || yearFld1.getText().isEmpty() || yearFld2.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Morate popuniti sve podatke!");
+            alert.showAndWait();
+        } else {
+            doctor.setFirstName(nameFld.getText());
+            doctor.setLastName(lastNameFld.getText());
+            doctor.setJMBG(JMBGFld.getText());
+            doctor.setBirthPlace(POBFld.getText());
+            doctor.setAddress(addressFld.getText());
+            doctor.setEmail(emailFld.getText());
+            doctor.setBirthDate(LocalDate.of(Integer.parseInt(yearFld1.getText()), months.indexOf(monthChoiceBox1.getValue()) + 1, Integer.parseInt(daySpinner1.getValue().toString())));
+            doctor.setEmploymentDate(LocalDate.of(Integer.parseInt(yearFld2.getText()), months.indexOf(monthChoiceBox2.getValue()) + 1, Integer.parseInt(daySpinner2.getValue().toString())));
+            doctor.setSpecialization(specialtyFld.getText());
+            Stage stage = (Stage) nameFld.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) nameFld.getScene().getWindow();
+        Stage stage = (Stage) monthChoiceBox1.getScene().getWindow();
         stage.close();
     }
 

@@ -22,7 +22,7 @@ public class DAO {
     private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement,getPasswordFromOfficeStatement, getPatientsStatement;
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
-    private PreparedStatement getDoctorsByNameStatement, getDoctorByJMBGStatement, deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment;
+    private PreparedStatement getDoctorsByNameStatement, deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment;
     private PreparedStatement getAppointmentsByDate;
     private DAO () {
         try {
@@ -49,9 +49,8 @@ public class DAO {
                 getDoctorsStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=?");
                 addDoctorStatement=conn.prepareStatement("INSERT INTO doctors VALUES (?,?,?,?,?,?,?,?,?,?,?)");
                 getDoctorsByNameStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=? AND firstName=? AND lastName=?");
-                getDoctorByJMBGStatement=conn.prepareStatement("SELECT * FROM doctors WHERE JMBG=?");
                 deleteDoctorStatement=conn.prepareStatement("DELETE FROM doctors WHERE JMBG=?");
-                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specijalnost=? WHERE id=?");
+                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=? WHERE id=?");
                 deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
                 updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, report=? WHERE id=?");
@@ -187,7 +186,7 @@ public class DAO {
 
     Patient getPatientFromResultSet(ResultSet rs) {
         Patient patient= null;
-        Gender gender=Gender.MUSKO;
+        Gender gender=Gender.MALE;
         Status status=Status.EMPLOYEE;
         String s= null;
         try {
@@ -203,7 +202,7 @@ public class DAO {
         }
         try {
             if (rs.getString(5).equals("ZENSKO"))
-                gender=Gender.ZENSKO;
+                gender=Gender.FEMALE;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -412,10 +411,10 @@ public class DAO {
         return d;
     }
 
-    public void deleteDoctor(String jmbg) {
+    public void deleteDoctor(int id) {
         try {
-            getDoctorByJMBGStatement.setString(1,jmbg);
-            ResultSet rs=getDoctorByJMBGStatement.executeQuery();
+            getDoctorStatement.setInt(1,id);
+            ResultSet rs=getDoctorStatement.executeQuery();
             if (rs.next()==false) return;
             Doctor doctor=getDoctorFromResultSet(rs);
             deleteDoctorStatement.setString(1,doctor.getJMBG());

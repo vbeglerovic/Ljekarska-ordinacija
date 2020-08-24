@@ -5,33 +5,33 @@
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableViewAppointments" layoutX="40.0" layoutY="111.0" prefHeight="204.0" prefWidth="472.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewAppointments" layoutX="40.0" layoutY="111.0" prefHeight="204.0" prefWidth="514.0" style="-fx-background-color: #00BFFF;">
         <columns>
-           <TableColumn fx:id="colAppointmentDate" text="Datum" />
-           <TableColumn fx:id="colAppointmentTime" minWidth="0.0" prefWidth="78.0" text="Vrijeme" />
-          <TableColumn fx:id="colAppointmentDoctor" prefWidth="107.0" text="Doktor" />
-            <TableColumn fx:id="colAppointmentPatient" prefWidth="128.0" text="Pacijent" />
-          <TableColumn fx:id="colAppointmentType" prefWidth="199.0" text="Vrsta" />
+           <TableColumn fx:id="colAppointmentDate" text="%date" />
+           <TableColumn fx:id="colAppointmentTime" minWidth="0.0" prefWidth="78.0" text="%time" />
+          <TableColumn fx:id="colAppointmentDoctor" prefWidth="107.0" text="%doctor" />
+            <TableColumn fx:id="colAppointmentPatient" prefWidth="128.0" text="%patient" />
+          <TableColumn fx:id="colAppointmentType" prefWidth="199.0" text="%type" />
             <TableColumn fx:id="colAppointmentReport" prefWidth="176.0" text="Report" />
 
         </columns>
       </TableView>
-      <ToolBar layoutX="289.0" layoutY="335.0" prefHeight="45.0" prefWidth="275.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="277.0" layoutY="335.0" prefHeight="45.0" prefWidth="301.0" style="-fx-background-color: #00BFFF;">
          <items>
-            <Button mnemonicParsing="false" onAction="#deleteAppointmentAction" text="Otkazi" />
-            <Button mnemonicParsing="false" onAction="#editAppointmentAction" text="Uredi" />
-            <Button mnemonicParsing="false" onAction="#addReportAction" prefHeight="25.0" prefWidth="99.0" text="Add report" />
-          <Button mnemonicParsing="false" onAction="#closeAction" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#deleteAppointmentAction" text="%delete" />
+            <Button mnemonicParsing="false" onAction="#editAppointmentAction" text="%edit" />
+            <Button mnemonicParsing="false" onAction="#addReportAction" prefHeight="25.0" prefWidth="112.0" text="%addReport" />
+          <Button mnemonicParsing="false" onAction="#closeAction" text="%cancel" />
          </items>
       </ToolBar>
       <ToolBar layoutX="7.0" layoutY="51.0" prefHeight="40.0" prefWidth="591.0" style="-fx-background-color: #00BFFF;">
          <items>
-            <TextField fx:id="doctorFld" prefHeight="25.0" prefWidth="134.0" promptText="doktor" />
-            <TextField fx:id="patientFld" prefHeight="25.0" prefWidth="135.0" promptText="pacijent" />
-            <TextField fx:id="d1Fld" prefHeight="25.0" prefWidth="112.0" promptText="od" />
+            <TextField fx:id="doctorFld" prefHeight="25.0" prefWidth="134.0" promptText="%doctor" />
+            <TextField fx:id="patientFld" prefHeight="25.0" prefWidth="135.0" promptText="%patient" />
+            <TextField fx:id="d1Fld" prefHeight="25.0" prefWidth="112.0" promptText="%from" />
             <Label text="-" />
-            <TextField fx:id="d2Fld" prefHeight="25.0" prefWidth="113.0" promptText="do" />
-            <Button mnemonicParsing="false" onAction="#search" text="search" />
+            <TextField fx:id="d2Fld" prefHeight="25.0" prefWidth="113.0" promptText="%to" />
+            <Button mnemonicParsing="false" onAction="#search" text="%search" />
          </items>
       </ToolBar>
    </children>

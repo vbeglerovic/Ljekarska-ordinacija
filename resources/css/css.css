@@ -1,9 +1,16 @@
+.ok {
+    -fx-control-inner-background: greenyellow;
+}
+.notOk {
+    -fx-control-inner-background: lightpink;
+}
+#btnSignOut{
+    -fx-background-image: url("/images/logOut.png");
+}
+
 .poljeIspravno {
     -fx-control-inner-background: greenyellow;
 }
 .poljeNijeIspravno {
     -fx-control-inner-background: lightpink;
-}
-#btnSignOut{
-    -fx-background-image: url("/slike/logOut.png");
 }

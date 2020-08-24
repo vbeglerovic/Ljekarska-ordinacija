@@ -21,9 +21,9 @@
             <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="22.0" prefWidth="95.0" text="Username" GridPane.rowIndex="1" />
-            <Label prefHeight="22.0" prefWidth="79.0" text="Password" GridPane.rowIndex="2" />
-            <Button onAction="#signInAction" text="Sign In" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label prefHeight="22.0" prefWidth="95.0" text="%username" GridPane.rowIndex="1" />
+            <Label prefHeight="22.0" prefWidth="79.0" text="%password" GridPane.rowIndex="2" />
+            <Button onAction="#signInAction" text="%logIn" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="fldUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <PasswordField fx:id="fldPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
@@ -31,16 +31,31 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <Label layoutX="55.0" layoutY="39.0" prefHeight="78.0" prefWidth="491.0" text="Dobrodosli u aplikaciju za ljekarsku ordinaciju">
+      <Label layoutX="102.0" layoutY="56.0" prefHeight="61.0" prefWidth="497.0" text="%medicalOfficeApplication">
          <font>
-            <Font name="Sylfaen" size="24.0" />
+            <Font name="Sylfaen" size="36.0" />
          </font>
       </Label>
       <ImageView fitHeight="259.0" fitWidth="358.0" layoutX="14.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="45.265625" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="228.0" AnchorPane.topAnchor="117.0">
          <image>
-            <Image url="@../slike/naslovna.jpg" />
+            <Image url="@../images/image1.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="450.0" layoutY="315.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="40.0" prefWidth="79.0" style="-fx-background-color: #00BFFF;" text="Register" />
+      <Button layoutX="450.0" layoutY="315.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="40.0" prefWidth="79.0" style="-fx-background-color: #00BFFF;" text="%register" />
+      <Label layoutX="213.0" layoutY="14.0" prefHeight="53.0" prefWidth="221.0" text="%wellcome">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <MenuBar layoutY="9.0" prefHeight="15.0" prefWidth="180.0" style="-fx-background-color: transparent;">
+        <menus>
+          <Menu mnemonicParsing="false" text="Language">
+            <items>
+              <MenuItem mnemonicParsing="true" onAction="#bosnianAction" text="Bosnian" />
+                <MenuItem mnemonicParsing="true" onAction="#englishAction" text="English" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

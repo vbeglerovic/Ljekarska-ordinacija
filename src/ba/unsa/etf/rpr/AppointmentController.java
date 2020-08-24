@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class AppointmentController {
 
@@ -23,8 +24,8 @@ public class AppointmentController {
     private Office office;
     private ObservableList<Patient> patients;
     private ObservableList<Doctor> doctors;
-    private ArrayList<String> termini;
-    //private ObservableList<String> appointments;
+    private ArrayList<String> allAppointments;
+
 
     public ChoiceBox<Patient> patientsChoiceBox;
     public ChoiceBox<Doctor> doctorsChoiceBox;
@@ -43,9 +44,9 @@ public class AppointmentController {
         patients=FXCollections.observableArrayList(dao.patients(office.getId()));
         doctors=FXCollections.observableArrayList(dao.doctors(office.getId()));
         LocalTime lt=LocalTime.of(8,0);
-        termini=new ArrayList<>();
+        allAppointments=new ArrayList<>();
         for (int i=0; i<28; i++) {
-            termini.add(lt.toString());
+            allAppointments.add(lt.toString());
             lt=lt.plusMinutes(30);
         }
 
@@ -96,25 +97,34 @@ public class AppointmentController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) patientsChoiceBox.getScene().getWindow();
+        Stage stage = (Stage) minutesChoiceBox.getScene().getWindow();
         stage.close();
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
         if (appointment==null) appointment=new Appointment();
-        appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()),Integer.parseInt(minutesChoiceBox.getValue())));
-        appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()),Integer.parseInt(minutesChoiceBox.getValue())));
-        appointment.setDate(datePicker.getValue());
-        appointment.setPatient(patientsChoiceBox.getValue());
-        appointment.setDoctor(doctorsChoiceBox.getValue());
-        if (kontrolaCheckBox.isSelected()) appointment.setType("Kontrola");
-        closeAction(actionEvent);
+        if (patientsChoiceBox.getValue()==null || doctorsChoiceBox.getValue()==null || datePicker.getValue()==null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Morate popuniti sve podatke!");
+            alert.showAndWait();
+        } else {
+            appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()), Integer.parseInt(minutesChoiceBox.getValue())));
+            appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()), Integer.parseInt(minutesChoiceBox.getValue())));
+            appointment.setDate(datePicker.getValue());
+            appointment.setPatient(patientsChoiceBox.getValue());
+            appointment.setDoctor(doctorsChoiceBox.getValue());
+            if (kontrolaCheckBox.isSelected()) appointment.setType("Kontrola");
+            closeAction(actionEvent);
+        }
     }
     public void addPatientAction (ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
             PatientController patientController = new PatientController(null,office);
             loader.setController(patientController);
             root = loader.load();
@@ -139,9 +149,9 @@ public class AppointmentController {
 public void showListAction (ActionEvent actionEvent) {
         if (doctorsChoiceBox.getValue()==null || datePicker.getValue()==null) return;
         ArrayList<String> free=new ArrayList<>();
-        ArrayList<String> zauzeti=dao.getAppointments(doctorsChoiceBox.getValue(),datePicker.getValue(),office.getId());
-        for (String s :termini ) {
-            if (!zauzeti.contains(s))
+        ArrayList<String> reservedAppointments=dao.getAppointments(doctorsChoiceBox.getValue(),datePicker.getValue(),office.getId());
+        for (String s :allAppointments ) {
+            if (!reservedAppointments.contains(s))
                 free.add(s);
         }
         labelDoctor.setText(doctorsChoiceBox.getValue().toString());

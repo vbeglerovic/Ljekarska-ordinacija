@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class OfficeController {
     private DAO dao;
@@ -33,7 +34,8 @@ public class OfficeController {
         Stage stage=new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"),bundle);
             AppointmentController appointmentController = new AppointmentController(null, office);
             loader.setController(appointmentController);
             root = loader.load();
@@ -68,8 +70,8 @@ public class OfficeController {
         Stage stage=(Stage) btnSignOut.getScene().getWindow();
         //Stage stage=new Stage();
         Parent root = null;
-        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
         AppointmentsController appointmentsController = new AppointmentsController(office);
         loader.setController(appointmentsController);
         try {
@@ -86,8 +88,8 @@ public class OfficeController {
     public void patientsAction (ActionEvent actionEvent) {
         Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root = null;
-        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"),bundle);
         PatientsController patientsController = new PatientsController(office);
         loader.setController(patientsController);
         try {
@@ -104,8 +106,8 @@ public class OfficeController {
     public void doctorsAction (ActionEvent actionEvent) {
         Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root = null;
-        //ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"),bundle);
         DoctorsController doctorsController = new DoctorsController(office);
         loader.setController(doctorsController);
         try {
@@ -123,7 +125,8 @@ public class OfficeController {
         Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root=null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"),bundle);
             Controller ctrl = new Controller();
             loader.setController(ctrl);
             root = loader.load();

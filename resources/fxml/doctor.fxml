@@ -5,7 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import java.net.URL?>
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/css.css" />
+    </stylesheets>
     <children>
         <Pane prefHeight="400.0" prefWidth="317.0" style="-fx-background-color: #00BFFF;" />
         <GridPane layoutX="71.0" layoutY="34.0" prefHeight="326.0" prefWidth="483.0" style="-fx-background-color: transparent; -fx-border-color: black;">
@@ -35,21 +39,48 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
             <children>
-                <Label prefHeight="30.0" prefWidth="177.0" text="Prezime:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <Label prefHeight="31.0" prefWidth="192.0" text="Ime:" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <Label prefHeight="32.0" prefWidth="186.0" text="JMBG:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Label prefHeight="30.0" prefWidth="177.0" text="%lastName" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label prefHeight="31.0" prefWidth="192.0" text="%firstName" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label prefHeight="32.0" prefWidth="186.0" text="%jmb" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
                 <TextField fx:id="nameFld" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                 <TextField fx:id="lastNameFld" prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                 <TextField fx:id="JMBGFld" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                <Label prefHeight="31.0" prefWidth="144.0" text="Datum rodjenja" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                <Label prefHeight="32.0" prefWidth="159.0" text="Mjesto rodjenja" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                <Label prefHeight="31.0" prefWidth="144.0" text="%birthDate" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label prefHeight="32.0" prefWidth="159.0" text="%birthPlace" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
                 <TextField fx:id="POBFld" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-                <Label prefHeight="30.0" prefWidth="148.0" text="Adresa stanovanja" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                <Label prefHeight="30.0" prefWidth="148.0" text="%address" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
                 <TextField fx:id="addressFld" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                <Label prefHeight="28.0" prefWidth="179.0" text="Email" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                <Label prefHeight="28.0" prefWidth="179.0" text="%email" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
                 <TextField fx:id="emailFld" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-                <Label prefHeight="31.0" prefWidth="114.0" text="Datum zaposlenja" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                <Label prefHeight="29.0" prefWidth="88.0" text="Specijalnost" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                <Label prefHeight="31.0" prefWidth="114.0" text="%employmentDate" GridPane.columnIndex="2" GridPane.rowIndex="8">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label prefHeight="29.0" prefWidth="88.0" text="%specialty" GridPane.columnIndex="2" GridPane.rowIndex="9">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
                 <TextField fx:id="specialtyFld" GridPane.columnIndex="4" GridPane.rowIndex="9" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="4">
                     <children>
@@ -65,7 +96,7 @@
                         <TextField fx:id="yearFld2" />
                     </children>
                 </HBox>
-                <Button mnemonicParsing="false" onAction="#addDoctorACtion" prefHeight="25.0" prefWidth="311.0" style="-fx-background-color: transparent;" text="Add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="4" GridPane.rowIndex="10">
+                <Button mnemonicParsing="false" onAction="#addDoctorACtion" prefHeight="25.0" prefWidth="311.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="4" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
@@ -73,7 +104,7 @@
             </children>
         </GridPane>
         <ToolBar layoutX="482.0" layoutY="380.0" prefHeight="40.0" prefWidth="126.0" style="-fx-background-color: transparent;" />
-          <Button layoutX="513.0" layoutY="359.0" onAction="#closeAction" style="-fx-background-color: transparent;" text="Cancel" textFill="DEEPSKYBLUE" underline="true">
+          <Button layoutX="497.0" layoutY="361.0" onAction="#closeAction" prefHeight="39.0" prefWidth="96.0" style="-fx-background-color: transparent;" text="%cancel" textFill="DEEPSKYBLUE" underline="true">
          <font>
             <Font size="18.0" />
          </font>

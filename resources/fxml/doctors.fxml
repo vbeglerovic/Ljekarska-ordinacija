@@ -5,32 +5,32 @@
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TableView fx:id="tableViewDoctors" layoutX="65.0" layoutY="125.0" prefHeight="194.0" prefWidth="470.0" style="-fx-background-color: #00BFFF;">
+        <TableView fx:id="tableViewDoctors" layoutX="31.0" layoutY="118.0" prefHeight="204.0" prefWidth="541.0" style="-fx-background-color: #00BFFF;">
             <columns>
-                <TableColumn fx:id="colDoctorName" prefWidth="66.0" text="Ime" />
-                <TableColumn fx:id="colDoctorLastName" prefWidth="84.0" text="Prezime" />
-                <TableColumn fx:id="colDoctorJMBG" prefWidth="75.0" text="JMBG" />
-                <TableColumn fx:id="colDoctorDOB" prefWidth="96.0" text="Datum rodjenja" />
-                <TableColumn fx:id="colDoctorPOB" prefWidth="108.0" text="Mjesto rodjenja" />
-                <TableColumn fx:id="colDoctorAddress" prefWidth="49.0" text="Adresa" />
-                <TableColumn fx:id="colDoctorDOE" prefWidth="108.0" text="Datum zaposlenja" />
-                <TableColumn fx:id="colDoctorEmail" prefWidth="98.0" text="Email" />
-                <TableColumn fx:id="colDoctorSpecialty" prefWidth="75.0" text="Specijalnost" />
+                <TableColumn fx:id="colDoctorName" prefWidth="66.0" text="%firstName" />
+                <TableColumn fx:id="colDoctorLastName" prefWidth="84.0" text="%lastName" />
+                <TableColumn fx:id="colDoctorJMBG" prefWidth="75.0" text="%jmb" />
+                <TableColumn fx:id="colDoctorDOB" prefWidth="96.0" text="%birthDate" />
+                <TableColumn fx:id="colDoctorPOB" prefWidth="108.0" text="%birthPlace" />
+                <TableColumn fx:id="colDoctorAddress" prefWidth="49.0" text="%address" />
+                <TableColumn fx:id="colDoctorDOE" prefWidth="108.0" text="%employmentDate" />
+                <TableColumn fx:id="colDoctorEmail" prefWidth="98.0" text="%email" />
+                <TableColumn fx:id="colDoctorSpecialty" prefWidth="75.0" text="%specialty" />
 
 
 
             </columns>
         </TableView>
-        <ToolBar layoutX="301.0" layoutY="340.0" prefHeight="40.0" prefWidth="278.0" style="-fx-background-color: #00BFFF;">
+        <ToolBar layoutX="279.0" layoutY="340.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #00BFFF;">
             <items>
-            <Button mnemonicParsing="false" onAction="#printReportAction" text="Report" />
-                <Button onAction="#editDoctorAction" text="Uredi" />
-                <Button onAction="#deleteDoctorAction" text="Obrisi" />
-                <Button onAction="#addDoctorAction" text="Dodaj" />
-            <Button onAction="#closeAction" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#printReportAction" text="%report" />
+                <Button onAction="#editDoctorAction" text="%edit" />
+                <Button onAction="#deleteDoctorAction" text="%delete" />
+                <Button onAction="#addDoctorAction" text="%add" />
+            <Button onAction="#closeAction" text="%cancel" />
             </items>
         </ToolBar>
-        <TextField fx:id="searchFld" layoutX="128.0" layoutY="78.0" prefHeight="25.0" prefWidth="218.0" promptText="ime i prezime" />
-      <Label layoutX="78.0" layoutY="78.0" prefHeight="25.0" prefWidth="36.0" text="Search" />
+        <TextField fx:id="searchFld" layoutX="105.0" layoutY="66.0" prefHeight="25.0" prefWidth="218.0" promptText="%nameSurname" />
+      <Label layoutX="48.0" layoutY="66.0" prefHeight="25.0" prefWidth="45.0" text="%search" />
     </children>
 </AnchorPane>

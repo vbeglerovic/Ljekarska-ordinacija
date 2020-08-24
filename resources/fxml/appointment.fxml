@@ -7,7 +7,7 @@
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
        <Pane prefHeight="400.0" prefWidth="309.0" style="-fx-background-color: #00BFFF;" />
-      <GridPane layoutX="24.0" layoutY="60.0" prefHeight="281.0" prefWidth="557.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
+      <GridPane layoutX="24.0" layoutY="49.0" prefHeight="292.0" prefWidth="557.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="31.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="73.0" />
@@ -27,9 +27,9 @@
             <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Pacijent:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Datum:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Vrijeme:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label prefHeight="17.0" prefWidth="63.0" text="%patient" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="%date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="%time" GridPane.columnIndex="1" GridPane.rowIndex="4" />
              <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <DatePicker fx:id="datePicker" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
@@ -38,29 +38,29 @@
                   <ChoiceBox fx:id="minutesChoiceBox" prefWidth="150.0" />
                </children>
             </HBox>
-            <Button onAction="#addPatientAction" prefHeight="24.0" prefWidth="48.0" text="Dodaj" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <CheckBox fx:id="kontrolaCheckBox" mnemonicParsing="false" text="Kontrola" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-          <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="52.0" prefWidth="149.0" style="-fx-background-color: transparent;" text="Zakazi" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <Button onAction="#addPatientAction" prefHeight="24.0" prefWidth="48.0" text="%add" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <CheckBox fx:id="kontrolaCheckBox" mnemonicParsing="false" text="%control" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+          <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="51.0" prefWidth="303.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
                <font>
                   <Font size="18.0" />
                </font></Button>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2">
                <children>
-                  <Label layoutX="118.0" layoutY="-3.0" prefHeight="42.0" prefWidth="89.0" text="Pregled" textFill="DEEPSKYBLUE">
+                  <Label layoutX="76.0" layoutY="-3.0" prefHeight="42.0" prefWidth="197.0" text="%appointment" textFill="DEEPSKYBLUE">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="28.0" />
                      </font>
                   </Label>
                </children></Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="button" layoutY="17.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: transparent;" text="Slobodni termini" textFill="DEEPSKYBLUE" underline="true">
+                  <Button fx:id="button" layoutX="-17.0" layoutY="22.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="%freeAppointments" textFill="DEEPSKYBLUE" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                </children></Pane>
-            <Label text="Doktor:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="50.0" text="%doctor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Pane prefHeight="219.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="6">
                <children>
@@ -77,9 +77,9 @@
                </children></Pane>
          </children>
       </GridPane>
-      <Button fx:id="closeButton" layoutX="500.0" layoutY="351.0" onAction="#closeAction" style="-fx-background-color: transparent;" text="Cancel" textFill="DEEPSKYBLUE" underline="true">
+      <Button fx:id="closeButton" layoutX="500.0" layoutY="351.0" onAction="#closeAction" style="-fx-background-color: transparent;" text="%cancel" textFill="DEEPSKYBLUE" underline="true">
          <font>
-            <Font size="18.0" />
+            <Font size="14.0" />
          </font>
       </Button>
    </children>

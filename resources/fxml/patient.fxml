@@ -33,15 +33,33 @@
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <children>
-      <Label prefHeight="24.0" prefWidth="100.0" text="Ime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label text="Prezime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label text="JMBG" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label text="Spol" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label prefHeight="24.0" prefWidth="100.0" text="%firstName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+      <Label text="%lastName" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+      <Label text="%jmb" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+      <Label text="%gender" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
       <TextField fx:id="nameFld" prefHeight="28.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <TextField fx:id="lastNameFld" prefHeight="20.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <TextField fx:id="JMBGFld" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-       <Label text="Datum rodjenja" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Label text="Mjesto rodjenja" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+       <Label text="%birthDate" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+      <Label text="%birthPlace" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
       <TextField fx:id="POBFld" GridPane.columnIndex="3" GridPane.rowIndex="6" />
        <fx:define>
            <ToggleGroup fx:id="$group1" />
@@ -54,28 +72,37 @@
                   <ChoiceBox fx:id="monthChoiceBox" prefWidth="150.0" />
                   <TextField fx:id="yearFld" />
                </children></HBox>
-      <Label text="Adresa stanovanja" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label text="%address" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
       <TextField fx:id="addressFld" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-      <Label text="Email" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Label text="%email" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
       <TextField fx:id="emailFld" GridPane.columnIndex="3" GridPane.rowIndex="9" />
       <Label GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <Label text="Status" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Label text="%status" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
       <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
                 <children>
-                    <RadioButton fx:id="musko" text="Musko" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <RadioButton fx:id="musko" text="%male" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <toggleGroup>
                         <ToggleGroup fx:id="group1" />
                      </toggleGroup></RadioButton>
-                    <RadioButton fx:id="zensko" text="Zensko" toggleGroup="$group1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <RadioButton fx:id="zensko" text="%female" toggleGroup="$group1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
        </children></HBox>
-          <Button mnemonicParsing="false" onAction="#addPatient" prefHeight="39.0" prefWidth="145.0" style="-fx-background-color: transparent;" text="Add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="10">
+          <Button mnemonicParsing="false" onAction="#addPatient" prefHeight="39.0" prefWidth="145.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="10">
                <font>
-                  <Font size="18.0" />
+                  <Font size="24.0" />
                </font></Button>
    </children>
 </GridPane>
-      <Button layoutX="513.0" layoutY="352.0" mnemonicParsing="false" onAction="#closeAction" prefHeight="39.0" prefWidth="83.0" style="-fx-background-color: transparent;" text="Cancel" textFill="DEEPSKYBLUE" underline="true">
+      <Button layoutX="513.0" layoutY="352.0" mnemonicParsing="false" onAction="#closeAction" prefHeight="39.0" prefWidth="83.0" style="-fx-background-color: transparent;" text="%cancel" textFill="DEEPSKYBLUE" underline="true">
          <font>
             <Font size="14.0" />
          </font>

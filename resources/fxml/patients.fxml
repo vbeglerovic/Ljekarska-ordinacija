@@ -5,31 +5,31 @@
 
 <AnchorPane prefHeight="400" prefWidth="600" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableViewPatients" layoutX="27.0" layoutY="147.0" prefHeight="171.0" prefWidth="541.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewPatients" layoutX="11.0" layoutY="115.0" prefHeight="171.0" prefWidth="563.0" style="-fx-background-color: #00BFFF;">
         <columns>
-          <TableColumn fx:id="colPatientName" prefWidth="75.0" text="Ime" />
-          <TableColumn fx:id="colPatientLastName" prefWidth="75.0" text="Prezime" />
-          <TableColumn fx:id="colPatientJMBG" prefWidth="78.0" text="JMBG" />
-            <TableColumn fx:id="colPatientGender" prefWidth="72.0" text="Spol" />
-          <TableColumn fx:id="colPatientDOB" prefWidth="96.0" text="Datum rodjenja" />
-          <TableColumn fx:id="colPatientPOB" prefWidth="108.0" text="Mjesto rodjenja" />
-            <TableColumn fx:id="colPatientAddress" prefWidth="75.0" text="Adresa" />
-            <TableColumn fx:id="colPatientStatus" prefWidth="75.0" text="Status" />
-            <TableColumn fx:id="colPatientEmail" prefWidth="90.0" text="Email" />
+          <TableColumn fx:id="colPatientName" prefWidth="75.0" text="%firstName" />
+          <TableColumn fx:id="colPatientLastName" prefWidth="75.0" text="%lastName" />
+          <TableColumn fx:id="colPatientJMBG" prefWidth="78.0" text="%jmb" />
+            <TableColumn fx:id="colPatientGender" prefWidth="72.0" text="%gender" />
+          <TableColumn fx:id="colPatientDOB" prefWidth="96.0" text="%birthDate" />
+          <TableColumn fx:id="colPatientPOB" prefWidth="108.0" text="%birthPlace" />
+            <TableColumn fx:id="colPatientAddress" prefWidth="75.0" text="%address" />
+            <TableColumn fx:id="colPatientStatus" prefWidth="75.0" text="%status" />
+            <TableColumn fx:id="colPatientEmail" prefWidth="90.0" text="%email" />
 
 
         </columns>
       </TableView>
-      <ToolBar layoutX="290.0" layoutY="332.0" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="280.0" layoutY="332.0" prefHeight="43.0" prefWidth="305.0" style="-fx-background-color: #00BFFF;">
         <items>
-            <Button mnemonicParsing="false" onAction="#printReportAction" text="Report" />
-          <Button onAction="#editPatientAction" text="Uredi" />
-            <Button onAction="#deletePatientAction" text="Obrisi" />
-            <Button onAction="#addPatientAction" text="Dodaj" />
-            <Button onAction="#closeAction" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#printReportAction" text="%report" />
+          <Button onAction="#editPatientAction" text="%edit" />
+            <Button onAction="#deletePatientAction" text="%delete" />
+            <Button onAction="#addPatientAction" text="%add" />
+            <Button onAction="#closeAction" text="%cancel" />
         </items>
       </ToolBar>
-      <TextField fx:id="searchFld" layoutX="75.0" layoutY="106.0" prefHeight="25.0" prefWidth="225.0" promptText="ime i prezime" />
-      <Label layoutX="27.0" layoutY="110.0" text="Search" />
+      <TextField fx:id="searchFld" layoutX="94.0" layoutY="61.0" prefHeight="25.0" prefWidth="225.0" promptText="%nameSurname" />
+      <Label layoutX="42.0" layoutY="65.0" prefHeight="17.0" prefWidth="52.0" text="%search" />
    </children>
 </AnchorPane>

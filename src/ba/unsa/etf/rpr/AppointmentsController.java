@@ -166,19 +166,21 @@ public void search (ActionEvent actionEvent) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Neispravan format datuma \n Ispravan format: yyyy-HH-mm");
+            alert.setContentText("Neispravan format datuma! \n Ispravan format: yyyy-HH-mm");
             alert.showAndWait();
         }
     tableViewAppointments.setItems(FXCollections.observableList(appointments));
 
 }
     public void addReportAction (ActionEvent actionEvent) {
+        Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
+        if (a==null) return;
         Stage stage = new Stage();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"),bundle);
-            ReportController reportController = new ReportController(office);
+            ReportController reportController = new ReportController(office,a);
             loader.setController(reportController);
             root = loader.load();
             stage.setTitle("Report");

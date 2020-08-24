@@ -170,6 +170,9 @@ public class PatientsController {
 
     public void printReportAction(ActionEvent actionEvent) {
         try {
+            FilePrint filePrint=new FilePrint(office);
+            Thread thread=new Thread(filePrint);
+            thread.start();
             new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/patientsReport.jrxml").getFile());
         } catch (JRException e1) {
             e1.printStackTrace();

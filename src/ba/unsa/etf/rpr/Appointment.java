@@ -10,19 +10,23 @@ public class Appointment {
     Patient patient;
     Doctor doctor;
     String type;
-    String report;
+    String anamnesis;
+    String diagnosis;
+    String recommendation;
 
     public Appointment() {
     }
 
-    public Appointment(Integer id, LocalDate date, LocalTime time, Patient patient, Doctor doctor, String type, String report) {
+    public Appointment(Integer id, LocalDate date, LocalTime time, Patient patient, Doctor doctor, String type, String anamnesis, String diagnosis, String recommendation) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.patient = patient;
         this.doctor = doctor;
         this.type = type;
-        this.report = report;
+        this.anamnesis = anamnesis;
+        this.diagnosis=diagnosis;
+        this.recommendation=recommendation;
     }
 
     public Integer getId() {
@@ -73,11 +77,28 @@ public class Appointment {
         this.type = type;
     }
 
-    public String getReport() {
-        return report;
+
+    public String getAnamnesis() {
+        return anamnesis;
     }
 
-    public void setReport(String report) {
-        this.report = report;
+    public void setAnamnesis(String anamnesis) {
+        this.anamnesis = anamnesis;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public String getRecommendation() {
+        return recommendation;
+    }
+
+    public void setRecommendation(String recommendation) {
+        this.recommendation = recommendation;
     }
 }

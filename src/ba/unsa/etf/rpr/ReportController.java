@@ -43,4 +43,16 @@ public class ReportController {
         Stage stage=(Stage) patientFld.getScene().getWindow();
         stage.close();
     }
+
+    public void addReportAction (ActionEvent actionEvent) {
+        appointment.setAnamnesis(anamnesisFld.getText());
+        appointment.setDiagnosis((diagnosisFld.getText()));
+        appointment.setRecommendation(recommendationFld.getText());
+        Stage stage=(Stage) patientFld.getScene().getWindow();
+        stage.close();
+    }
+
+    public Appointment getAppointment () {
+        return appointment;
+    }
 }

@@ -59,7 +59,6 @@ public class OfficeController {
                         alert.showAndWait();
                         makeAppointmentAction(null);
                     }
-                    //appointmentList.setAll(dao.appointments(office.getId()));
                 }
             } );
         } catch (IOException e) {

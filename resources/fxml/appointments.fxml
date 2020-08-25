@@ -5,14 +5,13 @@
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableViewAppointments" layoutX="40.0" layoutY="111.0" prefHeight="204.0" prefWidth="514.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewAppointments" layoutX="41.0" layoutY="120.0" prefHeight="204.0" prefWidth="506.0" style="-fx-background-color: #00BFFF;">
         <columns>
            <TableColumn fx:id="colAppointmentDate" text="%date" />
            <TableColumn fx:id="colAppointmentTime" minWidth="0.0" prefWidth="78.0" text="%time" />
           <TableColumn fx:id="colAppointmentDoctor" prefWidth="107.0" text="%doctor" />
             <TableColumn fx:id="colAppointmentPatient" prefWidth="128.0" text="%patient" />
           <TableColumn fx:id="colAppointmentType" prefWidth="199.0" text="%type" />
-            <TableColumn fx:id="colAppointmentReport" prefWidth="176.0" text="Report" />
 
         </columns>
       </TableView>

@@ -38,7 +38,7 @@ public class AppointmentsController {
     public TableColumn<Appointment,Patient> colAppointmentPatient;
     public TableColumn<Appointment,Doctor> colAppointmentDoctor;
     public TableColumn<Appointment,String> colAppointmentType;
-    public TableColumn<Appointment,String> colAppointmentReport;
+    //public TableColumn<Appointment,String> colAppointmentReport;
 
     public TextField d1Fld;
     public TextField d2Fld;
@@ -64,7 +64,7 @@ public class AppointmentsController {
         colAppointmentPatient.setCellValueFactory(new PropertyValueFactory("patient"));
         colAppointmentDoctor.setCellValueFactory(new PropertyValueFactory("doctor"));
         colAppointmentType.setCellValueFactory(new PropertyValueFactory("type"));
-        colAppointmentReport.setCellValueFactory(new PropertyValueFactory("report"));
+        //colAppointmentReport.setCellValueFactory(new PropertyValueFactory("report"));
     }
 
     public void closeAction (ActionEvent actionEvent) {
@@ -101,6 +101,7 @@ public class AppointmentsController {
     public void editAppointmentAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (a == null) return;
+
         Stage stage=new Stage();
         Parent root = null;
         try {
@@ -173,9 +174,10 @@ public void search (ActionEvent actionEvent) {
 
 }
     public void addReportAction (ActionEvent actionEvent) {
-        Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
-        if (a==null) return;
-        Stage stage = new Stage();
+        Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
+        if (a == null) return;
+
+        Stage stage=new Stage();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -188,15 +190,14 @@ public void search (ActionEvent actionEvent) {
             stage.setResizable(true);
             stage.show();
 
-            /*stage.setOnHiding(event -> {
-                Patient patient = patientController.getPatient();
-                if (patient != null) {
-                    dao.addPatient(patient,office.getId());
-                    patients=FXCollections.observableArrayList(dao.patients(office.getId()));
-                    patientsChoiceBox.setItems(patients);
-
+            stage.setOnHiding( event -> {
+                Appointment appointment = reportController.getAppointment();
+                if (appointment!= null) {
+                    dao.editAppointment(appointment);
+                    appointmentsList.setAll(dao.appointments(office.getId()));
+                    //tableViewAppointments.setItems(appointmentsList);
                 }
-            });*/
+            } );
         } catch (IOException e) {
             e.printStackTrace();
         }

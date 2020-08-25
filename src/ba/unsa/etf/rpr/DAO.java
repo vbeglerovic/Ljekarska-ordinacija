@@ -42,7 +42,7 @@ public class DAO {
                 deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE JMBG=?");
                 getPatientByJMBGStatement=conn.prepareStatement("SELECT * FROM patients WHERE JMBG=?");
                 getPatientsByNameStatement=conn.prepareStatement("SELECT * FROM patients WHERE office_id=? AND firstName=? AND lastName=?");
-                addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?)");
+                addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?,?,?)");
                 getAppointmentsStatement=conn.prepareStatement("SELECT * FROM appointments WHERE office_id=?");
                 getPatientStatement=conn.prepareStatement("SELECT * FROM patients WHERE id=?");
                 getDoctorStatement=conn.prepareStatement("SELECT * FROM doctors WHERE id=?");
@@ -53,7 +53,7 @@ public class DAO {
                 updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=? WHERE id=?");
                 deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
-                updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, report=? WHERE id=?");
+                updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
                 getAppointmentsByDate=conn.prepareStatement("SELECT * FROM appointments WHERE doctor_id=? AND date=? AND office_id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -126,17 +126,6 @@ public class DAO {
         return office;
     }
 
-
-    /*public boolean checkIfOfficeExist(String username, String password) {
-        try {
-            getOfficeWithUsernameStatement.setString(1,username);
-            ResultSet rs=getOfficeWithUsernameStatement.executeQuery();
-            if (rs!=null && rs.getString(1).equals(password)) return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }*/
 
     public boolean checkIfOfficeExist(Office office, String password) {
         try {
@@ -212,7 +201,6 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //patient.setDrzava(dajDrzavu(rs.getInt(4), grad));
         return patient;
     }
 
@@ -247,22 +235,6 @@ public class DAO {
         }
     }
 
-    public ArrayList<Patient> searchPatients (int officeId, String firstName, String lastName) {
-        ArrayList<Patient> p=new ArrayList<>();
-        try {
-            getPatientsByNameStatement.setInt(1,officeId);
-            getPatientsByNameStatement.setString(2,firstName);
-            getPatientsByNameStatement.setString(3,lastName);
-            ResultSet rs=getPatientsByNameStatement.executeQuery();
-            while (rs.next()) {
-                Patient patient=getPatientFromResultSet(rs);
-                p.add(patient);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return p;
-    }
 
     public ArrayList<Appointment> appointments(int officeId) {
         ArrayList<Appointment> a=new ArrayList<>();
@@ -283,7 +255,7 @@ public class DAO {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:mm");
         try {
-            appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),null,null, rs.getString(6), "");
+            appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),null,null, rs.getString(6), rs.getString(7),rs.getString(8),rs.getString(9));
             appointment.setPatient(getPatient(rs.getInt(4)));
             appointment.setDoctor(getDoctor(rs.getInt(5)));
         } catch (SQLException e) {
@@ -319,7 +291,6 @@ public class DAO {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    //patient.setDrzava(dajDrzavu(rs.getInt(4), grad));
         return doctor;
     }
 
@@ -333,10 +304,11 @@ public class DAO {
             addAppointmentStatement.setString(3,appointment.getTime().toString());
             addAppointmentStatement.setInt(4,appointment.getPatient().getId());
             addAppointmentStatement.setInt(5,appointment.getDoctor().getId());
-            String s;
             addAppointmentStatement.setString(6,appointment.getType());
-            addAppointmentStatement.setString(7,"");
-            addAppointmentStatement.setInt(8,officeId);
+            addAppointmentStatement.setInt(7,officeId);
+            addAppointmentStatement.setString(8,appointment.getAnamnesis());
+            addAppointmentStatement.setString(9,appointment.getDiagnosis());
+            addAppointmentStatement.setString(10,appointment.getRecommendation());
             addAppointmentStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -394,22 +366,6 @@ public class DAO {
         }
     }
 
-    public ArrayList<Doctor> searchDoctors(int officeId, String firstName, String lastName) {
-        ArrayList<Doctor> d=new ArrayList<>();
-        try {
-            getDoctorsByNameStatement.setInt(1,officeId);
-            getDoctorsByNameStatement.setString(2,firstName);
-            getDoctorsByNameStatement.setString(3,lastName);
-            ResultSet rs=getDoctorsByNameStatement.executeQuery();
-            while (rs.next()) {
-                Doctor doctor=getDoctorFromResultSet(rs);
-                d.add(doctor);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return d;
-    }
 
     public void deleteDoctor(int id) {
         try {
@@ -441,11 +397,13 @@ public class DAO {
         try {
             updateAppointmentStatment.setString(1, appointment.getDate().toString());
             updateAppointmentStatment.setString(2, appointment.getTime().toString());
-            updateAppointmentStatment.setInt(3, appointment.getPatient().getId());
-            updateAppointmentStatment.setInt(4, appointment.getDoctor().getId());
+            updateAppointmentStatment.setInt(3, appointment.getDoctor().getId());
+            updateAppointmentStatment.setInt(4, appointment.getPatient().getId());
             updateAppointmentStatment.setString(5, appointment.getType());
-            updateAppointmentStatment.setString(6, appointment.getReport());
-            updateAppointmentStatment.setInt(7,appointment.getId());
+            updateAppointmentStatment.setString(6, appointment.getAnamnesis());
+            updateAppointmentStatment.setString(7, appointment.getDiagnosis());
+            updateAppointmentStatment.setString(8, appointment.getRecommendation());
+            updateAppointmentStatment.setInt(9,appointment.getId());
             updateAppointmentStatment.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

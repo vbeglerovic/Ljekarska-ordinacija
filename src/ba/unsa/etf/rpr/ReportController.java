@@ -2,9 +2,13 @@ package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class ReportController {
     private Office office;
@@ -45,11 +49,17 @@ public class ReportController {
     }
 
     public void addReportAction (ActionEvent actionEvent) {
-        appointment.setAnamnesis(anamnesisFld.getText());
-        appointment.setDiagnosis((diagnosisFld.getText()));
-        appointment.setRecommendation(recommendationFld.getText());
-        Stage stage=(Stage) patientFld.getScene().getWindow();
-        stage.close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setContentText("Are you sure you want add a report?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            appointment.setAnamnesis(anamnesisFld.getText());
+            appointment.setDiagnosis((diagnosisFld.getText()));
+            appointment.setRecommendation(recommendationFld.getText());
+            Stage stage=(Stage) patientFld.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public Appointment getAppointment () {

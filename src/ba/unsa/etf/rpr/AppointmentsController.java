@@ -176,30 +176,36 @@ public void search (ActionEvent actionEvent) {
     public void addReportAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (a == null) return;
+        if (a.getAnamnesis()==null && a.getDiagnosis()==null && a.getRecommendation()==null) {
+            Stage stage = new Stage();
+            Parent root = null;
+            try {
+                ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"), bundle);
+                ReportController reportController = new ReportController(office, a);
+                loader.setController(reportController);
+                root = loader.load();
+                stage.setTitle("Report");
+                stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+                stage.setResizable(true);
+                stage.show();
 
-        Stage stage=new Stage();
-        Parent root = null;
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"),bundle);
-            ReportController reportController = new ReportController(office,a);
-            loader.setController(reportController);
-            root = loader.load();
-            stage.setTitle("Report");
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-            stage.setResizable(true);
-            stage.show();
-
-            stage.setOnHiding( event -> {
-                Appointment appointment = reportController.getAppointment();
-                if (appointment!= null) {
-                    dao.editAppointment(appointment);
-                    appointmentsList.setAll(dao.appointments(office.getId()));
-                    //tableViewAppointments.setItems(appointmentsList);
-                }
-            } );
-        } catch (IOException e) {
-            e.printStackTrace();
+                stage.setOnHiding(event -> {
+                    Appointment appointment = reportController.getAppointment();
+                    if (appointment != null) {
+                        dao.editAppointment(appointment);
+                        appointmentsList.setAll(dao.appointments(office.getId()));
+                        //tableViewAppointments.setItems(appointmentsList);
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Report has already been written!");
+            alert.showAndWait();
         }
     }
 

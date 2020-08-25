@@ -255,7 +255,7 @@ public class DAO {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:mm");
         try {
-            appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),null,null, rs.getString(6), rs.getString(7),rs.getString(8),rs.getString(9));
+            appointment=new Appointment(rs.getInt(1), LocalDate.parse(rs.getString(2),df), LocalTime.parse(rs.getString(3),tf),null,null, rs.getString(6), rs.getString(8),rs.getString(9),rs.getString(10));
             appointment.setPatient(getPatient(rs.getInt(4)));
             appointment.setDoctor(getDoctor(rs.getInt(5)));
         } catch (SQLException e) {

@@ -116,6 +116,7 @@ public class AppointmentController {
             appointment.setPatient(patientsChoiceBox.getValue());
             appointment.setDoctor(doctorsChoiceBox.getValue());
             if (kontrolaCheckBox.isSelected()) appointment.setType("Kontrola");
+            else appointment.setType("Prvi pregled");
             closeAction(actionEvent);
         }
     }

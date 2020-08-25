@@ -70,9 +70,8 @@ public class AppointmentController {
                minutesChoiceBox.getSelectionModel().selectFirst();
            else
                minutesChoiceBox.getSelectionModel().selectLast();
-           System.out.println(appointment.getDoctor().toString()+" "+appointment.getPatient().toString()+doctors.size());
-           patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
            doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
+           patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
            datePicker.setValue(appointment.getDate());
            labelDoctor.setText(doctorsChoiceBox.getValue().toString());
            labelDate.setText(datePicker.getValue().toString());

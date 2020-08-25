@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Doctor {
     Integer id;
@@ -114,4 +115,18 @@ public class Doctor {
     public String toString() {
         return firstName+" "+lastName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Doctor doctor = (Doctor) o;
+        return id.equals(doctor.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }

@@ -32,8 +32,8 @@ public class RegisterController {
 
     @FXML
     public void initialize() {
-        fldPassword.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (!newIme.isEmpty() && repeatPasswordFld.getText().equals(newIme)) {
+        fldPassword.textProperty().addListener((obs, oldValue, newValue) -> {
+            if (!newValue.isEmpty() && repeatPasswordFld.getText().equals(newValue)) {
                 fldPassword.getStyleClass().removeAll("notOk");
                 fldPassword.getStyleClass().add("ok");
                 repeatPasswordFld.getStyleClass().removeAll("notOk");
@@ -47,8 +47,8 @@ public class RegisterController {
         });
 
 
-        repeatPasswordFld.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (!newIme.isEmpty() && newIme.equals(fldPassword.getText())) {
+        repeatPasswordFld.textProperty().addListener((obs, oldValue, newValue) -> {
+            if (!newValue.isEmpty() && newValue.equals(fldPassword.getText())) {
                 fldPassword.getStyleClass().removeAll("notOk");
                 fldPassword.getStyleClass().add("ok");
                 repeatPasswordFld.getStyleClass().removeAll("notOk");

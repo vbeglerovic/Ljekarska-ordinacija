@@ -82,23 +82,26 @@ public class RegisterController {
     }
 
     public void registerAction (ActionEvent actionEvent) {
-       Office office=new Office (0, fldName.getText(), fldAddress.getText(), fldUsername.getText(), fldPassword.getText());
-       if (dao.getOfficeWithUsername(fldUsername.getText())!=null) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Information Dialog");
-           alert.setHeaderText(null);
-           alert.setContentText("Username " + fldUsername.getText() + " vec postoji, koristite neki drugi!");
-           alert.showAndWait();
-       } else if (fldName.getText().isEmpty() || fldAddress.getText().isEmpty() || fldUsername.getText().isEmpty() || fldPassword.getText().isEmpty() || repeatPasswordFld.getText().isEmpty()) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Information Dialog");
-           alert.setHeaderText(null);
-           alert.setContentText("Morate popuniti sve podatke!");
-           alert.showAndWait();
-       } else {
-           dao.addOffice(office);
-           closeAction(null);
-       }
+        if (fldName.getText().isEmpty() || fldAddress.getText().isEmpty() || fldUsername.getText().isEmpty() || fldPassword.getText().isEmpty() || repeatPasswordFld.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Morate popuniti sve podatke!");
+            alert.showAndWait();
+            return;
+        }
+        Office office=new Office (0, fldName.getText(), fldAddress.getText(), fldUsername.getText(), fldPassword.getText());
+        try {
+            dao.addOffice(office);
+        } catch (OfficeWithThisUsernameAlreadyExist officeWithThisUsernameAlreadyExist) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Username " + fldUsername.getText() + " vec postoji, koristite neki drugi!");
+            alert.showAndWait();
+            return;
+        }
+        closeAction(null);  
     }
 
 

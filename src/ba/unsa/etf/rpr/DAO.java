@@ -1,7 +1,5 @@
 package ba.unsa.etf.rpr;
 
-import javafx.event.ActionEvent;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -23,7 +21,7 @@ public class DAO {
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement, getPatientByJMBGStatement,getPatientsByNameStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
     private PreparedStatement getDoctorsByNameStatement, deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment;
-    private PreparedStatement getAppointmentsByDate;
+    private PreparedStatement getAppointmentsByDate,addReportStatement;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -55,6 +53,7 @@ public class DAO {
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
                 updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
                 getAppointmentsByDate=conn.prepareStatement("SELECT * FROM appointments WHERE doctor_id=? AND date=? AND office_id=?");
+                addReportStatement=conn.prepareStatement("UPDATE appointments SET anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -101,14 +100,18 @@ public class DAO {
         }
     }
 
-    public void addOffice(Office office) {
+    public void addOffice(Office office) throws OfficeWithThisUsernameAlreadyExist {
         try {
-                addOfficeStatement.setString(2, office.getName());
-                addOfficeStatement.setString(3, office.getAddress());
-                addOfficeStatement.setString(4, office.getUsername());
-                addOfficeStatement.setString(5, office.getPassword());
-                addOfficeStatement.executeUpdate();
-            } catch (SQLException e) {
+            getOfficeWithUsernameStatement.setString(1,office.getUsername());
+            ResultSet rs=getOfficeWithUsernameStatement.executeQuery();
+            if (rs.next())
+                throw new OfficeWithThisUsernameAlreadyExist("Office with this usenname already exist!");
+            addOfficeStatement.setString(2, office.getName());
+            addOfficeStatement.setString(3, office.getAddress());
+            addOfficeStatement.setString(4, office.getUsername());
+            addOfficeStatement.setString(5, office.getPassword());
+            addOfficeStatement.executeUpdate();
+        } catch (SQLException e) {
                 e.printStackTrace();
             }
     }
@@ -294,12 +297,8 @@ public class DAO {
         return doctor;
     }
 
-    public void addAppointment(Appointment appointment, int officeId) throws ReservedAppointmentExcepction {
-        ArrayList<String> terms=new ArrayList<>();
-        terms=getAppointments(appointment.getDoctor(),appointment.getDate(),officeId);
-        if (terms.contains(appointment.getTime().toString())) throw new ReservedAppointmentExcepction("Termin zauzet");
+    public void addAppointment(Appointment appointment, int officeId) {
         try {
-
             addAppointmentStatement.setString(2, appointment.getDate().toString());
             addAppointmentStatement.setString(3,appointment.getTime().toString());
             addAppointmentStatement.setInt(4,appointment.getPatient().getId());
@@ -310,6 +309,7 @@ public class DAO {
             addAppointmentStatement.setString(9,appointment.getDiagnosis());
             addAppointmentStatement.setString(10,appointment.getRecommendation());
             addAppointmentStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -427,6 +427,18 @@ public class DAO {
         }
         return null;
     }
+
+    public void addReport (Appointment appointment){
+        try {
+            addReportStatement.setString(1,appointment.getAnamnesis());
+            addReportStatement.setString(2,appointment.getDiagnosis());
+            addReportStatement.setString(3,appointment.getRecommendation());
+            addReportStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

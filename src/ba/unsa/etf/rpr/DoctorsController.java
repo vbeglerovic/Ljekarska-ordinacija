@@ -181,7 +181,7 @@ public class DoctorsController {
             DoctorsPrint doctorsPrint =new DoctorsPrint(office);
             Thread thread=new Thread(doctorsPrint);
             thread.start();
-            new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/doctorsReport.jrxml").getFile());
+            new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/doctorsReport2.jrxml").getFile(), office.getId());
         } catch (JRException e1) {
             e1.printStackTrace();
         }

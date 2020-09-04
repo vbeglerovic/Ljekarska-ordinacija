@@ -176,7 +176,13 @@ public void search (ActionEvent actionEvent) {
     public void addReportAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (a == null) return;
-        if (a.getAnamnesis()==null && a.getDiagnosis()==null && a.getRecommendation()==null) {
+        if (a.getRecommendation()!=null || a.getDiagnosis()!=null || a.getAnamnesis()!=null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Report has already been written!");
+            alert.showAndWait();
+            return;
+        }
             Stage stage = new Stage();
             Parent root = null;
             try {
@@ -193,20 +199,15 @@ public void search (ActionEvent actionEvent) {
                 stage.setOnHiding(event -> {
                     Appointment appointment = reportController.getAppointment();
                     if (appointment != null) {
-                        dao.editAppointment(appointment);
-                        appointmentsList.setAll(dao.appointments(office.getId()));
-                        //tableViewAppointments.setItems(appointmentsList);
+                            dao.addReport(appointment);
                     }
                 });
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Report has already been written!");
-            alert.showAndWait();
-        }
+    }
+    public void viewReportAction(ActionEvent actionEvent) {
+
     }
 
 }

@@ -5,82 +5,58 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-       <Pane prefHeight="400.0" prefWidth="309.0" style="-fx-background-color: #00BFFF;" />
-      <GridPane layoutX="24.0" layoutY="49.0" prefHeight="292.0" prefWidth="557.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="31.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="73.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="163.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="124.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="109.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="19.0" />
-            <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label prefHeight="17.0" prefWidth="63.0" text="%patient" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="%date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="%time" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-             <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <DatePicker fx:id="datePicker" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+    <children>
+        <Pane prefHeight="400.0" prefWidth="309.0" style="-fx-background-color: #00BFFF;" />
+        <GridPane layoutX="102.0" layoutY="75.0" prefHeight="266.0" prefWidth="390.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="31.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="70.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="143.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="11.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="128.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="10.0" />
+                <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label prefHeight="17.0" prefWidth="63.0" text="%patient" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="%date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <ChoiceBox fx:id="patientsChoiceBox" prefWidth="150.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <DatePicker fx:id="datePicker" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Button onAction="#addPatientAction" prefHeight="24.0" prefWidth="48.0" style="-fx-background-color: white;" text="%add" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <CheckBox fx:id="controlCheckBox" mnemonicParsing="false" prefHeight="63.0" prefWidth="69.0" style="-fx-background-color: transparent;" text="%control" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                    <font>
+                        <Font size="18.0" />
+                    </font></Button>
+                <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                    <children>
+                        <Label layoutX="76.0" layoutY="-3.0" prefHeight="42.0" prefWidth="197.0" text="\%appointment" textFill="DEEPSKYBLUE">
+                            <font>
+                                <Font size="28.0" />
+                            </font>
+                        </Label>
+                    </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
-                  <Spinner fx:id="hoursSpinner" />
-                  <ChoiceBox fx:id="minutesChoiceBox" prefWidth="150.0" />
-               </children>
-            </HBox>
-            <Button onAction="#addPatientAction" prefHeight="24.0" prefWidth="48.0" text="%add" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <CheckBox fx:id="kontrolaCheckBox" mnemonicParsing="false" text="%control" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-          <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="51.0" prefWidth="303.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2">
-               <children>
-                  <Label layoutX="76.0" layoutY="-3.0" prefHeight="42.0" prefWidth="197.0" text="%appointment" textFill="DEEPSKYBLUE">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Label>
+                        <ListView fx:id="listView" layoutX="-1.0" layoutY="7.0" prefHeight="118.0" prefWidth="99.0" style="-fx-background-color: white;" />
                </children></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-               <children>
-                  <Button fx:id="button" layoutX="-17.0" layoutY="22.0" mnemonicParsing="false" onAction="#showListAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="%freeAppointments" textFill="DEEPSKYBLUE" underline="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children></Pane>
-            <Label prefHeight="17.0" prefWidth="50.0" text="%doctor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Pane prefHeight="219.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="6">
-               <children>
-                  <ListView fx:id="listView" layoutX="15.0" layoutY="59.0" prefHeight="147.0" prefWidth="96.0" style="-fx-background-color: #00BFFF;" />
-                  <Label fx:id="labelDoctor" layoutX="-3.0" layoutY="-2.0" prefHeight="30.0" prefWidth="145.0" textFill="RED">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-                  <Label fx:id="labelDate" layoutX="3.0" layoutY="27.0" prefHeight="25.0" prefWidth="130.0" textFill="RED">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children></Pane>
-         </children>
-      </GridPane>
-      <Button fx:id="closeButton" layoutX="500.0" layoutY="351.0" onAction="#closeAction" style="-fx-background-color: transparent;" text="%cancel" textFill="DEEPSKYBLUE" underline="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-   </children>
+                <Label prefHeight="17.0" prefWidth="50.0" text="%doctor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <ChoiceBox fx:id="doctorsChoiceBox" prefWidth="150.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+        <Button fx:id="closeButton" layoutX="500.0" layoutY="351.0" onAction="#closeAction" style="-fx-background-color: transparent;" text="%cancel" textFill="DEEPSKYBLUE" underline="true">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
 </AnchorPane>

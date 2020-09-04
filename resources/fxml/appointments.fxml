@@ -15,11 +15,12 @@
 
         </columns>
       </TableView>
-      <ToolBar layoutX="277.0" layoutY="335.0" prefHeight="45.0" prefWidth="301.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="151.0" layoutY="335.0" prefHeight="45.0" prefWidth="427.0" style="-fx-background-color: #00BFFF;">
          <items>
             <Button mnemonicParsing="false" onAction="#deleteAppointmentAction" text="%delete" />
             <Button mnemonicParsing="false" onAction="#editAppointmentAction" text="%edit" />
             <Button mnemonicParsing="false" onAction="#addReportAction" prefHeight="25.0" prefWidth="112.0" text="%addReport" />
+            <Button mnemonicParsing="false" onAction="#viewReportAction" prefHeight="25.0" prefWidth="96.0" text="%view.report" />
           <Button mnemonicParsing="false" onAction="#closeAction" text="%cancel" />
          </items>
       </ToolBar>

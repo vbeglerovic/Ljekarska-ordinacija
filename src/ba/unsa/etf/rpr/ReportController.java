@@ -49,7 +49,7 @@ public class ReportController {
     }
 
     public void addReportAction (ActionEvent actionEvent) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setContentText("Are you sure you want add a report?");
         Optional<ButtonType> result = alert.showAndWait();

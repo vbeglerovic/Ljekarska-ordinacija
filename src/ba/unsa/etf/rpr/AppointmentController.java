@@ -30,12 +30,8 @@ public class AppointmentController {
     public ChoiceBox<Patient> patientsChoiceBox;
     public ChoiceBox<Doctor> doctorsChoiceBox;
     public DatePicker datePicker;
-    public Spinner hoursSpinner;
-    public ChoiceBox<String> minutesChoiceBox;
-    public CheckBox kontrolaCheckBox;
+    public CheckBox controlCheckBox;
     public ListView<String> listView;
-    public Label labelDoctor, labelDate;
-    public Button button;
 
     public AppointmentController(Appointment appointment, Office office) {
         this.appointment=appointment;
@@ -51,74 +47,75 @@ public class AppointmentController {
         }
 
     }
+    private void showInfoDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setContentText("There are no free terms on date "+datePicker.getValue().toString()+" for doctor "+doctorsChoiceBox.getSelectionModel().getSelectedItem().toString()+".");
+
+        alert.showAndWait();
+    }
+
 
     @FXML
     public void initialize() {
         patientsChoiceBox.setItems(patients);
-        SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 22, 1);
-        hoursSpinner.setValueFactory(valueFactory1);
-        minutesChoiceBox.setItems(FXCollections.observableArrayList("00","30"));
-        minutesChoiceBox.getSelectionModel().selectFirst();
         doctorsChoiceBox.setItems(doctors);
-        listView.setVisible(false);
-        labelDate.setVisible(false);
-        labelDoctor.setVisible(false);
-        button.setDisable(true);
        if (appointment != null) {
-           hoursSpinner.getValueFactory().setValue(appointment.getTime().getHour());
-           if (appointment.getTime().getMinute()==0)
-               minutesChoiceBox.getSelectionModel().selectFirst();
-           else
-               minutesChoiceBox.getSelectionModel().selectLast();
            doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
            patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
            datePicker.setValue(appointment.getDate());
-           labelDoctor.setText(doctorsChoiceBox.getValue().toString());
-           labelDate.setText(datePicker.getValue().toString());
            if (appointment.getType()!=null)
-               kontrolaCheckBox.setSelected(true);
+               controlCheckBox.setSelected(true);
        }
-       doctorsChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue )->{
-           if (newValue!=null && datePicker.getValue()!=null) button.setDisable(false);
-           else if (newValue==null) button.setDisable(true);
+       doctorsChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue)-> {
+           if (datePicker.getValue()!=null) {
+               try {
+                   showListAction();
+               } catch (ThereAreNoFreeTerms thereAreNoFreeTerms) {
+                   showInfoDialog();
+                   return;
+               }
+           }
        });
-        datePicker.valueProperty().addListener((observable, oldValue, newValue)->{
-            if (newValue!=null && doctorsChoiceBox.getValue()!=null) button.setDisable(false);
-            else if (newValue==null) button.setDisable(true);
-        });
-        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
-            hoursSpinner.getValueFactory().setValue(LocalTime.parse(newValue).getHour());
-            DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:mm");
-            if (LocalTime.parse(newValue,tf).getMinute()==0)
-                minutesChoiceBox.getSelectionModel().selectFirst();
-            else
-                minutesChoiceBox.getSelectionModel().selectLast();
-        });
+       datePicker.valueProperty().addListener((obs, oldValue, newValue)->{
+           if (doctorsChoiceBox.getSelectionModel().getSelectedItem()!=null) {
+               try {
+                   showListAction();
+               } catch (ThereAreNoFreeTerms thereAreNoFreeTerms) {
+                   showInfoDialog();
+                   return;
+               }
+           }
+       });
+
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) minutesChoiceBox.getScene().getWindow();
+        appointment=null;
+        Stage stage = (Stage) patientsChoiceBox.getScene().getWindow();
         stage.close();
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
         if (appointment==null) appointment=new Appointment();
-        if (patientsChoiceBox.getValue()==null || doctorsChoiceBox.getValue()==null || datePicker.getValue()==null) {
+        if (patientsChoiceBox.getValue()==null || doctorsChoiceBox.getValue()==null || datePicker.getValue()==null || listView.getSelectionModel().getSelectedItem()==null ) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
             alert.setContentText("Morate popuniti sve podatke!");
             alert.showAndWait();
-        } else {
-            appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()), Integer.parseInt(minutesChoiceBox.getValue())));
-            appointment.setTime(LocalTime.of(Integer.parseInt(hoursSpinner.getValue().toString()), Integer.parseInt(minutesChoiceBox.getValue())));
+            return;
+        }
+            DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:mm");
+            appointment.setTime(LocalTime.parse(listView.getSelectionModel().getSelectedItem(),tf));
             appointment.setDate(datePicker.getValue());
             appointment.setPatient(patientsChoiceBox.getValue());
             appointment.setDoctor(doctorsChoiceBox.getValue());
-            if (kontrolaCheckBox.isSelected()) appointment.setType("Kontrola");
+            if (controlCheckBox.isSelected()) appointment.setType("Kontrola");
             else appointment.setType("Prvi pregled");
-            closeAction(actionEvent);
-        }
+        Stage stage = (Stage) patientsChoiceBox.getScene().getWindow();
+        stage.close();
+
     }
     public void addPatientAction (ActionEvent actionEvent) {
         Stage stage = new Stage();
@@ -147,7 +144,7 @@ public class AppointmentController {
             e.printStackTrace();
         }
     }
-public void showListAction (ActionEvent actionEvent) {
+    private void showListAction () throws ThereAreNoFreeTerms {
         if (doctorsChoiceBox.getValue()==null || datePicker.getValue()==null) return;
         ArrayList<String> free=new ArrayList<>();
         ArrayList<String> reservedAppointments=dao.getAppointments(doctorsChoiceBox.getValue(),datePicker.getValue(),office.getId());
@@ -155,10 +152,9 @@ public void showListAction (ActionEvent actionEvent) {
             if (!reservedAppointments.contains(s))
                 free.add(s);
         }
-        labelDoctor.setText(doctorsChoiceBox.getValue().toString());
-        labelDoctor.setVisible(true);
-        labelDate.setText(datePicker.getValue().toString());
-        labelDate.setVisible(true);
+        if (free.size()==0) {
+            throw new ThereAreNoFreeTerms("There are no free terms.");
+        }
         listView.setItems(FXCollections.observableArrayList(free));
         listView.setVisible(true);
 

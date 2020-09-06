@@ -13,17 +13,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.swing.JRViewer;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.function.Function;
 
 public class AppointmentsController {
@@ -209,9 +209,51 @@ public void search (ActionEvent actionEvent) {
     public void viewReportAction(ActionEvent actionEvent) {
         Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
         try {
-            new PrintAppointmentReport().showReport(DAO.getConn(), office.getId(), a.getPatient().getId(), a.getDoctor().getId(), a.getId());
+            new PrintReport().showReport(DAO.getConn(), a.getId(),a.getDoctor().toString(), a.getPatient().getId());
         } catch (JRException e) {
             e.printStackTrace();
+        }
+    }
+    public class PrintReport extends JFrame {
+        public void showReport(Connection conn, Integer appointmentId, String doctor, Integer patientId) throws JRException {
+           /* String reportSrcFile = getClass().getResource("/reports/medicalReport.jrxml").getFile();
+            String patientReport = getClass().getResource("/reports/patientData.jrxml").getFile();
+            String reportsDir = getClass().getResource("/reports/").getFile();
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportSrcFile);
+            JasperCompileManager.compileReport(patientReport);
+            HashMap<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("reportsDirPath", reportsDir);
+            parameters.put("appointment", appointmentId);
+            parameters.put("doctor", doctor);
+            parameters.put("patient", patientId);
+
+            ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+            list.add(parameters);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            JRViewer viewer = new JRViewer(print);
+            viewer.setOpaque(true);
+            viewer.setVisible(true);
+            this.add(viewer);
+            this.setSize(700, 500);
+            this.setVisible(true);*/
+           String masterReportSource = getClass().getResource("/reports/medicalReport.jrxml").getFile();
+            String subReportSource = getClass().getResource("/reports/patientData.jrxml").getFile();
+            JasperReport jasperMasterReport = JasperCompileManager.compileReport(masterReportSource);
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportSource);
+
+            Map<String, Object> parameters = new HashMap();
+            parameters.put("subreportParameter", jasperSubReport);
+            parameters.put("appointment", appointmentId);
+            parameters.put("doctor", doctor);
+            parameters.put("patient", patientId);
+
+            JasperFillManager.fillReport(jasperMasterReport,  parameters, conn);
+            JRViewer viewer = new JRViewer(JasperFillManager.fillReport(jasperMasterReport,  parameters, conn));
+            viewer.setOpaque(true);
+            viewer.setVisible(true);
+            this.add(viewer);
+            this.setSize(700, 500);
+            this.setVisible(true);
         }
     }
 

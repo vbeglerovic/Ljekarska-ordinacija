@@ -24,7 +24,7 @@ public class DAO {
     private PreparedStatement getAppointmentsByDate,addReportStatement;
     private DAO () {
         try {
-            conn= DriverManager.getConnection("jdbc:sqlite:database.db");
+            conn= DriverManager.getConnection("jdbc:sqlite:database1.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -433,6 +433,7 @@ public class DAO {
             addReportStatement.setString(1,appointment.getAnamnesis());
             addReportStatement.setString(2,appointment.getDiagnosis());
             addReportStatement.setString(3,appointment.getRecommendation());
+            addReportStatement.setInt(4,appointment.getId());
             addReportStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class OfficeController {
     private Office office;
    // private ObservableList<Appointment> appointmentList;
     public Button btnSignOut,patientBtn;
+    public Label labelDate;
 
     public OfficeController(Office office) {
         dao=DAO.getInstance();
@@ -26,6 +28,12 @@ public class OfficeController {
 
     @FXML
     public void initialize() {
+        PrintDate pd=new PrintDate();
+        try {
+            labelDate.setText(pd.print());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void makeAppointmentAction (ActionEvent actionEvent) {
         Stage stage=new Stage();

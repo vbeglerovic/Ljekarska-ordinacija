@@ -207,7 +207,12 @@ public void search (ActionEvent actionEvent) {
             }
     }
     public void viewReportAction(ActionEvent actionEvent) {
-
+        Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
+        try {
+            new PrintAppointmentReport().showReport(DAO.getConn(), office.getId(), a.getPatient().getId(), a.getDoctor().getId(), a.getId());
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }
 
 }

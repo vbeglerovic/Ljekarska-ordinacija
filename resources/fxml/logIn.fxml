@@ -8,54 +8,64 @@
 
 <AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="373.0" layoutY="145.0" prefHeight="150.0" prefWidth="213.0" style="-fx-background-color: #00BFFF;">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="21.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+       <ImageView fitHeight="407.0" fitWidth="614.0" layoutX="-6.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@../images/image1.jpg" />
+           </image>
+       </ImageView>
+      <Pane layoutX="311.0" layoutY="-3.0" prefHeight="407.0" prefWidth="296.0" style="-fx-background-color: #BBFFFF;">
          <children>
-            <Label prefHeight="22.0" prefWidth="95.0" text="%username" GridPane.rowIndex="1" />
-            <Label prefHeight="22.0" prefWidth="79.0" text="%password" GridPane.rowIndex="2" />
-            <Button onAction="#signInAction" text="%logIn" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="fldUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <PasswordField fx:id="fldPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <GridPane layoutX="26.0" layoutY="122.0" prefHeight="156.0" prefWidth="240.0" style="-fx-background-color: #00BFFF;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="21.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="22.0" prefWidth="95.0" text="%username" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="22.0" prefWidth="79.0" text="%password" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button onAction="#signInAction" text="%log.in" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="fldUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <PasswordField fx:id="fldPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </GridPane>
+            <MenuBar layoutX="178.0" layoutY="31.0" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: transparent;">
+              <menus>
+                <Menu mnemonicParsing="false" text="%language">
+                  <items>
+                    <MenuItem mnemonicParsing="true" onAction="#bosnianAction" text="%bosnian"/>
+                      <MenuItem mnemonicParsing="true" onAction="#englishAction" text="%english"/>
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Button layoutX="130.0" layoutY="322.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="40.0" prefWidth="79.0" style="-fx-background-color: #00BFFF;" text="%register">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </GridPane>
-      <Label layoutX="102.0" layoutY="56.0" prefHeight="61.0" prefWidth="497.0" text="%medicalOfficeApplication">
-         <font>
-            <Font name="Sylfaen" size="36.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="259.0" fitWidth="358.0" layoutX="14.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="45.265625" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="228.0" AnchorPane.topAnchor="117.0">
-         <image>
-            <Image url="@../images/image1.jpg" />
-         </image>
-      </ImageView>
-      <Button layoutX="450.0" layoutY="315.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="40.0" prefWidth="79.0" style="-fx-background-color: #00BFFF;" text="%register" />
-      <Label layoutX="213.0" layoutY="14.0" prefHeight="53.0" prefWidth="221.0" text="%wellcome">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <MenuBar layoutY="9.0" prefHeight="15.0" prefWidth="180.0" style="-fx-background-color: transparent;">
-        <menus>
-          <Menu mnemonicParsing="false" text="Language">
-            <items>
-              <MenuItem mnemonicParsing="true" onAction="#bosnianAction" text="Bosnian" />
-                <MenuItem mnemonicParsing="true" onAction="#englishAction" text="English" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      </Pane>
    </children>
 </AnchorPane>

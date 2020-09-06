@@ -17,7 +17,7 @@
                   <Button fx:id="patientBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="45.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients" />
                   <Button mnemonicParsing="false" onAction="#doctorsAction" prefHeight="49.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%doctors" />
                   <Button mnemonicParsing="false" onAction="#reviewAction" prefHeight="45.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%appointments" />
-                  <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="49.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%addAppointment" />
+                  <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="49.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%add.appointment" />
                </children>
             </VBox>
          </children>
@@ -28,5 +28,6 @@
             <Image url="@../images/image2.jpg" />
          </image>
       </ImageView>
+      <Label fx:id="labelDate" layoutX="410.0" layoutY="327.0" prefHeight="49.0" prefWidth="174.0" />
    </children>
 </AnchorPane>

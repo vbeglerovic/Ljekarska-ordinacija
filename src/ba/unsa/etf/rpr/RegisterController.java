@@ -101,7 +101,7 @@ public class RegisterController {
             alert.showAndWait();
             return;
         }
-        closeAction(null);  
+        closeAction(null);
     }
 
 

@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="711.0" prefWidth="633.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="197.0" layoutY="30.0" prefHeight="53.0" prefWidth="240.0" text="%medicalReport">
+      <Label layoutX="181.0" layoutY="30.0" prefHeight="53.0" prefWidth="305.0" text="%medical.report">
          <font>
             <Font size="36.0" />
          </font>
@@ -35,8 +35,8 @@
             <RowConstraints maxHeight="18.0" minHeight="9.0" prefHeight="9.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="%nameSurname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="17.0" prefWidth="84.0" text="%birthDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="%name.surname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label prefHeight="17.0" prefWidth="84.0" text="%birth.date" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="%gender" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="%address" GridPane.columnIndex="4" GridPane.rowIndex="1" />
             <Label prefHeight="17.0" prefWidth="31.0" text="%jmb" GridPane.columnIndex="4" GridPane.rowIndex="2" />
@@ -45,7 +45,7 @@
             <TextField fx:id="genderFld" prefHeight="11.0" prefWidth="134.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <TextField fx:id="addressFld" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <TextField fx:id="jmbFld" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Label prefHeight="27.0" prefWidth="200.0" text="%patientData" GridPane.columnIndex="1" GridPane.columnSpan="3">
+            <Label prefHeight="27.0" prefWidth="200.0" text="%patient.data" GridPane.columnIndex="1" GridPane.columnSpan="3">
                <font>
                   <Font size="18.0" />
                </font>
@@ -77,7 +77,7 @@
             <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="doctorFld" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="dateTimeFld" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <Label text="%dateTime" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Label text="%date.time" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <GridPane layoutX="26.0" layoutY="333.0" prefHeight="303.0" prefWidth="581.0" style="-fx-border-color: black;">

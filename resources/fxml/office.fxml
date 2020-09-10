@@ -4,30 +4,46 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@/css/css.css" />
    </stylesheets>
    <children>
-      <Pane prefHeight="400.0" prefWidth="187.0" style="-fx-background-color: #00BFFF;">
+      <Pane prefHeight="600.0" prefWidth="225.0" style="-fx-background-color: #00BFFF;">
          <children>
-            <VBox layoutY="89.0" prefHeight="245.0" prefWidth="187.0">
+            <VBox layoutY="129.0" prefHeight="318.0" prefWidth="225.0">
                <children>
-                  <Button fx:id="patientBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="45.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients" />
-                  <Button mnemonicParsing="false" onAction="#doctorsAction" prefHeight="49.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%doctors" />
-                  <Button mnemonicParsing="false" onAction="#reviewAction" prefHeight="45.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%appointments" />
-                  <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="49.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%add.appointment" />
+                  <Button fx:id="patientBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#doctorsAction" prefHeight="81.0" prefWidth="223.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%doctors">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#reviewAction" prefHeight="79.0" prefWidth="224.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%appointments">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="77.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%add.appointment">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                </children>
             </VBox>
          </children>
       </Pane>
-    <Button fx:id="btnSignOut" layoutX="531.0" layoutY="20.0" onAction="#signOutAction" prefHeight="40.0" prefWidth="40.0" />
-      <ImageView fitHeight="219.0" fitWidth="418.0" layoutX="187.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+    <Button fx:id="btnSignOut" layoutX="717.0" layoutY="43.0" onAction="#signOutAction" prefHeight="40.0" prefWidth="40.0" />
+      <ImageView fitHeight="327.0" fitWidth="578.0" layoutX="225.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/image2.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="labelDate" layoutX="410.0" layoutY="327.0" prefHeight="49.0" prefWidth="174.0" />
+      <Label fx:id="labelDate" layoutX="512.0" layoutY="504.0" prefHeight="49.0" prefWidth="225.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
    </children>
 </AnchorPane>

@@ -4,11 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.text.ParseException;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class DoctorController {
     public TextField nameFld;
@@ -24,6 +30,7 @@ public class DoctorController {
     public TextField addressFld;
     public TextField specialtyFld;
     public TextField emailFld;
+    public Button addButton;
 
     private DAO dao;
     private Office office;
@@ -67,19 +74,17 @@ public class DoctorController {
             try {
                 Integer.parseInt(newValue);
                 yearFld1.getStyleClass().removeAll("notOk");
-                yearFld1.getStyleClass().add("ok");
+                addButton.setDisable(false);
             } catch (NumberFormatException e) {
-                yearFld1.getStyleClass().removeAll("ok");
                 yearFld1.getStyleClass().add("notOk");
+                addButton.setDisable(true);
             }
         });
         yearFld2.textProperty().addListener((obs, oldValue, newValue)-> {
             try {
                 Integer.parseInt(newValue);
                 yearFld2.getStyleClass().removeAll("notOk");
-                yearFld2.getStyleClass().add("ok");
             } catch (NumberFormatException e) {
-                yearFld2.getStyleClass().removeAll("ok");
                 yearFld2.getStyleClass().add("notOk");
             }
         });
@@ -92,7 +97,7 @@ public class DoctorController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Morate popuniti sve podatke!");
+            alert.setContentText("You have to enter all information except email!");
             alert.showAndWait();
         } else {
             doctor.setFirstName(nameFld.getText());
@@ -104,13 +109,12 @@ public class DoctorController {
             doctor.setBirthDate(LocalDate.of(Integer.parseInt(yearFld1.getText()), months.indexOf(monthChoiceBox1.getValue()) + 1, Integer.parseInt(daySpinner1.getValue().toString())));
             doctor.setEmploymentDate(LocalDate.of(Integer.parseInt(yearFld2.getText()), months.indexOf(monthChoiceBox2.getValue()) + 1, Integer.parseInt(daySpinner2.getValue().toString())));
             doctor.setSpecialization(specialtyFld.getText());
-            Stage stage = (Stage) nameFld.getScene().getWindow();
-            stage.close();
+            closeAction(null);
         }
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) monthChoiceBox1.getScene().getWindow();
+        Stage stage=(Stage) addButton.getScene().getWindow();
         stage.close();
     }
 

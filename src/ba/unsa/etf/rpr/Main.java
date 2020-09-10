@@ -16,9 +16,9 @@ public class Main extends Application {
         Controller ctrl = new Controller();
         loader.setController(ctrl);
         Parent root = loader.load();
-        primaryStage.setTitle("Pocetna");
+        primaryStage.setTitle("Log In");
         //primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 

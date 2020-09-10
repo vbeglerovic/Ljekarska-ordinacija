@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
 
 public class RegisterController {
     public TextField fldName;
@@ -22,7 +24,7 @@ public class RegisterController {
     public TextField fldUsername;
     public PasswordField fldPassword;
     public PasswordField repeatPasswordFld;
-    public Button registerBtn;
+    public Button closeButton;
 
     private DAO dao;
 
@@ -64,7 +66,7 @@ public class RegisterController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) fldName.getScene().getWindow();
+        Stage stage=(Stage) closeButton.getScene().getWindow();
         Parent root=null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -74,7 +76,7 @@ public class RegisterController {
             root = loader.load();
             stage.setTitle("Pocetna");
             stage.setResizable(false);
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

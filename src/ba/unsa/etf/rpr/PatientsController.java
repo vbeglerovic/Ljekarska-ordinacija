@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
 public class PatientsController {
 
     private DAO dao;
@@ -38,6 +40,7 @@ public class PatientsController {
 
     public TextField searchFld;
     public TableView<Patient> tableViewPatients;
+    public Button closeButton;
 
     public PatientsController(Office office) {
         dao=DAO.getInstance();
@@ -83,7 +86,7 @@ public class PatientsController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) searchFld.getScene().getWindow();
+        Stage stage = (Stage) closeButton.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
@@ -95,7 +98,7 @@ public class PatientsController {
             e.printStackTrace();
         }
         stage.setTitle("Office");
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         //stage.setResizable(false);
         stage.show();
     }
@@ -110,7 +113,7 @@ public class PatientsController {
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             //stage.setResizable(true);
             stage.show();
 
@@ -138,7 +141,7 @@ public class PatientsController {
                 loader.setController(patientController);
                 root = loader.load();
                 stage.setTitle("Patient");
-                stage.setScene(new Scene(root, 600, 400));
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
                 //stage.setResizable(true);
                 stage.show();
 
@@ -158,12 +161,11 @@ public class PatientsController {
             Patient patient = tableViewPatients.getSelectionModel().getSelectedItem();
             if (patient == null) return;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Potvrda brisanja");
-            alert.setHeaderText("Brisanje pacijenta " + patient.getFirstName() + " " + patient.getLastName());
-            alert.setContentText("Da li ste sigurni da želite obrisati pacijenta " + patient.getFirstName() + " " + patient.getLastName()+"?");
+            alert.setTitle("Confirmation");
+            alert.setContentText("Are you sure you want to delete patient " + patient.getFirstName() + " " + patient.getLastName()+"?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                dao.deletePatient(patient.getJMBG());
+                dao.deletePatient(patient.getId());
                 patientsList.setAll(dao.patients(office.getId()));
             }
         }

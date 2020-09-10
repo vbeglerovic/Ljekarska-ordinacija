@@ -11,11 +11,10 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 
 public class PatientController {
@@ -36,6 +35,7 @@ public class PatientController {
     public TextField addressFld;
     public ChoiceBox statusChoiceBox;
     public TextField emailFld;
+    public Button addButton;
 
     private Office office;
 
@@ -71,24 +71,21 @@ public class PatientController {
             statusChoiceBox.getSelectionModel().selectFirst();
             monthChoiceBox.getSelectionModel().selectFirst();
         }
+        yearFld.textProperty().addListener((obs,oldValue, newValue)->{
+            try {
+                Integer.parseInt(newValue);
+                yearFld.getStyleClass().removeAll("notOk");
+                addButton.setDisable(false);
+            } catch (NumberFormatException e) {
+                yearFld.getStyleClass().add("notOk");
+                addButton.setDisable(true);
+            }
+        });
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) nameFld.getScene().getWindow();
-        Parent root = null;
-        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"),bundle);
-        PatientsController patientsController = new PatientsController(office);
-        loader.setController(patientsController);
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage.setTitle("Patients");
-        stage.setScene(new Scene(root, 600, 400));
-        stage.setResizable(false);
-        stage.show();
+        Stage stage = (Stage) addButton.getScene().getWindow();
+        stage.close();
     }
 
     public void addPatient (ActionEvent actionEvent) {
@@ -103,7 +100,7 @@ public class PatientController {
         else if (zensko.isSelected()) patient.setGender(Gender.FEMALE);
         patient.setStatus((Status) statusChoiceBox.getValue());
         patient.setBirthDate(LocalDate.of(Integer.parseInt(yearFld.getText()),months.indexOf(monthChoiceBox.getValue())+1, Integer.parseInt(daySpinner.getValue().toString())));
-        Stage stage=(Stage) nameFld.getScene().getWindow();
+        Stage stage=(Stage) addButton.getScene().getWindow();
         stage.close();
     }
 

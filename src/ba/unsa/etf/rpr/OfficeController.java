@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -13,17 +12,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
 public class OfficeController {
     private DAO dao;
     private Office office;
-   // private ObservableList<Appointment> appointmentList;
-    public Button btnSignOut,patientBtn;
+
+    public Button btnSignOut;
     public Label labelDate;
 
     public OfficeController(Office office) {
         dao=DAO.getInstance();
         this.office=office;
-       //appointmentList= FXCollections.observableArrayList(dao.appointments(office.getId()));
     }
 
     @FXML
@@ -45,7 +45,7 @@ public class OfficeController {
             loader.setController(appointmentController);
             root = loader.load();
             stage.setTitle("Appointment");
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             //stage.setResizable(true);
             stage.show();
 
@@ -72,8 +72,8 @@ public class OfficeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.setTitle("Pregledi");
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setTitle("Appointments");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         //stage.setResizable(false);
         stage.show();
     }
@@ -91,7 +91,7 @@ public class OfficeController {
             e.printStackTrace();
         }
         stage.setTitle("Patients");
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
     }
@@ -109,7 +109,7 @@ public class OfficeController {
             e.printStackTrace();
         }
         stage.setTitle("Doctors");
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
     }
@@ -123,14 +123,13 @@ public class OfficeController {
             Controller ctrl = new Controller();
             loader.setController(ctrl);
             root = loader.load();
-            stage.setTitle("Pocetna");
+            stage.setTitle("Log in");
             stage.setResizable(false);
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 }

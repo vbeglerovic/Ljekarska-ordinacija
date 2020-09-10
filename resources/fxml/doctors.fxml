@@ -2,35 +2,62 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="600.0" minWidth="800.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TableView fx:id="tableViewDoctors" layoutX="31.0" layoutY="118.0" prefHeight="204.0" prefWidth="541.0" style="-fx-background-color: #00BFFF;">
+        <TableView fx:id="tableViewDoctors" layoutX="18.0" layoutY="148.0" prefHeight="365.0" prefWidth="765.0" style="-fx-background-color: #00BFFF;">
             <columns>
-                <TableColumn fx:id="colDoctorName" prefWidth="66.0" text="%first.name" />
-                <TableColumn fx:id="colDoctorLastName" prefWidth="84.0" text="%last.name" />
-                <TableColumn fx:id="colDoctorJMBG" prefWidth="75.0" text="%jmb" />
-                <TableColumn fx:id="colDoctorDOB" prefWidth="96.0" text="%birth.date" />
-                <TableColumn fx:id="colDoctorPOB" prefWidth="108.0" text="%birth.place" />
-                <TableColumn fx:id="colDoctorAddress" prefWidth="49.0" text="%address" />
-                <TableColumn fx:id="colDoctorDOE" prefWidth="108.0" text="%employment.date" />
+                <TableColumn fx:id="colDoctorName" prefWidth="74.0" text="%first.name" />
+                <TableColumn fx:id="colDoctorLastName" prefWidth="76.0" text="%last.name" />
+                <TableColumn fx:id="colDoctorJMBG" prefWidth="84.0" text="%jmb" />
+                <TableColumn fx:id="colDoctorDOB" text="%birth.date" />
+                <TableColumn fx:id="colDoctorPOB" prefWidth="83.0" text="%birth.place" />
+                <TableColumn fx:id="colDoctorAddress" prefWidth="103.0" text="%address" />
+                <TableColumn fx:id="colDoctorDOE" prefWidth="86.0" text="%employment.date" />
                 <TableColumn fx:id="colDoctorEmail" prefWidth="98.0" text="%email" />
-                <TableColumn fx:id="colDoctorSpecialty" prefWidth="75.0" text="%specialty" />
+                <TableColumn fx:id="colDoctorSpecialty" text="%specialty" />
 
 
 
             </columns>
         </TableView>
-        <ToolBar layoutX="279.0" layoutY="340.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #00BFFF;">
+        <ToolBar layoutX="355.0" layoutY="533.0" prefHeight="53.0" prefWidth="428.0" style="-fx-background-color: #00BFFF;">
             <items>
-            <Button mnemonicParsing="false" onAction="#printReportAction" text="%report" />
-                <Button onAction="#editDoctorAction" text="%edit" />
-                <Button onAction="#deleteDoctorAction" text="%delete" />
-                <Button onAction="#addDoctorAction" text="%add" />
-            <Button onAction="#closeAction" text="%cancel" />
+            <Button mnemonicParsing="false" onAction="#printReportAction" prefHeight="33.0" prefWidth="83.0" text="%report">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+                <Button onAction="#editDoctorAction" prefHeight="34.0" prefWidth="73.0" text="%edit">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+                <Button onAction="#deleteDoctorAction" prefHeight="37.0" prefWidth="86.0" text="%delete">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+                <Button onAction="#addDoctorAction" prefHeight="34.0" prefWidth="71.0" text="%add">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="closeButton" onAction="#closeAction" prefHeight="32.0" prefWidth="85.0" text="%cancel">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
             </items>
         </ToolBar>
-        <TextField fx:id="searchFld" layoutX="105.0" layoutY="66.0" prefHeight="25.0" prefWidth="218.0" promptText="%name.surname" />
-      <Label layoutX="48.0" layoutY="66.0" prefHeight="25.0" prefWidth="45.0" text="%search" />
+        <TextField fx:id="searchFld" layoutX="153.0" layoutY="95.0" prefHeight="33.0" prefWidth="277.0" promptText="%name.surname">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <Label layoutX="49.0" layoutY="95.0" prefHeight="33.0" prefWidth="86.0" text="%search">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="310.0" layoutY="14.0" prefHeight="63.0" prefWidth="155.0" text="%doctors">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

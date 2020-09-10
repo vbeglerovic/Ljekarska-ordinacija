@@ -3,8 +3,6 @@ package ba.unsa.etf.rpr;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,18 +11,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.swing.JRViewer;
+import net.sf.jasperreports.engine.JRException;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.function.Function;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class AppointmentsController {
     private DAO dao;
@@ -38,15 +38,12 @@ public class AppointmentsController {
     public TableColumn<Appointment,Patient> colAppointmentPatient;
     public TableColumn<Appointment,Doctor> colAppointmentDoctor;
     public TableColumn<Appointment,String> colAppointmentType;
-    //public TableColumn<Appointment,String> colAppointmentReport;
-
     public TextField d1Fld;
     public TextField d2Fld;
     public TextField patientFld;
     public TextField doctorFld;
-
-    public TextField searchFld;
     public TableView<Appointment> tableViewAppointments;
+    public Button closeButton;
 
     public AppointmentsController(Office office) {
         dao=DAO.getInstance();
@@ -64,11 +61,10 @@ public class AppointmentsController {
         colAppointmentPatient.setCellValueFactory(new PropertyValueFactory("patient"));
         colAppointmentDoctor.setCellValueFactory(new PropertyValueFactory("doctor"));
         colAppointmentType.setCellValueFactory(new PropertyValueFactory("type"));
-        //colAppointmentReport.setCellValueFactory(new PropertyValueFactory("report"));
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) patientFld.getScene().getWindow();
+        Stage stage = (Stage) closeButton.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
@@ -80,7 +76,7 @@ public class AppointmentsController {
             e.printStackTrace();
         }
         stage.setTitle("Office");
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
     }
@@ -88,8 +84,8 @@ public class AppointmentsController {
         Appointment appointment = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (appointment == null) return;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Potvrda otkazivanja");
-        alert.setContentText("Da li ste sigurni da želite otkazati pregled? ");
+        alert.setTitle("Confirmation");
+        alert.setContentText("Are you sure you want to cancel appointment?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             dao.deleteAppointment(appointment.getId());
@@ -167,7 +163,7 @@ public void search (ActionEvent actionEvent) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Neispravan format datuma! \n Ispravan format: yyyy-HH-mm");
+            alert.setContentText("Invalid date format ! \n Correct: yyyy-HH-mm");
             alert.showAndWait();
         }
     tableViewAppointments.setItems(FXCollections.observableList(appointments));
@@ -183,7 +179,7 @@ public void search (ActionEvent actionEvent) {
             alert.showAndWait();
             return;
         }
-            Stage stage = new Stage();
+            Stage stage = (Stage) closeButton.getScene().getWindow();
             Parent root = null;
             try {
                 ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -192,7 +188,7 @@ public void search (ActionEvent actionEvent) {
                 loader.setController(reportController);
                 root = loader.load();
                 stage.setTitle("Report");
-                stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
                 stage.setResizable(true);
                 stage.show();
 
@@ -209,51 +205,9 @@ public void search (ActionEvent actionEvent) {
     public void viewReportAction(ActionEvent actionEvent) {
         Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
         try {
-            new PrintReport().showReport(DAO.getConn(), a.getId(),a.getDoctor().toString(), a.getPatient().getId());
+            new PrintAppointmentReport().showReport(DAO.getConn(), a.getId(),a.getDoctor().toString(), a.getPatient().getId());
         } catch (JRException e) {
             e.printStackTrace();
-        }
-    }
-    public class PrintReport extends JFrame {
-        public void showReport(Connection conn, Integer appointmentId, String doctor, Integer patientId) throws JRException {
-           /* String reportSrcFile = getClass().getResource("/reports/medicalReport.jrxml").getFile();
-            String patientReport = getClass().getResource("/reports/patientData.jrxml").getFile();
-            String reportsDir = getClass().getResource("/reports/").getFile();
-            JasperReport jasperReport = JasperCompileManager.compileReport(reportSrcFile);
-            JasperCompileManager.compileReport(patientReport);
-            HashMap<String, Object> parameters = new HashMap<String, Object>();
-            parameters.put("reportsDirPath", reportsDir);
-            parameters.put("appointment", appointmentId);
-            parameters.put("doctor", doctor);
-            parameters.put("patient", patientId);
-
-            ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-            list.add(parameters);
-            JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, conn);
-            JRViewer viewer = new JRViewer(print);
-            viewer.setOpaque(true);
-            viewer.setVisible(true);
-            this.add(viewer);
-            this.setSize(700, 500);
-            this.setVisible(true);*/
-           String masterReportSource = getClass().getResource("/reports/medicalReport.jrxml").getFile();
-            String subReportSource = getClass().getResource("/reports/patientData.jrxml").getFile();
-            JasperReport jasperMasterReport = JasperCompileManager.compileReport(masterReportSource);
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportSource);
-
-            Map<String, Object> parameters = new HashMap();
-            parameters.put("subreportParameter", jasperSubReport);
-            parameters.put("appointment", appointmentId);
-            parameters.put("doctor", doctor);
-            parameters.put("patient", patientId);
-
-            JasperFillManager.fillReport(jasperMasterReport,  parameters, conn);
-            JRViewer viewer = new JRViewer(JasperFillManager.fillReport(jasperMasterReport,  parameters, conn));
-            viewer.setOpaque(true);
-            viewer.setVisible(true);
-            this.add(viewer);
-            this.setSize(700, 500);
-            this.setVisible(true);
         }
     }
 

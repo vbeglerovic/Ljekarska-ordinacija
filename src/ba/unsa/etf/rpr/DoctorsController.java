@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,12 +15,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 
 public class DoctorsController {
@@ -39,6 +37,7 @@ public class DoctorsController {
     public TableColumn<Doctor,String> colDoctorEmail;
     public TableColumn<Doctor, String> colDoctorDOE;
     public TableColumn<Doctor,String> colDoctorSpecialty;
+    public Button closeButton;
 
     public TextField searchFld;
     public TableView<Doctor> tableViewDoctors;
@@ -88,7 +87,7 @@ public class DoctorsController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) searchFld.getScene().getWindow();
+        Stage stage = (Stage) closeButton.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
@@ -100,7 +99,7 @@ public class DoctorsController {
             e.printStackTrace();
         }
         stage.setTitle("Office");
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         //stage.setResizable(false);
         stage.show();
         //stage.close();
@@ -108,7 +107,6 @@ public class DoctorsController {
 
     public void addDoctorAction (ActionEvent actionEvent) {
         Stage stage=new Stage();
-        //Stage stage = (Stage) searchFld.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -117,7 +115,7 @@ public class DoctorsController {
             loader.setController(doctorController);
             root = loader.load();
             stage.setTitle("Doctor");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             //stage.setResizable(true);
             stage.show();
 
@@ -146,7 +144,7 @@ public class DoctorsController {
             loader.setController(doctorController);
             root = loader.load();
             stage.setTitle("Doktor");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(true);
             stage.show();
 
@@ -166,9 +164,8 @@ public class DoctorsController {
         Doctor doctor = tableViewDoctors.getSelectionModel().getSelectedItem();
         if (doctor == null) return;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Potvrda brisanja");
-        alert.setHeaderText("Brisanje doktora " + doctor.getFirstName() + " " + doctor.getLastName());
-        alert.setContentText("Da li ste sigurni da želite obrisati doktora " + doctor.getFirstName() + " " + doctor.getLastName()+"?");
+        alert.setTitle("Confirmation");
+        alert.setContentText("Are you sure you want to delete doctor " + doctor.getFirstName() + " " + doctor.getLastName()+"?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             dao.deleteDoctor(doctor.getId());

@@ -1,7 +1,6 @@
 package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 
 public class Controller {
@@ -40,7 +39,7 @@ public class Controller {
             e.printStackTrace();
         }
         stage.setTitle("Register");
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
 
@@ -52,14 +51,14 @@ public class Controller {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Pogresan username!");
+            alert.setContentText("Invalid username!");
             alert.showAndWait();
         }
-        else if (!dao.checkIfOfficeExist(office, fldPassword.getText())) {
+        else if (!office.getPassword().equals(fldPassword.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Pogresan password!");
+            alert.setContentText("Invalid password!");
             alert.showAndWait();
         } else {
             Stage stage = (Stage) fldUsername.getScene().getWindow();
@@ -74,7 +73,7 @@ public class Controller {
                 e.printStackTrace();
             }
             stage.setTitle("Office");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(true);
             stage.show();
         }
@@ -101,7 +100,7 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.setTitle("Welcome");
+        stage.setTitle("Log In");
         stage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
         stage.show();
     }

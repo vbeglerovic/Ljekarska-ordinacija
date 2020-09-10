@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/css.css" />
+    </stylesheets>
     <children>
-        <Pane prefHeight="400.0" prefWidth="310.0" style="-fx-background-color: #00BFFF;" />
-      <Button layoutX="488.0" layoutY="352.0" mnemonicParsing="false" onAction="#closeAction" prefHeight="39.0" prefWidth="108.0" style="-fx-background-color: transparent;" text="%cancel" textFill="DEEPSKYBLUE" underline="true">
+        <Pane prefHeight="600.0" prefWidth="426.0" style="-fx-background-color: #00BFFF;">
+         <children>
+            <Label layoutX="348.0" layoutY="35.0" text="%patient">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Button fx:id="closeButton" layoutX="670.0" layoutY="537.0" mnemonicParsing="false" onAction="#closeAction" prefHeight="39.0" prefWidth="108.0" style="-fx-background-color: transparent;" text="%cancel" textFill="DEEPSKYBLUE" underline="true">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-        <GridPane layoutX="65.0" layoutY="55.0" prefHeight="298.0" prefWidth="477.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
+        <GridPane layoutX="93.0" layoutY="111.0" prefHeight="414.0" prefWidth="615.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
             <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="14.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="128.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="32.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="209.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="0.0" prefWidth="66.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="2.0" prefWidth="2.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="198.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="246.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="0.0" prefWidth="117.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="23.0" />
   </columnConstraints>
   <rowConstraints>
-            <RowConstraints maxHeight="19.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="19.0" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
@@ -31,99 +42,97 @@
       <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <children>
-      <Label prefHeight="24.0" prefWidth="100.0" text="%first.name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label prefHeight="27.0" prefWidth="121.0" text="%first.name" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <Label text="%last.name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Label prefHeight="27.0" prefWidth="127.0" text="%last.name" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <Label text="%jmb" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Label prefHeight="27.0" prefWidth="76.0" text="%jmb" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <Label text="%gender" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Label prefHeight="27.0" prefWidth="86.0" text="%gender" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <TextField fx:id="nameFld" prefHeight="28.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <TextField fx:id="lastNameFld" prefHeight="20.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <TextField fx:id="JMBGFld" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-       <Label text="%birth.date" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <TextField fx:id="nameFld" prefHeight="28.0" prefWidth="204.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="lastNameFld" prefHeight="20.0" prefWidth="204.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField fx:id="JMBGFld" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+       <Label prefHeight="27.0" prefWidth="129.0" text="%birth.date" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <Label text="%birth.place" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <Label prefHeight="27.0" prefWidth="148.0" text="%birth.place" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <TextField fx:id="POBFld" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <TextField fx:id="POBFld" GridPane.columnIndex="2" GridPane.rowIndex="6" />
        <fx:define>
            <ToggleGroup fx:id="$group1" />
        </fx:define>
        
 
-             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
+             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <children>
                   <Spinner fx:id="daySpinner" />
                   <ChoiceBox fx:id="monthChoiceBox" prefWidth="150.0" />
                   <TextField fx:id="yearFld" />
                </children>
             </HBox>
-      <Label text="%address" GridPane.columnIndex="1" GridPane.rowIndex="7">
+      <Label prefHeight="27.0" prefWidth="125.0" text="%address" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <TextField fx:id="addressFld" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <TextField fx:id="addressFld" GridPane.columnIndex="2" GridPane.rowIndex="7" />
       <Label text="%email" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <TextField fx:id="emailFld" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+      <TextField fx:id="emailFld" GridPane.columnIndex="2" GridPane.rowIndex="9" />
       <Label GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <Label text="%status" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-      <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
+      <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                 <children>
-                    <RadioButton fx:id="musko" text="%male" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <RadioButton fx:id="musko" prefHeight="36.0" prefWidth="108.0" text="%male" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <toggleGroup>
                         <ToggleGroup fx:id="group1" />
                      </toggleGroup>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </RadioButton>
-                    <RadioButton fx:id="zensko" text="%female" toggleGroup="$group1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <RadioButton fx:id="zensko" prefHeight="33.0" prefWidth="106.0" text="%female" toggleGroup="$group1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
        </children>
             </HBox>
-          <Button mnemonicParsing="false" onAction="#addPatient" prefHeight="16.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="10">
+          <Button fx:id="addButton" mnemonicParsing="false" onAction="#addPatient" prefHeight="16.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="10">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
    </children>
 </GridPane>
-      <Label layoutX="239.0" text="%patient">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>

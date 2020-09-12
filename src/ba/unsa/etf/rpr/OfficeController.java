@@ -92,7 +92,7 @@ public class OfficeController {
         }
         stage.setTitle("Patients");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 

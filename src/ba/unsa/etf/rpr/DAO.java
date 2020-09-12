@@ -20,7 +20,7 @@ public class DAO {
     private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement, getPatientsStatement;
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement,getAppointmentsByDate,addReportStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
-    private PreparedStatement deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment;
+    private PreparedStatement deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment,markPatientAsInactiveStatement,markDoctorAsInactiveStatement ;
     private DAO () {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -32,22 +32,24 @@ public class DAO {
                 getOfficesStatement=conn.prepareStatement("SELECT * FROM offices");
                 getOfficeWithUsernameStatement=conn.prepareStatement("SELECT * FROM offices WHERE username=?");
                 getPatientsStatement=conn.prepareStatement("SELECT * FROM patients WHERE office_id=?");
-                addPatientStatement=conn.prepareStatement("INSERT INTO patients VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-                updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=? WHERE id=?");
+                addPatientStatement=conn.prepareStatement("INSERT INTO patients VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=?, active=? WHERE id=?");
                 deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE id=?");
                 addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?,?,?)");
                 getAppointmentsStatement=conn.prepareStatement("SELECT * FROM appointments WHERE office_id=?");
                 getPatientStatement=conn.prepareStatement("SELECT * FROM patients WHERE id=?");
                 getDoctorStatement=conn.prepareStatement("SELECT * FROM doctors WHERE id=?");
                 getDoctorsStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=?");
-                addDoctorStatement=conn.prepareStatement("INSERT INTO doctors VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                addDoctorStatement=conn.prepareStatement("INSERT INTO doctors VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
                 deleteDoctorStatement=conn.prepareStatement("DELETE FROM doctors WHERE JMBG=?");
-                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=? WHERE id=?");
+                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=?, active=? WHERE id=?");
                 deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
                 updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
                 getAppointmentsByDate=conn.prepareStatement("SELECT * FROM appointments WHERE doctor_id=? AND date=? AND office_id=?");
                 addReportStatement=conn.prepareStatement("UPDATE appointments SET anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
+                markPatientAsInactiveStatement=conn.prepareStatement("UPDATE patients SET active=0 WHERE id=?");
+                markDoctorAsInactiveStatement=conn.prepareStatement("UPDATE doctors SET active=0 WHERE id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -135,7 +137,10 @@ public class DAO {
             addPatientStatement.setString(8,patient.getAddress());
             addPatientStatement.setString(9,patient.getStatus().toString());
             addPatientStatement.setString(10,patient.getEmail());
-            addPatientStatement.setInt(11, officeId);
+            int active=0;
+            if (patient.isActive()) active=1;
+            addPatientStatement.setInt(11, active);
+            addPatientStatement.setInt(12, officeId);
             addPatientStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -149,7 +154,9 @@ public class DAO {
             ResultSet rs=getPatientsStatement.executeQuery();
             while (rs.next()) {
                 Patient patient=getPatientFromResultSet(rs);
-                p.add(patient);
+                if(patient.isActive()) {
+                    p.add(patient);
+                }
             }
         } catch (SQLException e) {
         }
@@ -173,14 +180,20 @@ public class DAO {
             e.printStackTrace();
         }
         try {
-            if (rs.getString(5).equals("ZENSKO"))
+            if (rs.getString(5).equals("FEMALE"))
                 gender=Gender.FEMALE;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        boolean active=false;
+        try {
+            if(rs.getInt(11)==1) active=true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            patient = new Patient(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),gender, LocalDate.parse(rs.getString(6),df),rs.getString(7), rs.getString(8),status, rs.getString(10));
+            patient = new Patient(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),gender, LocalDate.parse(rs.getString(6),df),rs.getString(7), rs.getString(8),status, rs.getString(10),active);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -198,21 +211,27 @@ public class DAO {
             updatePatientStatment.setString(7, patient.getAddress());
             updatePatientStatment.setString(8, patient.getStatus().toString());
             updatePatientStatment.setString(9, patient.getEmail());
-            updatePatientStatment.setInt(10, patient.getId());
+            int active=0;
+            if (patient.isActive()) active=1;
+            updatePatientStatment.setInt(10,active);
+            updatePatientStatment.setInt(11, patient.getId());
             updatePatientStatment.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void deletePatient(Integer id) {
+    public void deletePatient(int id) {
         try {
             getPatientStatement.setInt(1,id);
             ResultSet rs=getPatientStatement.executeQuery();
-            if (rs.next()==false) return;
-            Patient patient=getPatientFromResultSet(rs);
-            deletePatientStatement.setInt(1,patient.getId());
-            deletePatientStatement.executeUpdate();
+            if (!rs.next()) return;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            markPatientAsInactiveStatement.setInt(1,id);
+            markPatientAsInactiveStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -272,8 +291,14 @@ public class DAO {
     private Doctor getDoctorFromResultSet(ResultSet rs) {
         Doctor doctor= null;
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        boolean active=false;
         try {
-        doctor = new Doctor(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),LocalDate.parse(rs.getString(5),df),rs.getString(6), rs.getString(7), rs.getString(8),LocalDate.parse(rs.getString(9),df), rs.getString(10));
+            if (rs.getInt(11)==1) active=true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+        doctor = new Doctor(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4),LocalDate.parse(rs.getString(5),df),rs.getString(6), rs.getString(7), rs.getString(8),LocalDate.parse(rs.getString(9),df), rs.getString(10),active);
     } catch (SQLException e) {
         e.printStackTrace();
     }
@@ -305,6 +330,7 @@ public class DAO {
             ResultSet rs=getDoctorsStatement.executeQuery();
             while (rs.next()) {
                 Doctor doctor=getDoctorFromResultSet(rs);
+                if (doctor.isActive())
                 d.add(doctor);
             }
         } catch (SQLException e) {
@@ -324,7 +350,10 @@ public class DAO {
             addDoctorStatement.setString(8,doctor.getEmail());
             addDoctorStatement.setString(9,doctor.getEmploymentDate().toString());
             addDoctorStatement.setString(10,doctor.getSpecialization());
-            addDoctorStatement.setInt(11, officeId);
+            int i=0;
+            if (doctor.isActive()) i=1;
+            addDoctorStatement.setInt(11,i);
+            addDoctorStatement.setInt(12, officeId);
             addDoctorStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -342,7 +371,10 @@ public class DAO {
             updateDoctorStatment.setString(7, doctor.getEmail());
             updateDoctorStatment.setString(8, doctor.getEmploymentDate().toString());
             updateDoctorStatment.setString(9, doctor.getSpecialization());
-            updateDoctorStatment.setInt(10, doctor.getId());
+            int i=0;
+            if (doctor.isActive())i=1;
+            updateDoctorStatment.setInt(10,i);
+            updateDoctorStatment.setInt(11, doctor.getId());
             updateDoctorStatment.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -354,10 +386,13 @@ public class DAO {
         try {
             getDoctorStatement.setInt(1,id);
             ResultSet rs=getDoctorStatement.executeQuery();
-            if (rs.next()==false) return;
-            Doctor doctor=getDoctorFromResultSet(rs);
-            deleteDoctorStatement.setString(1,doctor.getJMBG());
-            deleteDoctorStatement.executeUpdate();
+            if (!rs.next()) return;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            markDoctorAsInactiveStatement.setInt(1,id);
+            markDoctorAsInactiveStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

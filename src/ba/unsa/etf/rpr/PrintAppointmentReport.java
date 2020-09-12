@@ -14,7 +14,7 @@ import java.util.Map;
 public class PrintAppointmentReport extends JFrame {
     public void showReport(Connection conn, Integer appointmentId, String doctor, Integer patientId) throws JRException {
       String masterReportSource = getClass().getResource("/reports/medicalReport.jrxml").getFile();
-      String subReportSource = getClass().getResource("/reports/patientData.jrxml").getFile();
+      String subReportSource = getClass().getResource("/reports/patientSubreport.jrxml").getFile();
       JasperReport jasperMasterReport = JasperCompileManager.compileReport(masterReportSource);
       JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportSource);
 

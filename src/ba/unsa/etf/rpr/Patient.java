@@ -15,11 +15,13 @@ public class Patient  {
     String address;
     Status status;
     String email;
+    boolean active;
 
     public Patient() {
+        active=true;
     }
 
-    public Patient(int id, String firstName, String lastName, String JMBG, Gender gender, LocalDate birthDate, String birthPlace, String address, Status status, String email) {
+    public Patient(int id, String firstName, String lastName, String JMBG, Gender gender, LocalDate birthDate, String birthPlace, String address, Status status, String email,boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +32,7 @@ public class Patient  {
         this.address = address;
         this.status = status;
         this.email = email;
+        this.active=active;
     }
 
     public Integer getId() {
@@ -123,6 +126,14 @@ public class Patient  {
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
         return id.equals(patient.id);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

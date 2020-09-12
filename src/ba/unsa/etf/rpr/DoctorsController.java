@@ -85,6 +85,13 @@ public class DoctorsController {
         sortedData.comparatorProperty().bind(tableViewDoctors.comparatorProperty());
         tableViewDoctors.setItems(sortedData);
     }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
 
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -100,9 +107,7 @@ public class DoctorsController {
         }
         stage.setTitle("Office");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        //stage.setResizable(false);
         stage.show();
-        //stage.close();
     }
 
     public void addDoctorAction (ActionEvent actionEvent) {
@@ -116,7 +121,6 @@ public class DoctorsController {
             root = loader.load();
             stage.setTitle("Doctor");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            //stage.setResizable(true);
             stage.show();
 
             stage.setOnHiding(event -> {
@@ -133,8 +137,10 @@ public class DoctorsController {
 
     public void editDoctorAction (ActionEvent actionEvent) {
         Doctor d = tableViewDoctors.getSelectionModel().getSelectedItem();
-        if (d == null) return;
-
+        if (d == null) {
+            showAlert("Select the doctor whose data you want to change!");
+            return;
+        }
         Stage stage=new Stage();
         Parent root = null;
         try {
@@ -162,7 +168,10 @@ public class DoctorsController {
 
     public void deleteDoctorAction (ActionEvent actionEvent) {
         Doctor doctor = tableViewDoctors.getSelectionModel().getSelectedItem();
-        if (doctor == null) return;
+        if (doctor == null) {
+            showAlert("Select the doctor you want to delete!");
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setContentText("Are you sure you want to delete doctor " + doctor.getFirstName() + " " + doctor.getLastName()+"?");
@@ -178,7 +187,7 @@ public class DoctorsController {
             DoctorsPrint doctorsPrint =new DoctorsPrint(office);
             Thread thread=new Thread(doctorsPrint);
             thread.start();
-            new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/doctorsReport2.jrxml").getFile(), office.getId());
+            new PrintReport().showReport(DAO.getConn(),getClass().getResource("/reports/doctorsReport.jrxml").getFile(), office.getId());
         } catch (JRException e1) {
             e1.printStackTrace();
         }

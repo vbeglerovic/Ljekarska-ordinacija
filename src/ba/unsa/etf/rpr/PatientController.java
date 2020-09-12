@@ -30,7 +30,6 @@ public class PatientController {
     public Spinner daySpinner;
     public ChoiceBox monthChoiceBox;
     public TextField yearFld;
-    public TextField DOBFld;
     public TextField POBFld;
     public TextField addressFld;
     public ChoiceBox statusChoiceBox;

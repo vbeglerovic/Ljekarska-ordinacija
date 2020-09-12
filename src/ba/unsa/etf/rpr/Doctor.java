@@ -14,11 +14,13 @@ public class Doctor {
     String email;
     LocalDate employmentDate;
     String specialization;
+    boolean active;
 
     public Doctor() {
+        active=true;
     }
 
-    public Doctor(Integer id, String firstName, String lastName, String JMBG, LocalDate birthDate, String birthPlace, String address, String email, LocalDate employmentDate, String specialization) {
+    public Doctor(Integer id, String firstName, String lastName, String JMBG, LocalDate birthDate, String birthPlace, String address, String email, LocalDate employmentDate, String specialization,boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,6 +31,7 @@ public class Doctor {
         this.email = email;
         this.employmentDate = employmentDate;
         this.specialization = specialization;
+        this.active=active;
     }
 
     public Integer getId() {
@@ -109,6 +112,14 @@ public class Doctor {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -53,6 +54,13 @@ public class AppointmentsController {
         appointments=new ArrayList<>();
     }
 
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
     @FXML
     public void initialize() {
         tableViewAppointments.setItems(appointmentsList);
@@ -96,8 +104,14 @@ public class AppointmentsController {
 
     public void editAppointmentAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
-        if (a == null) return;
-
+        if (a == null) {
+            showAlert("Select appointment you want to edit!");
+            return;
+        }
+        if (LocalDateTime.of(a.getDate(), a.getTime()).isBefore(LocalDateTime.now())){
+            showAlert("You can't change data for appointments from past!");
+            return;
+        }
         Stage stage=new Stage();
         Parent root = null;
         try {
@@ -108,7 +122,6 @@ public class AppointmentsController {
             root = loader.load();
             stage.setTitle("Appointment");
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-            //stage.setResizable(true);
             stage.show();
 
             stage.setOnHiding( event -> {

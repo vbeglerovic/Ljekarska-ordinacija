@@ -182,6 +182,8 @@ public class DAO {
             status=Status.EMPLOYEE;
         else if (s.equals("OTHER"))
             status=Status.OTHER;
+        else if (s.equals("STUDENT"))
+            status=Status.STUDENT;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -9,13 +9,13 @@
     <Pane>
         <TextField fx:id="searchFld" layoutX="136.0" layoutY="19.0" prefHeight="32.0" prefWidth="232.0" promptText="%name.surname">
             <font>
-                <Font size="18.0" />
+                <Font size="14.0" />
             </font></TextField>
-        <Label layoutX="43.0" layoutY="18.0" prefHeight="41.0" prefWidth="93.0" text="%search">
+        <Label layoutX="43.0" layoutY="20.0" prefHeight="30.0" prefWidth="93.0" text="%search">
             <font>
-                <Font size="18.0" />
+                <Font size="14.0" />
             </font></Label>
-      <TableView fx:id="tableViewPatients" layoutX="21.0" layoutY="76.0" prefHeight="571.0" prefWidth="958.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewPatients" layoutX="21.0" layoutY="76.0" prefHeight="528.0" prefWidth="958.0" style="-fx-background-color: #00BFFF;">
         <columns>
           <TableColumn fx:id="colPatientName" prefWidth="75.0" text="%first.name" />
           <TableColumn fx:id="colPatientLastName" prefWidth="75.0" text="%last.name" />
@@ -31,7 +31,7 @@
     </Pane>
 </center>
     <bottom>
-        <Pane prefHeight="67.0" prefWidth="1000.0">
+        <Pane prefHeight="83.0" prefWidth="1000.0">
          <children>
          <ToolBar layoutX="403.0" layoutY="-1.0" prefHeight="53.0" prefWidth="580.0" style="-fx-background-color: #00BFFF;">
            <items>

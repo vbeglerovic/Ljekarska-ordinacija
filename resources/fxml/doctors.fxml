@@ -7,7 +7,7 @@
 <BorderPane maxHeight="800.0" maxWidth="1000.0" minHeight="800.0" minWidth="1000.0" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
         <center>
             <Pane>
-    <TableView fx:id="tableViewDoctors" layoutX="40.0" layoutY="66.0" prefHeight="589.0" prefWidth="920.0" style="-fx-background-color: #00BFFF;">
+    <TableView fx:id="tableViewDoctors" layoutX="28.0" layoutY="65.0" prefHeight="535.0" prefWidth="944.0" style="-fx-background-color: #00BFFF;">
             <columns>
                 <TableColumn fx:id="colDoctorName" prefWidth="74.0" text="%first.name" />
                 <TableColumn fx:id="colDoctorLastName" prefWidth="76.0" text="%last.name" />
@@ -17,24 +17,24 @@
                 <TableColumn fx:id="colDoctorAddress" prefWidth="137.0" text="%address" />
                 <TableColumn fx:id="colDoctorDOE" prefWidth="136.0" text="%employment.date" />
                 <TableColumn fx:id="colDoctorEmail" prefWidth="179.0" text="%email" />
-                <TableColumn fx:id="colDoctorSpecialty" prefWidth="78.0" text="%specialty" />
+                <TableColumn fx:id="colDoctorSpecialty" prefWidth="103.0" text="%specialty" />
             </columns>
         </TableView>
-                <Label layoutX="64.0" layoutY="13.0" prefHeight="39.0" prefWidth="103.0" text="%search">
+                <Label layoutX="64.0" layoutY="14.0" prefHeight="32.0" prefWidth="103.0" text="%search">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="searchFld" layoutX="167.0" layoutY="14.0" prefHeight="39.0" prefWidth="277.0" promptText="%name.surname">
+                <TextField fx:id="searchFld" layoutX="167.0" layoutY="14.0" prefHeight="33.0" prefWidth="277.0" promptText="%name.surname">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                     </font>
          </TextField>
             </Pane>
         </center>
     <bottom>
         <Pane prefHeight="78.0" prefWidth="1000.0">
-        <ToolBar layoutX="453.0" layoutY="13.0" prefHeight="53.0" prefWidth="533.0" style="-fx-background-color: #00BFFF;">
+        <ToolBar layoutX="453.0" prefHeight="53.0" prefWidth="533.0" style="-fx-background-color: #00BFFF;">
             <items>
             <Button mnemonicParsing="false" onAction="#printReportAction" prefHeight="40.0" prefWidth="100.0" text="%report">
                <font>

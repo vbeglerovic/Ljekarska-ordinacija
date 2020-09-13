@@ -18,11 +18,23 @@ public class DAO {
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement,getAppointmentsByDate,addReportStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
     private PreparedStatement deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment,markPatientAsInactiveStatement,markDoctorAsInactiveStatement ;
+    private PreparedStatement getMaxIdForOffice, getMaxIdForPatient, getMaxIdForDoctor, getMaxIdForAppointment;
     private DAO () {
         try {
-            conn= DriverManager.getConnection("jdbc:sqlite:database.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:datbase.db");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
         } catch (SQLException e) {
             regenerateDatabase();
+            try {
+                addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
             try {
                 addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
@@ -52,6 +64,11 @@ public class DAO {
 
                 markPatientAsInactiveStatement=conn.prepareStatement("UPDATE patients SET active=0 WHERE id=?");
                 markDoctorAsInactiveStatement=conn.prepareStatement("UPDATE doctors SET active=0 WHERE id=?");
+
+                getMaxIdForOffice = conn.prepareStatement("SELECT MAX(id)+1 FROM offices");
+                getMaxIdForPatient=conn.prepareStatement("SELECT MAX(id)+1 FROM patients");
+                getMaxIdForDoctor = conn.prepareStatement("SELECT MAX(id)+1 FROM doctors");
+                getMaxIdForAppointment = conn.prepareStatement("SELECT MAX(id)+1 FROM appointments");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -108,6 +125,12 @@ public class DAO {
             ResultSet rs=getOfficeWithUsernameStatement.executeQuery();
             if (rs.next())
                 throw new OfficeWithThisUsernameAlreadyExist("Office with this username already exists!");
+            ResultSet rs2 = getMaxIdForOffice.executeQuery();
+            int id = 1;
+            if (rs2.next()) {
+                id = rs2.getInt(1);
+            }
+            addOfficeStatement.setInt(1,id);
             addOfficeStatement.setString(2, office.getName());
             addOfficeStatement.setString(3, office.getAddress());
             addOfficeStatement.setString(4, office.getUsername());
@@ -134,6 +157,12 @@ public class DAO {
 
     public void addPatient(Patient patient, int officeId) {
         try {
+            ResultSet rs = getMaxIdForPatient.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            addPatientStatement.setInt(1,id);
             addPatientStatement.setString(2,patient.getFirstName());
             addPatientStatement.setString(3,patient.getLastName());
             addPatientStatement.setString(4,patient.getJMBG());
@@ -287,6 +316,12 @@ public class DAO {
 
     public void addAppointment(Appointment appointment, int officeId) {
         try {
+            ResultSet rs = getMaxIdForAppointment.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            addAppointmentStatement.setInt(1,id);
             addAppointmentStatement.setString(2, appointment.getDate().toString());
             addAppointmentStatement.setString(3,appointment.getTime().toString());
             addAppointmentStatement.setInt(4,appointment.getPatient().getId());
@@ -397,6 +432,12 @@ public class DAO {
 
     public void addDoctor(Doctor doctor, int officeId) {
         try {
+            ResultSet rs = getMaxIdForDoctor.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            addDoctorStatement.setInt(1,id);
             addDoctorStatement.setString(2,doctor.getFirstName());
             addDoctorStatement.setString(3,doctor.getLastName());
             addDoctorStatement.setString(4,doctor.getJMBG());

@@ -51,9 +51,18 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-                <TextField fx:id="nameFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <TextField fx:id="lastNameFld" prefHeight="35.0" prefWidth="297.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <TextField fx:id="JMBGFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <TextField fx:id="nameFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+                <TextField fx:id="lastNameFld" prefHeight="35.0" prefWidth="297.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+                <TextField fx:id="JMBGFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
                 <Label prefHeight="35.0" prefWidth="171.0" text="%birth.date" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
@@ -62,17 +71,26 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-                <TextField fx:id="POBFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                <TextField fx:id="POBFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
                 <Label prefHeight="35.0" prefWidth="183.0" text="%address" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font size="24.0" />
                </font></Label>
-                <TextField fx:id="addressFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                <TextField fx:id="addressFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
                 <Label prefHeight="28.0" prefWidth="179.0" text="%email" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font size="24.0" />
                </font></Label>
-                <TextField fx:id="emailFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                <TextField fx:id="emailFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
                 <Label prefHeight="35.0" prefWidth="213.0" text="%employment.date" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <font>
                   <Font size="24.0" />
@@ -81,19 +99,28 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-                <TextField fx:id="specialtyFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                <TextField fx:id="specialtyFld" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                     <children>
                         <Spinner fx:id="daySpinner1" prefHeight="35.0" />
                         <ChoiceBox fx:id="monthChoiceBox1" prefHeight="35.0" prefWidth="150.0" />
-                        <TextField fx:id="yearFld1" prefHeight="35.0" />
+                        <TextField fx:id="yearFld1" prefHeight="35.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8">
                     <children>
                         <Spinner fx:id="daySpinner2" prefHeight="35.0" />
                         <ChoiceBox fx:id="monthChoiceBox2" prefHeight="35.0" prefWidth="150.0" />
-                        <TextField fx:id="yearFld2" prefHeight="35.0" />
+                        <TextField fx:id="yearFld2" prefHeight="35.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                     </children>
                 </HBox>
                 <Button fx:id="addButton" mnemonicParsing="false" onAction="#addDoctorAction" prefHeight="31.0" prefWidth="199.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.rowIndex="10">

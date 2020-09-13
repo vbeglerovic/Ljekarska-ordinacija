@@ -62,9 +62,18 @@
                   <Font size="24.0" />
                </font>
             </Label>
-      <TextField fx:id="nameFld" prefHeight="40.0" prefWidth="204.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TextField fx:id="lastNameFld" prefHeight="40.0" prefWidth="204.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <TextField fx:id="JMBGFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="nameFld" prefHeight="40.0" prefWidth="204.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+      <TextField fx:id="lastNameFld" prefHeight="40.0" prefWidth="204.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+      <TextField fx:id="JMBGFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
        <Label prefHeight="48.0" prefWidth="199.0" text="%birth.date" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font size="24.0" />
@@ -75,7 +84,10 @@
                   <Font size="24.0" />
                </font>
             </Label>
-      <TextField fx:id="POBFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <TextField fx:id="POBFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
        <fx:define>
            <ToggleGroup fx:id="$group1" />
        </fx:define>
@@ -85,7 +97,10 @@
                <children>
                   <Spinner fx:id="daySpinner" prefHeight="35.0" />
                   <ChoiceBox fx:id="monthChoiceBox" prefHeight="35.0" prefWidth="150.0" />
-                  <TextField fx:id="yearFld" prefHeight="35.0" />
+                  <TextField fx:id="yearFld" prefHeight="35.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                </children>
             </HBox>
       <Label prefHeight="40.0" prefWidth="223.0" text="%address" GridPane.columnIndex="1" GridPane.rowIndex="7">
@@ -93,13 +108,19 @@
                   <Font size="24.0" />
                </font>
             </Label>
-      <TextField fx:id="addressFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <TextField fx:id="addressFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
       <Label prefHeight="40.0" prefWidth="219.0" text="%email" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-      <TextField fx:id="emailFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <TextField fx:id="emailFld" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
       <Label GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <Label prefHeight="40.0" prefWidth="220.0" text="%status" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <font>
@@ -109,7 +130,7 @@
       <ChoiceBox fx:id="statusChoiceBox" prefHeight="40.0" prefWidth="199.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             <HBox prefHeight="48.0" prefWidth="251.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                 <children>
-                    <RadioButton fx:id="musko" prefHeight="53.0" prefWidth="190.0" text="%male" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <RadioButton fx:id="maleButton" prefHeight="53.0" prefWidth="190.0" text="%male" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <toggleGroup>
                         <ToggleGroup fx:id="group1" />
                      </toggleGroup>
@@ -117,7 +138,7 @@
                         <Font size="18.0" />
                      </font>
                   </RadioButton>
-                    <RadioButton fx:id="zensko" prefHeight="53.0" prefWidth="219.0" text="%female" toggleGroup="$group1" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <RadioButton fx:id="femaleButtton" prefHeight="53.0" prefWidth="219.0" text="%female" toggleGroup="$group1" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font></RadioButton>

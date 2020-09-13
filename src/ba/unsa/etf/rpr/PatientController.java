@@ -20,8 +20,8 @@ public class PatientController {
     public TextField nameFld;
     public TextField lastNameFld;
     public TextField JMBGFld;
-    public RadioButton musko;
-    public RadioButton zensko;
+    public RadioButton maleButton;
+    public RadioButton femaleButton;
     public Spinner daySpinner;
     public ChoiceBox monthChoiceBox;
     public TextField yearFld;
@@ -57,12 +57,14 @@ public class PatientController {
             statusChoiceBox.getSelectionModel().select(patient.getStatus());
             daySpinner.getValueFactory().setValue(patient.getBirthDate().getDayOfMonth());
         if (patient.getGender() == Gender.MALE)
-            musko.setSelected(true);
+            maleButton.setSelected(true);
         else
-            zensko.setSelected(true);
+            femaleButton.setSelected(true);
     } else {
+            maleButton.setSelected(true);
             statusChoiceBox.getSelectionModel().selectFirst();
             monthChoiceBox.getSelectionModel().selectFirst();
+
         }
         yearFld.textProperty().addListener((obs,oldValue, newValue)->{
             try {
@@ -89,8 +91,8 @@ public class PatientController {
         patient.setBirthPlace(POBFld.getText());
         patient.setAddress(addressFld.getText());
         patient.setEmail(emailFld.getText());
-        if (musko.isSelected()) patient.setGender(Gender.MALE);
-        else if (zensko.isSelected()) patient.setGender(Gender.FEMALE);
+        if (maleButton.isSelected()) patient.setGender(Gender.MALE);
+        else if (femaleButton.isSelected()) patient.setGender(Gender.FEMALE);
         patient.setStatus((Status) statusChoiceBox.getValue());
         patient.setBirthDate(LocalDate.of(Integer.parseInt(yearFld.getText()),months.indexOf(monthChoiceBox.getValue())+1, Integer.parseInt(daySpinner.getValue().toString())));
         Stage stage=(Stage) addButton.getScene().getWindow();

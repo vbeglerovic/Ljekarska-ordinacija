@@ -4,19 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
-
-import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class DoctorController {
+    private DAO dao;
+    private Office office;
+    private Doctor doctor;
+    private ObservableList<String> months= FXCollections.observableArrayList("January","February","March","April", "May", "June", "July", "August","September", "October", "November", "December");
+
     public TextField nameFld;
     public TextField lastNameFld;
     public TextField JMBGFld;
@@ -31,12 +29,6 @@ public class DoctorController {
     public TextField specialtyFld;
     public TextField emailFld;
     public Button addButton;
-
-    private DAO dao;
-    private Office office;
-    private Doctor doctor;
-    private ObservableList<String> months= FXCollections.observableArrayList("January","February","March","April", "May", "June", "July", "August","September", "October", "November", "December");
-
 
     public DoctorController(Doctor doctor, Office office) {
         dao=DAO.getInstance();
@@ -90,7 +82,7 @@ public class DoctorController {
         });
     }
 
-    public void addDoctorACtion (ActionEvent actionEvent) {
+    public void addDoctorAction (ActionEvent actionEvent) {
         if (doctor == null) doctor= new Doctor();
         if (nameFld.getText().isEmpty() || lastNameFld.getText().isEmpty() || JMBGFld.getText().isEmpty() || POBFld.getText().isEmpty()
                 || addressFld.getText().isEmpty() || specialtyFld.getText().isEmpty() || yearFld1.getText().isEmpty() || yearFld2.getText().isEmpty()) {

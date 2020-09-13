@@ -19,6 +19,9 @@ import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 
 public class RegisterController {
+
+    private DAO dao;
+
     public TextField fldName;
     public TextField fldAddress;
     public TextField fldUsername;
@@ -26,7 +29,6 @@ public class RegisterController {
     public PasswordField repeatPasswordFld;
     public Button closeButton;
 
-    private DAO dao;
 
     public RegisterController() {
         dao=DAO.getInstance();
@@ -47,8 +49,6 @@ public class RegisterController {
                 repeatPasswordFld.getStyleClass().add("notOk");
             }
         });
-
-
         repeatPasswordFld.textProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue.isEmpty() && newValue.equals(fldPassword.getText())) {
                 fldPassword.getStyleClass().removeAll("notOk");
@@ -74,9 +74,10 @@ public class RegisterController {
             Controller ctrl = new Controller();
             loader.setController(ctrl);
             root = loader.load();
-            stage.setTitle("Pocetna");
+            stage.setTitle("Log In");
             stage.setResizable(false);
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,7 +89,7 @@ public class RegisterController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Morate popuniti sve podatke!");
+            alert.setContentText("You have to enter all data!");
             alert.showAndWait();
             return;
         }
@@ -99,12 +100,11 @@ public class RegisterController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Username " + fldUsername.getText() + " vec postoji, koristite neki drugi!");
+            alert.setContentText(officeWithThisUsernameAlreadyExist.getMessage());
             alert.showAndWait();
             return;
         }
         closeAction(null);
     }
-
 
 }

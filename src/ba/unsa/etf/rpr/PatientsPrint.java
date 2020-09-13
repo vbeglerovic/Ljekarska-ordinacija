@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class PatientsPrint implements Runnable {
     private DAO dao;
     private Office office;
+
     public PatientsPrint(Office office) {
         dao=DAO.getInstance();
         this.office=office;
@@ -21,7 +22,6 @@ public class PatientsPrint implements Runnable {
         try {
             out = new PrintWriter(new FileWriter("Patients.txt"));
         } catch(IOException e) {
-            System.out.println("Datoteka se ne može otvoriti za pisanje.");
             return;
         }
         try{
@@ -33,4 +33,5 @@ public class PatientsPrint implements Runnable {
             out.close();
         }
     }
+
 }

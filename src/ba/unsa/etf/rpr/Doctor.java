@@ -4,23 +4,23 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Doctor {
-    Integer id;
-    String firstName;
-    String lastName;
-    String JMBG;
-    LocalDate birthDate;
-    String birthPlace;
-    String address;
-    String email;
-    LocalDate employmentDate;
-    String specialization;
-    boolean active;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String JMBG;
+    private LocalDate birthDate;
+    private String birthPlace;
+    private String address;
+    private String email;
+    private LocalDate employmentDate;
+    private String specialization;
+    private boolean active;
 
     public Doctor() {
         active=true;
     }
 
-    public Doctor(Integer id, String firstName, String lastName, String JMBG, LocalDate birthDate, String birthPlace, String address, String email, LocalDate employmentDate, String specialization,boolean active) {
+    public Doctor(int id, String firstName, String lastName, String JMBG, LocalDate birthDate, String birthPlace, String address, String email, LocalDate employmentDate, String specialization,boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,11 +34,11 @@ public class Doctor {
         this.active=active;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -132,7 +132,7 @@ public class Doctor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Doctor doctor = (Doctor) o;
-        return id.equals(doctor.id);
+        return id==doctor.id;
     }
 
     @Override

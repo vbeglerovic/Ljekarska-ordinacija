@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
 public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception{
@@ -17,8 +19,8 @@ public class Main extends Application {
         loader.setController(ctrl);
         Parent root = loader.load();
         primaryStage.setTitle("Log In");
-        //primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.show();
     }
 

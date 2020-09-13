@@ -19,6 +19,7 @@ import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class Controller {
     private DAO dao;
+
     public TextField fldUsername;
     public PasswordField fldPassword;
 
@@ -42,7 +43,6 @@ public class Controller {
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
-
     }
 
     public void signInAction(ActionEvent actionEvent) {
@@ -88,6 +88,7 @@ public class Controller {
         Locale.setDefault(new Locale("en", "US"));
         open();
     }
+
     private void open()  {
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         Controller ctrl = new Controller();

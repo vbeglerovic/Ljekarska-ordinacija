@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Appointment {
-    Integer id;
-    LocalDate date;
-    LocalTime time;
-    Patient patient;
-    Doctor doctor;
-    String type;
-    String anamnesis;
-    String diagnosis;
-    String recommendation;
+    private Integer id;
+    private LocalDate date;
+    private LocalTime time;
+    private Patient patient;
+    private Doctor doctor;
+    private String type;
+    private String anamnesis;
+    private String diagnosis;
+    private String recommendation;
 
     public Appointment() {
     }

@@ -6,28 +6,42 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="800.0" maxWidth="1000.0" minHeight="800.0" minWidth="1000.0" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@/css/css.css" />
    </stylesheets>
-   <children>
+   <center>
+      <Pane>
+         <Button fx:id="btnSignOut" layoutX="684.0" layoutY="41.0" onAction="#signOutAction" prefHeight="40.0" prefWidth="40.0" />
+      <ImageView fitHeight="480.0" fitWidth="776.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/image2.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelDate" layoutX="444.0" layoutY="676.0" prefHeight="71.0" prefWidth="315.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      </Pane>
+   </center>
+   <left>
       <Pane prefHeight="600.0" prefWidth="225.0" style="-fx-background-color: #00BFFF;">
          <children>
-            <VBox layoutY="129.0" prefHeight="318.0" prefWidth="225.0">
+            <VBox layoutY="187.0" prefHeight="414.0" prefWidth="225.0">
                <children>
-                  <Button fx:id="patientBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients">
+                  <Button fx:id="patientBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="98.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" onAction="#doctorsAction" prefHeight="81.0" prefWidth="223.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%doctors">
+                  <Button mnemonicParsing="false" onAction="#doctorsAction" prefHeight="110.0" prefWidth="223.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%doctors">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" onAction="#reviewAction" prefHeight="79.0" prefWidth="224.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%appointments">
+                  <Button mnemonicParsing="false" onAction="#reviewAction" prefHeight="102.0" prefWidth="224.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%appointments">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="77.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%add.appointment">
+                  <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="106.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%add.appointment">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
@@ -35,15 +49,5 @@
             </VBox>
          </children>
       </Pane>
-    <Button fx:id="btnSignOut" layoutX="717.0" layoutY="43.0" onAction="#signOutAction" prefHeight="40.0" prefWidth="40.0" />
-      <ImageView fitHeight="327.0" fitWidth="578.0" layoutX="225.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/image2.jpg" />
-         </image>
-      </ImageView>
-      <Label fx:id="labelDate" layoutX="512.0" layoutY="504.0" prefHeight="49.0" prefWidth="225.0">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-   </children>
-</AnchorPane>
+   </left>
+</BorderPane>

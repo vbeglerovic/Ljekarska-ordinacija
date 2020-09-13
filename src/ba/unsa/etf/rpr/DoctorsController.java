@@ -38,7 +38,6 @@ public class DoctorsController {
     public TableColumn<Doctor, String> colDoctorDOE;
     public TableColumn<Doctor,String> colDoctorSpecialty;
     public Button closeButton;
-
     public TextField searchFld;
     public TableView<Doctor> tableViewDoctors;
 
@@ -46,6 +45,14 @@ public class DoctorsController {
         dao=DAO.getInstance();
         this.office=office;
         doctorsList= FXCollections.observableList(dao.doctors(office.getId()));
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setContentText(message);
+
+        alert.showAndWait();
     }
 
     @FXML
@@ -85,13 +92,6 @@ public class DoctorsController {
         sortedData.comparatorProperty().bind(tableViewDoctors.comparatorProperty());
         tableViewDoctors.setItems(sortedData);
     }
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setContentText(message);
-
-        alert.showAndWait();
-    }
 
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -107,6 +107,7 @@ public class DoctorsController {
         }
         stage.setTitle("Office");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -121,6 +122,7 @@ public class DoctorsController {
             root = loader.load();
             stage.setTitle("Doctor");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding(event -> {
@@ -149,9 +151,9 @@ public class DoctorsController {
             DoctorController doctorController = new DoctorController(d,office);
             loader.setController(doctorController);
             root = loader.load();
-            stage.setTitle("Doktor");
+            stage.setTitle("Doctor");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {

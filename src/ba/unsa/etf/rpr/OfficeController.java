@@ -46,7 +46,7 @@ public class OfficeController {
             root = loader.load();
             stage.setTitle("Appointment");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            //stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
@@ -74,7 +74,7 @@ public class OfficeController {
         }
         stage.setTitle("Appointments");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        //stage.setResizable(false);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -92,7 +92,7 @@ public class OfficeController {
         }
         stage.setTitle("Patients");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -124,8 +124,8 @@ public class OfficeController {
             loader.setController(ctrl);
             root = loader.load();
             stage.setTitle("Log in");
-            stage.setResizable(false);
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

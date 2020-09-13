@@ -21,7 +21,6 @@ public class DoctorsPrint implements Runnable {
         try {
             out = new PrintWriter(new FileWriter("Doctors.txt"));
         } catch(IOException e) {
-            System.out.println("Datoteka se ne može otvoriti za pisanje.");
             return;
         }
         try{

@@ -5,17 +5,17 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Patient  {
-    Integer id;
-    String firstName;
-    String lastName;
-    String JMBG;
-    Gender gender;
-    LocalDate birthDate;
-    String birthPlace;
-    String address;
-    Status status;
-    String email;
-    boolean active;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String JMBG;
+    private Gender gender;
+    private LocalDate birthDate;
+    private String birthPlace;
+    private String address;
+    private Status status;
+    private String email;
+    private boolean active;
 
     public Patient() {
         active=true;
@@ -35,11 +35,11 @@ public class Patient  {
         this.active=active;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -125,7 +125,7 @@ public class Patient  {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return id.equals(patient.id);
+        return id==patient.id;
     }
 
     public boolean isActive() {
@@ -141,9 +141,4 @@ public class Patient  {
         return Objects.hash(id);
     }
 
-    /*@Override
-    public int compareTo(Patient p) {
-        if (p.getId()==id) return 1;
-        return -1;
-    }*/
 }

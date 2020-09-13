@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class ReportController {
+
     private Office office;
     private Appointment appointment;
 
@@ -50,7 +51,6 @@ public class ReportController {
 
     public void closeAction (ActionEvent actionEvent) {
         Stage stage=(Stage) closeButton.getScene().getWindow();
-        //Stage stage=new Stage();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
@@ -63,7 +63,7 @@ public class ReportController {
         }
         stage.setTitle("Appointments");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        //stage.setResizable(false);
+        stage.setResizable(false);
         stage.show();
     }
 

@@ -1,16 +1,16 @@
 package ba.unsa.etf.rpr;
 
 public class Office {
-    Integer id;
-    String name;
-    String address;
-    String username;
-    String password;
+    private int id;
+    private String name;
+    private String address;
+    private String username;
+    private String password;
 
     public Office() {
     }
 
-    public Office(Integer id, String name, String address, String username, String password) {
+    public Office(int id, String name, String address, String username, String password) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -18,17 +18,15 @@ public class Office {
         this.password = password;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
     public void setName(String name) {
         this.name = name;

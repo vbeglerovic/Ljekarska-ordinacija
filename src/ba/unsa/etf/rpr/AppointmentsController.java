@@ -28,6 +28,7 @@ import java.util.function.Function;
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class AppointmentsController {
+
     private DAO dao;
     private ObservableList<Appointment> appointmentsList;
     private Office office;
@@ -46,6 +47,14 @@ public class AppointmentsController {
     public TableView<Appointment> tableViewAppointments;
     public Button closeButton;
 
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
     public AppointmentsController(Office office) {
         dao=DAO.getInstance();
         this.office=office;
@@ -54,13 +63,6 @@ public class AppointmentsController {
         appointments=new ArrayList<>();
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setContentText(message);
-
-        alert.showAndWait();
-    }
     @FXML
     public void initialize() {
         tableViewAppointments.setItems(appointmentsList);
@@ -88,6 +90,7 @@ public class AppointmentsController {
         stage.setResizable(false);
         stage.show();
     }
+
     public void deleteAppointmentAction (ActionEvent actionEvent) {
         Appointment appointment = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (appointment == null) return;
@@ -100,7 +103,6 @@ public class AppointmentsController {
             appointmentsList.setAll(dao.appointments(office.getId()));
         }
     }
-
 
     public void editAppointmentAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
@@ -122,6 +124,7 @@ public class AppointmentsController {
             root = loader.load();
             stage.setTitle("Appointment");
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
@@ -135,6 +138,7 @@ public class AppointmentsController {
             e.printStackTrace();
         }
     }
+
     public List<Appointment> filterAppointment(Function<Appointment,Boolean> comp) {
         ArrayList<Appointment> result = new ArrayList<>();
             for (Appointment a : appointments) {
@@ -148,40 +152,43 @@ public class AppointmentsController {
     public List<Appointment> afterDate(LocalDate localDate) {
         return filterAppointment((Appointment a) -> { return a.getDate().isAfter(localDate) || a.getDate().equals(localDate);});
     }
+
     public List<Appointment> beforeDate(LocalDate localDate) {
         return filterAppointment((Appointment a) -> { return a.getDate().isBefore(localDate) || a.getDate().equals(localDate);});
     }
+
     public List<Appointment> appointmentsOfPatient (String patient) {
         return filterAppointment((Appointment a) -> { return a.getPatient().toString().equals(patient);});
     }
+
     public List<Appointment> appointmentsOfDoctor (String doctor) {
         return filterAppointment((Appointment a) -> { return a.getDoctor().toString().equals(doctor);});
     }
 
-public void search (ActionEvent actionEvent) {
-    appointments=dao.appointments(office.getId());
-    if (!doctorFld.getText().isEmpty())  appointments=appointmentsOfDoctor(doctorFld.getText());
-    if (!patientFld.getText().isEmpty()) appointments=appointmentsOfPatient(patientFld.getText());
-    DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try {
-            if (!d1Fld.getText().isEmpty()) {
-                LocalDate d1 = LocalDate.parse(d1Fld.getText(), df);
-                appointments = afterDate(d1);
+    public void search (ActionEvent actionEvent) {
+        appointments=dao.appointments(office.getId());
+        if (!doctorFld.getText().isEmpty())  appointments=appointmentsOfDoctor(doctorFld.getText());
+        if (!patientFld.getText().isEmpty()) appointments=appointmentsOfPatient(patientFld.getText());
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            try {
+                if (!d1Fld.getText().isEmpty()) {
+                    LocalDate d1 = LocalDate.parse(d1Fld.getText(), df);
+                    appointments = afterDate(d1);
+                }
+                if (!d2Fld.getText().isEmpty()) {
+                    LocalDate d2 = LocalDate.parse(d2Fld.getText(), df);
+                    appointments = beforeDate(d2);
+                }
+            } catch (DateTimeParseException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid date format ! \n Correct: yyyy-HH-mm");
+                alert.showAndWait();
             }
-            if (!d2Fld.getText().isEmpty()) {
-                LocalDate d2 = LocalDate.parse(d2Fld.getText(), df);
-                appointments = beforeDate(d2);
-            }
-        } catch (DateTimeParseException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid date format ! \n Correct: yyyy-HH-mm");
-            alert.showAndWait();
-        }
-    tableViewAppointments.setItems(FXCollections.observableList(appointments));
+        tableViewAppointments.setItems(FXCollections.observableList(appointments));
+    }
 
-}
     public void addReportAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (a == null) return;
@@ -202,7 +209,7 @@ public void search (ActionEvent actionEvent) {
                 root = loader.load();
                 stage.setTitle("Report");
                 stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                stage.setResizable(true);
+                stage.setResizable(false);
                 stage.show();
 
                 stage.setOnHiding(event -> {
@@ -215,6 +222,7 @@ public void search (ActionEvent actionEvent) {
                 e.printStackTrace();
             }
     }
+
     public void viewReportAction(ActionEvent actionEvent) {
         Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
         try {

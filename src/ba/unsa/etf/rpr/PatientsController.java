@@ -37,7 +37,6 @@ public class PatientsController {
     public TableColumn<Patient,String> colPatientAddress;
     public TableColumn<Patient,Status> colPatientStatus;
     public TableColumn<Patient,String> colPatientEmail;
-
     public TextField searchFld;
     public TableView<Patient> tableViewPatients;
     public Button closeButton;
@@ -105,6 +104,7 @@ public class PatientsController {
         }
         stage.setTitle("Office");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -119,6 +119,7 @@ public class PatientsController {
             root = loader.load();
             stage.setTitle("Patient");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding(event -> {
@@ -132,53 +133,53 @@ public class PatientsController {
             e.printStackTrace();
         }
     }
-        public void editPatientAction (ActionEvent actionEvent) {
-            Patient p = tableViewPatients.getSelectionModel().getSelectedItem();
-            if (p == null) {
-                showAlert("Select the patient whose data you want to change!");
-                return;
-            }
 
-            Stage stage = new Stage();
-            Parent root = null;
-            try {
-                ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
-                PatientController patientController = new PatientController(p,office);
-                loader.setController(patientController);
-                root = loader.load();
-                stage.setTitle("Patient");
-                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                //stage.setResizable(true);
-                stage.show();
-
-                stage.setOnHiding( event -> {
-                    Patient patient = patientController.getPatient();
-                    if (patient != null) {
-                        dao.editPatient(patient);
-                        patientsList.setAll(dao.patients(office.getId()));
-                    }
-                } );
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void editPatientAction (ActionEvent actionEvent) {
+        Patient p = tableViewPatients.getSelectionModel().getSelectedItem();
+        if (p == null) {
+            showAlert("Select the patient whose data you want to change!");
+            return;
         }
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
+            PatientController patientController = new PatientController(p,office);
+            loader.setController(patientController);
+            root = loader.load();
+            stage.setTitle("Patient");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
 
-        public void deletePatientAction (ActionEvent actionEvent) {
-            Patient patient = tableViewPatients.getSelectionModel().getSelectedItem();
-            if (patient == null){
-                showAlert("Select the patient you want to delete!");
-                return;
-            }
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Are you sure you want to delete patient " + patient.getFirstName() + " " + patient.getLastName()+"?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                dao.deletePatient(patient.getId());
-                patientsList.setAll(dao.patients(office.getId()));
-            }
+            stage.setOnHiding( event -> {
+                Patient patient = patientController.getPatient();
+                if (patient != null) {
+                    dao.editPatient(patient);
+                    patientsList.setAll(dao.patients(office.getId()));
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void deletePatientAction (ActionEvent actionEvent) {
+        Patient patient = tableViewPatients.getSelectionModel().getSelectedItem();
+        if (patient == null){
+            showAlert("Select the patient you want to delete!");
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Are you sure you want to delete patient " + patient.getFirstName() + " " + patient.getLastName()+"?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            dao.deletePatient(patient.getId());
+            patientsList.setAll(dao.patients(office.getId()));
+        }
+    }
 
     public void printReportAction(ActionEvent actionEvent) {
         try {

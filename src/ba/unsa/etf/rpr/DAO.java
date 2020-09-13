@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DAO {
+
     private static DAO instance;
     private static Connection conn;
-
-    public static Connection getConn() {
-        return conn;
-    }
 
     private PreparedStatement addOfficeStatement, getOfficesStatement, getOfficeWithUsernameStatement, getPatientsStatement;
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement,getAppointmentsByDate,addReportStatement;
@@ -25,34 +22,43 @@ public class DAO {
         try {
             conn= DriverManager.getConnection("jdbc:sqlite:database.db");
         } catch (SQLException e) {
-            e.printStackTrace();
+            regenerateDatabase();
         }
             try {
                 addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
+                addDoctorStatement=conn.prepareStatement("INSERT INTO doctors VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                addPatientStatement=conn.prepareStatement("INSERT INTO patients VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?,?,?)");
+                addReportStatement=conn.prepareStatement("UPDATE appointments SET anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
+
+                deleteDoctorStatement=conn.prepareStatement("DELETE FROM doctors WHERE JMBG=?");
+                deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
+                deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE id=?");
+                deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
+
                 getOfficesStatement=conn.prepareStatement("SELECT * FROM offices");
                 getOfficeWithUsernameStatement=conn.prepareStatement("SELECT * FROM offices WHERE username=?");
                 getPatientsStatement=conn.prepareStatement("SELECT * FROM patients WHERE office_id=?");
-                addPatientStatement=conn.prepareStatement("INSERT INTO patients VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-                updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=?, active=? WHERE id=?");
-                deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE id=?");
-                addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?,?,?)");
-                getAppointmentsStatement=conn.prepareStatement("SELECT * FROM appointments WHERE office_id=?");
                 getPatientStatement=conn.prepareStatement("SELECT * FROM patients WHERE id=?");
+                getAppointmentsStatement=conn.prepareStatement("SELECT * FROM appointments WHERE office_id=?");
                 getDoctorStatement=conn.prepareStatement("SELECT * FROM doctors WHERE id=?");
                 getDoctorsStatement=conn.prepareStatement("SELECT * FROM doctors WHERE office_id=?");
-                addDoctorStatement=conn.prepareStatement("INSERT INTO doctors VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-                deleteDoctorStatement=conn.prepareStatement("DELETE FROM doctors WHERE JMBG=?");
-                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=?, active=? WHERE id=?");
-                deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
-                updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
                 getAppointmentsByDate=conn.prepareStatement("SELECT * FROM appointments WHERE doctor_id=? AND date=? AND office_id=?");
-                addReportStatement=conn.prepareStatement("UPDATE appointments SET anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
+
+                updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=?, active=? WHERE id=?");
+                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=?, active=? WHERE id=?");
+                updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
+
                 markPatientAsInactiveStatement=conn.prepareStatement("UPDATE patients SET active=0 WHERE id=?");
                 markDoctorAsInactiveStatement=conn.prepareStatement("UPDATE doctors SET active=0 WHERE id=?");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+    }
+
+    public static Connection getConn() {
+        return conn;
     }
 
     private void regenerateDatabase() {
@@ -101,7 +107,7 @@ public class DAO {
             getOfficeWithUsernameStatement.setString(1,office.getUsername());
             ResultSet rs=getOfficeWithUsernameStatement.executeQuery();
             if (rs.next())
-                throw new OfficeWithThisUsernameAlreadyExist("Office with this usenname already exist!");
+                throw new OfficeWithThisUsernameAlreadyExist("Office with this username already exists!");
             addOfficeStatement.setString(2, office.getName());
             addOfficeStatement.setString(3, office.getAddress());
             addOfficeStatement.setString(4, office.getUsername());
@@ -237,7 +243,6 @@ public class DAO {
         }
     }
 
-
     public ArrayList<Appointment> appointments(int officeId) {
         ArrayList<Appointment> a=new ArrayList<>();
         try {
@@ -253,6 +258,17 @@ public class DAO {
         return a;
     }
 
+    private Patient getPatient(int id) {
+        try {
+            getPatientStatement.setInt(1,id);
+            ResultSet rs=getPatientStatement.executeQuery();
+            if (rs.next())  return getPatientFromResultSet(rs);
+            return null;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     private Appointment getAppointmentFromResultSet(ResultSet rs) {
         Appointment appointment=null;
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -266,15 +282,71 @@ public class DAO {
         }
         return appointment;
     }
-    private Patient getPatient(int id) {
+
+    public void addAppointment(Appointment appointment, int officeId) {
         try {
-            getPatientStatement.setInt(1,id);
-            ResultSet rs=getPatientStatement.executeQuery();
-            if (rs.next())  return getPatientFromResultSet(rs);
-            return null;
+            addAppointmentStatement.setString(2, appointment.getDate().toString());
+            addAppointmentStatement.setString(3,appointment.getTime().toString());
+            addAppointmentStatement.setInt(4,appointment.getPatient().getId());
+            addAppointmentStatement.setInt(5,appointment.getDoctor().getId());
+            addAppointmentStatement.setString(6,appointment.getType());
+            addAppointmentStatement.setInt(7,officeId);
+            addAppointmentStatement.setString(8,appointment.getAnamnesis());
+            addAppointmentStatement.setString(9,appointment.getDiagnosis());
+            addAppointmentStatement.setString(10,appointment.getRecommendation());
+            addAppointmentStatement.executeUpdate();
+
         } catch (SQLException e) {
-            return null;
+            e.printStackTrace();
         }
+    }
+
+    public void deleteAppointment(int id) {
+        try {
+            getAppointementStatement.setInt(1,id);
+            ResultSet rs=getAppointementStatement.executeQuery();
+            if (rs.next()==false) return;
+            Appointment appointment=getAppointmentFromResultSet(rs);
+            deleteAppointmentStatement.setInt(1,appointment.getId());
+            deleteAppointmentStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editAppointment(Appointment appointment) {
+        try {
+            updateAppointmentStatment.setString(1, appointment.getDate().toString());
+            updateAppointmentStatment.setString(2, appointment.getTime().toString());
+            updateAppointmentStatment.setInt(3, appointment.getDoctor().getId());
+            updateAppointmentStatment.setInt(4, appointment.getPatient().getId());
+            updateAppointmentStatment.setString(5, appointment.getType());
+            updateAppointmentStatment.setString(6, appointment.getAnamnesis());
+            updateAppointmentStatment.setString(7, appointment.getDiagnosis());
+            updateAppointmentStatment.setString(8, appointment.getRecommendation());
+            updateAppointmentStatment.setInt(9,appointment.getId());
+            updateAppointmentStatment.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<LocalTime> getAppointments(Doctor doctor, LocalDate date, int office_id) {
+        ArrayList<LocalTime> appointments=new ArrayList<>();
+        try {
+            getAppointmentsByDate.setInt(1,doctor.getId());
+            getAppointmentsByDate.setString(2, date.toString());
+            getAppointmentsByDate.setInt(3, office_id);
+            ResultSet rs=getAppointmentsByDate.executeQuery();
+            while (rs.next()) {
+                Appointment appointment=getAppointmentFromResultSet(rs);
+                appointments.add(appointment.getTime());
+            }
+            return appointments;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private Doctor getDoctor(int id) {
@@ -303,24 +375,6 @@ public class DAO {
         e.printStackTrace();
     }
         return doctor;
-    }
-
-    public void addAppointment(Appointment appointment, int officeId) {
-        try {
-            addAppointmentStatement.setString(2, appointment.getDate().toString());
-            addAppointmentStatement.setString(3,appointment.getTime().toString());
-            addAppointmentStatement.setInt(4,appointment.getPatient().getId());
-            addAppointmentStatement.setInt(5,appointment.getDoctor().getId());
-            addAppointmentStatement.setString(6,appointment.getType());
-            addAppointmentStatement.setInt(7,officeId);
-            addAppointmentStatement.setString(8,appointment.getAnamnesis());
-            addAppointmentStatement.setString(9,appointment.getDiagnosis());
-            addAppointmentStatement.setString(10,appointment.getRecommendation());
-            addAppointmentStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public ArrayList<Doctor> doctors(int officeId) {
@@ -381,7 +435,6 @@ public class DAO {
         }
     }
 
-
     public void deleteDoctor(int id) {
         try {
             getDoctorStatement.setInt(1,id);
@@ -396,54 +449,6 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void deleteAppointment(int id) {
-        try {
-            getAppointementStatement.setInt(1,id);
-            ResultSet rs=getAppointementStatement.executeQuery();
-            if (rs.next()==false) return;
-            Appointment appointment=getAppointmentFromResultSet(rs);
-            deleteAppointmentStatement.setInt(1,appointment.getId());
-            deleteAppointmentStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void editAppointment(Appointment appointment) {
-        try {
-            updateAppointmentStatment.setString(1, appointment.getDate().toString());
-            updateAppointmentStatment.setString(2, appointment.getTime().toString());
-            updateAppointmentStatment.setInt(3, appointment.getDoctor().getId());
-            updateAppointmentStatment.setInt(4, appointment.getPatient().getId());
-            updateAppointmentStatment.setString(5, appointment.getType());
-            updateAppointmentStatment.setString(6, appointment.getAnamnesis());
-            updateAppointmentStatment.setString(7, appointment.getDiagnosis());
-            updateAppointmentStatment.setString(8, appointment.getRecommendation());
-            updateAppointmentStatment.setInt(9,appointment.getId());
-            updateAppointmentStatment.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ArrayList<LocalTime> getAppointments(Doctor doctor, LocalDate date, int office_id) {
-        ArrayList<LocalTime> appointments=new ArrayList<>();
-        try {
-            getAppointmentsByDate.setInt(1,doctor.getId());
-            getAppointmentsByDate.setString(2, date.toString());
-            getAppointmentsByDate.setInt(3, office_id);
-            ResultSet rs=getAppointmentsByDate.executeQuery();
-            while (rs.next()) {
-                Appointment appointment=getAppointmentFromResultSet(rs);
-                appointments.add(appointment.getTime());
-            }
-            return appointments;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public void addReport (Appointment appointment){

@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Appointment {
     private Integer id;
@@ -100,5 +101,18 @@ public class Appointment {
 
     public void setRecommendation(String recommendation) {
         this.recommendation = recommendation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appointment that = (Appointment) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

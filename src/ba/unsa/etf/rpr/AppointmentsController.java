@@ -191,44 +191,47 @@ public class AppointmentsController {
 
     public void addReportAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
-        if (a == null) return;
-        if (a.getRecommendation()!=null || a.getDiagnosis()!=null || a.getAnamnesis()!=null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Report has already been written!");
-            alert.showAndWait();
+        if (a == null) {
+            showAlert("Select appointment you want to add report!");
             return;
         }
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            Parent root = null;
-            try {
-                ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"), bundle);
-                ReportController reportController = new ReportController(office, a);
-                loader.setController(reportController);
-                root = loader.load();
-                stage.setTitle("Report");
-                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                stage.setResizable(false);
-                stage.show();
+        if (a.getRecommendation()!=null || a.getDiagnosis()!=null || a.getRecommendation()!=null) {
+            showAlert("Report has already been written");
+            return;
+        }
+        Stage stage=new Stage();
+        Parent root = null;
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"),bundle);
+            ReportController reportController = new ReportController(office,a);
+            loader.setController(reportController);
+            root = loader.load();
+            stage.setTitle("Report");
+            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setResizable(false);
+            stage.show();
 
-                stage.setOnHiding(event -> {
-                    Appointment appointment = reportController.getAppointment();
-                    if (appointment != null) {
-                            dao.addReport(appointment);
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            stage.setOnHiding( event -> {
+                Appointment appointment = reportController.getAppointment();
+                if (appointment != null) {
+                    dao.addReport(appointment);
+                    appointmentsList.setAll(dao.appointments(office.getId()));
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void viewReportAction(ActionEvent actionEvent) {
         Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
-        try {
-            new PrintAppointmentReport().showReport(DAO.getConn(), a.getId(),a.getDoctor().toString(), a.getPatient().getId());
-        } catch (JRException e) {
-            e.printStackTrace();
+        if (a!=null) {
+            try {
+                new PrintAppointmentReport().showReport(DAO.getConn(), a.getId(), a.getDoctor().toString(), a.getPatient().getId());
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
         }
     }
 

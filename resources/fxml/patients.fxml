@@ -39,15 +39,15 @@
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-             <Button onAction="#editPatientAction" prefHeight="40.0" prefWidth="114.0" text="%edit">
+             <Button fx:id="btnEditPatient" onAction="#editPatientAction" prefHeight="40.0" prefWidth="114.0" text="%edit">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-               <Button onAction="#deletePatientAction" prefHeight="40.0" prefWidth="114.0" text="%delete">
+               <Button fx:id="btnRemovePatient" onAction="#deletePatientAction" prefHeight="40.0" prefWidth="114.0" text="%delete">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-               <Button onAction="#addPatientAction" prefHeight="40.0" prefWidth="108.0" text="%add">
+               <Button fx:id="addButton" onAction="#addPatientAction" prefHeight="40.0" prefWidth="108.0" text="%add">
                      <font>
                         <Font size="14.0" />
                      </font></Button>

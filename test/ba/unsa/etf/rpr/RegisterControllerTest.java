@@ -22,19 +22,19 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
-class ControllerTest {
+class RegisterControllerTest {
     Stage theStage;
-    Controller ctrl;
+    RegisterController ctrl;
     DAO dao = DAO.getInstance();
 
     @Start
     public void start (Stage stage) throws Exception {
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"),bundle);
-        ctrl = new Controller();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);
+        ctrl = new RegisterController();
         loader.setController(ctrl);
         Parent root = loader.load();
-        stage.setTitle("Log In");
+        stage.setTitle("Register");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
@@ -51,10 +51,9 @@ class ControllerTest {
 
 
     @Test
-    public void register(FxRobot robot) {
-        robot.lookup("#btnRegister").tryQuery().isPresent();
-        robot.clickOn("#btnRegister");
+    public void passwordRepeat(FxRobot robot) {
         robot.lookup("#registerBtn").tryQuery().isPresent();
+
         robot.clickOn("#fldName");
         robot.write("Office3");
         robot.clickOn("#fldAddress");
@@ -64,39 +63,18 @@ class ControllerTest {
         robot.clickOn("#fldPassword");
         robot.write("password3");
         robot.clickOn("#repeatPasswordFld");
-        robot.write("password3");
+        robot.write("password4");
         robot.clickOn("#registerBtn");
-        robot.lookup("#btnRegister").tryQuery().isPresent();
-        robot.clickOn("#fldUsername");
-        robot.write("username3");
-        robot.clickOn("#fldPassword");
-        robot.write("password3");
-        robot.clickOn("#btnLogIn");
-        assertTrue(robot.lookup("#patientsBtn").tryQuery().isPresent());
-    }
-
-   @Test
-    public void invalidUsername(FxRobot robot) {
-        robot.lookup("#btnLogIn").tryQuery().isPresent();
-        robot.clickOn("#fldUsername");
-        robot.write("Username3");
-        robot.clickOn("#fldPassword");
-        robot.write("password3");
-        robot.clickOn("#btnLogIn");
-       robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
-        assertFalse(robot.lookup("#patientsBtn").tryQuery().isPresent());
-    }
-
-    @Test
-    public void invalidPassword(FxRobot robot) {
-        robot.lookup("#btnLogIn").tryQuery().isPresent();
-        robot.clickOn("#fldUsername");
-        robot.write("username2");
-        robot.clickOn("#fldPassword");
-        robot.write("Password2");
-        robot.clickOn("#btnLogIn");
         robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+        assertTrue(robot.lookup("#registerBtn").tryQuery().isPresent());
+
+        robot.clickOn("#repeatPasswordFld");
+        robot.press(KeyCode.CONTROL).press(KeyCode.A).release(KeyCode.A).release(KeyCode.CONTROL);
+        robot.write("password3");
+
+        robot.clickOn("#registerBtn");
         assertTrue(robot.lookup("#btnLogIn").tryQuery().isPresent());
     }
+
 
 }

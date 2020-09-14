@@ -50,21 +50,9 @@ public class ReportController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) closeButton.getScene().getWindow();
-        Parent root = null;
-        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
-        AppointmentsController appointmentsController = new AppointmentsController(office);
-        loader.setController(appointmentsController);
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage.setTitle("Appointments");
-        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        stage.setResizable(false);
-        stage.show();
+        appointment=null;
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
     public void addReportAction (ActionEvent actionEvent) {
@@ -76,7 +64,8 @@ public class ReportController {
             appointment.setAnamnesis(anamnesisFld.getText());
             appointment.setDiagnosis((diagnosisFld.getText()));
             appointment.setRecommendation(recommendationFld.getText());
-            closeAction(null);
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
         }
     }
 

@@ -93,6 +93,7 @@ public class RegisterController {
             alert.showAndWait();
             return;
         }
+        if (!repeatPasswordFld.getText().equals(fldPassword.getText())) return;
         Office office=new Office (0, fldName.getText(), fldAddress.getText(), fldUsername.getText(), fldPassword.getText());
         try {
             dao.addOffice(office);

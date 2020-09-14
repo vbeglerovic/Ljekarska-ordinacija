@@ -29,7 +29,7 @@
          <children>
             <VBox layoutY="187.0" prefHeight="414.0" prefWidth="225.0">
                <children>
-                  <Button fx:id="patientBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="98.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients">
+                  <Button fx:id="patientsBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="98.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients">
                      <font>
                         <Font size="14.0" />
                      </font></Button>

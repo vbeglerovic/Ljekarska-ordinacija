@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -27,6 +28,7 @@ public class DAO {
         }
 
         try {
+
             addOfficeStatement=conn.prepareStatement("INSERT INTO offices VALUES (?,?,?,?,?)");
         } catch (SQLException e) {
             regenerateDatabase();
@@ -289,7 +291,7 @@ public class DAO {
         return a;
     }
 
-    private Patient getPatient(int id) {
+    public Patient getPatient(int id) {
         try {
             getPatientStatement.setInt(1,id);
             ResultSet rs=getPatientStatement.executeQuery();
@@ -437,7 +439,7 @@ public class DAO {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            addDoctorStatement.setInt(1,id);
+            addDoctorStatement.setInt(1,3);
             addDoctorStatement.setString(2,doctor.getFirstName());
             addDoctorStatement.setString(3,doctor.getLastName());
             addDoctorStatement.setString(4,doctor.getJMBG());
@@ -504,6 +506,12 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+   public void returnBaseToDefault() throws SQLException {
+        File dbfile = new File("database.db");
+        dbfile.delete();
+        regenerateDatabase();
     }
 }
 

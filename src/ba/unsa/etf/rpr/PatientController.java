@@ -33,6 +33,14 @@ public class PatientController {
 
     private Office office;
 
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
     public PatientController(Patient patient, Office office) {
         dao=DAO.getInstance();
         this.patient=patient;
@@ -66,7 +74,7 @@ public class PatientController {
             monthChoiceBox.getSelectionModel().selectFirst();
 
         }
-        yearFld.textProperty().addListener((obs,oldValue, newValue)->{
+      yearFld.textProperty().addListener((obs,oldValue, newValue)->{
             try {
                 Integer.parseInt(newValue);
                 yearFld.getStyleClass().removeAll("notOk");
@@ -85,6 +93,10 @@ public class PatientController {
 
     public void addPatient (ActionEvent actionEvent) {
         if (patient == null) patient = new Patient();
+        if (nameFld.getText().isEmpty() || lastNameFld.getText().isEmpty() || JMBGFld.getText().isEmpty() || POBFld.getText().isEmpty() || addressFld.getText().isEmpty()) {
+            showAlert("You have to enter all data except email!");
+            return;
+        }
         patient.setFirstName(nameFld.getText());
         patient.setLastName(lastNameFld.getText());
         patient.setJMBG(JMBGFld.getText());

@@ -87,6 +87,7 @@ public class PatientController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
+        patient=null;
         Stage stage = (Stage) addButton.getScene().getWindow();
         stage.close();
     }

@@ -47,7 +47,7 @@ class PatientControllerTest {
 
     @BeforeEach
     public void resetDatabase() throws SQLException {
-        dao.returnBaseToDefault();
+        dao.resetBaseToDefault();
     }
 
 

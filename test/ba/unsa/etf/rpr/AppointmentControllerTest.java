@@ -3,10 +3,7 @@ package ba.unsa.etf.rpr;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,19 +19,20 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
-class RegisterControllerTest {
+class AppointmentControllerTest {
     Stage theStage;
-    RegisterController ctrl;
+    AppointmentController ctrl;
     DAO dao = DAO.getInstance();
+    Office office=dao.getOfficeWithUsername("username2");
 
     @Start
     public void start (Stage stage) throws Exception {
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);
-        ctrl = new RegisterController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"),bundle);
+        ctrl = new AppointmentController(null,office);
         loader.setController(ctrl);
         Parent root = loader.load();
-        stage.setTitle("Register");
+        stage.setTitle("Appointment");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
@@ -49,32 +47,17 @@ class RegisterControllerTest {
         dao.resetBaseToDefault();
     }
 
-
     @Test
-    public void passwordRepeat(FxRobot robot) {
-        robot.lookup("#registerBtn").tryQuery().isPresent();
-
-        robot.clickOn("#fldName");
-        robot.write("Office3");
-        robot.clickOn("#fldAddress");
-        robot.write("Address3");
-        robot.clickOn("#fldUsername");
-        robot.write("username3");
-        robot.clickOn("#fldPassword");
-        robot.write("password3");
-        robot.clickOn("#repeatPasswordFld");
-        robot.write("password4");
-        robot.clickOn("#registerBtn");
+    public void enterAllData(FxRobot robot) {
+        robot.lookup("#patientsChoiceBox").tryQuery().isPresent();
+        robot.clickOn("#patientsChoiceBox");
+        robot.clickOn("Amar Beglerović");
+        robot.clickOn("#doctorsChoiceBox");
+        robot.clickOn("Samira Beglerović");
+        robot.clickOn("#datePicker");
         robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
-        assertTrue(robot.lookup("#registerBtn").tryQuery().isPresent());
-
-        robot.clickOn("#repeatPasswordFld");
-        robot.press(KeyCode.CONTROL).press(KeyCode.A).release(KeyCode.A).release(KeyCode.CONTROL);
-        robot.write("password3");
-
-        robot.clickOn("#registerBtn");
-        assertTrue(robot.lookup("#btnLogIn").tryQuery().isPresent());
+        robot.clickOn("#addButton");
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+        assertTrue(robot.lookup("#addButton").tryQuery().isPresent());
     }
-
-
 }

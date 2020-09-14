@@ -1,13 +1,14 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "offices" (
-	"id"	INTEGER PRIMARY KEY,
+	"id" INTEGER,
 	"name"	TEXT,
 	"address"	TEXT,
 	"username"	TEXT,
-	"password"	TEXT
+	"password"	TEXT,
+	PRIMARY KEY ("id")
 );
 CREATE TABLE IF NOT EXISTS "appointments" (
-	"id"	INTEGER PRIMARY KEY,
+	"id"	INTEGER,
 	"date"	TEXT,
 	"time"	TEXT,
 	"patient_id" INTEGER,
@@ -16,10 +17,11 @@ CREATE TABLE IF NOT EXISTS "appointments" (
 	"office_id"	INTEGER,
 	"anamnesis"	TEXT,
 	"diagnosis"	TEXT,
-	"recommendation" TEXT
+	"recommendation" TEXT,
+    PRIMARY KEY ("id")
 );
 CREATE TABLE IF NOT EXISTS "patients" (
-	"id"	INTEGER PRIMARY KEY,
+	"id"	INTEGER,
 	"firstName"	TEXT,
 	"lastName"	TEXT,
 	"JMBG"	TEXT,
@@ -30,10 +32,11 @@ CREATE TABLE IF NOT EXISTS "patients" (
 	"status"	TEXT,
 	"email"	TEXT,
 	"active"	INTEGER,
-	"office_id"	INTEGER
+	"office_id"	INTEGER,
+    PRIMARY KEY ("id")
 );
 CREATE TABLE IF NOT EXISTS "doctors" (
-	"id"	INTEGER PRIMARY KEY,
+	"id"	INTEGER,
 	"firstName"	TEXT,
 	"lastName"	TEXT,
 	"JMBG"	TEXT,
@@ -44,7 +47,8 @@ CREATE TABLE IF NOT EXISTS "doctors" (
 	"DOE"	TEXT,
 	"specialty"	TEXT,
 	"active"	INTEGER,
-	"office_id"	INTEGER NOT NULL
+	"office_id"	INTEGER NOT NULL,
+    PRIMARY KEY ("id")
 );
 INSERT INTO "offices" VALUES (1,'Office1','Address1','username1','password1');
 INSERT INTO "offices" VALUES (2,'Office2','Address2','username2','password2');

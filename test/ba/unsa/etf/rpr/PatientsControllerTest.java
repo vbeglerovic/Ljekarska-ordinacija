@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,7 +29,7 @@ class PatientsControllerTest {
     Stage theStage;
     PatientsController ctrl;
     DAO dao = DAO.getInstance();
-    Office office=dao.getOfficeWithUsername("username2");
+    Office office=dao.getOfficeWithUsername("username1");
 
     @Start
     public void start (Stage stage) throws Exception {
@@ -47,25 +48,19 @@ class PatientsControllerTest {
         theStage = stage;
     }
 
-    @BeforeEach
+   @BeforeEach
     public void resetDatabase() throws SQLException {
-        DAO.removeInstance();
-        File dbfile = new File("database.db");
-        dbfile.delete();
-        dao = DAO.getInstance();
+        dao.resetBaseToDefault();
     }
 
     @Test
     public void testTableView(FxRobot robot) throws SQLException {
-        resetDatabase();
         TableView tableViewPatients = robot.lookup("#tableViewPatients").queryAs(TableView.class);
         assertEquals(1, tableViewPatients.getItems().size());
     }
 
     @Test
     public void testAddPatient(FxRobot robot) throws SQLException {
-        resetDatabase();
-        System.out.println(dao.patients(office.getId()).size());
         robot.clickOn("#addButton");
         robot.lookup("#fieldNaziv").tryQuery().isPresent();
 
@@ -86,14 +81,15 @@ class PatientsControllerTest {
         robot.clickOn("#emailFld");
         robot.write("beglerovicvildana@gmail.com");
         robot.clickOn("#addButton");
+
         DAO dao = DAO.getInstance();
         assertEquals(2, dao.patients(office.getId()).size());
+
     }
 
     @Test
-    public void editPatient (FxRobot robot) throws SQLException {
-        resetDatabase();
-        robot.clickOn("Amar");
+    public void testEditPatient (FxRobot robot) throws SQLException {
+        robot.clickOn("Sanela");
         robot.clickOn("#btnEditPatient");
 
         robot.lookup("#nameFld").tryQuery().isPresent();
@@ -132,26 +128,27 @@ class PatientsControllerTest {
 
         robot.lookup("#addButton").tryQuery().isPresent();
         robot.clickOn("#addButton");
+
         DAO dao = DAO.getInstance();
         Patient patient = dao.getPatient(1);
         assertEquals("Donji Hotonj 22", patient.getAddress());
     }
 
     @Test
-    public void deletePatient (FxRobot robot) throws SQLException {
-        resetDatabase();
-        robot.clickOn("Amar");
+    public void testDeletePatient (FxRobot robot) throws SQLException {
+        robot.clickOn("Sanela");
         robot.clickOn("#btnRemovePatient");
+
         robot.lookup(".dialog-pane").tryQuery().isPresent();
 
         DialogPane dialogPane = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
         Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
         robot.clickOn(okButton);
 
-        TableView tableView = robot.lookup("#tableViewPatients").queryAs(TableView.class);
-        assertEquals(0, tableView.getItems().size());
+        TableView tableViewPatients = robot.lookup("#tableViewPatients").queryAs(TableView.class);
+        assertEquals(0, tableViewPatients.getItems().size());
 
-        DAO dao = DAO.getInstance();
+         DAO dao=DAO.getInstance();
         assertEquals(0, dao.patients(office.getId()).size());
     }
 

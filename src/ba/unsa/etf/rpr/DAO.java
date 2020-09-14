@@ -22,7 +22,7 @@ public class DAO {
     private PreparedStatement getMaxIdForOffice, getMaxIdForPatient, getMaxIdForDoctor, getMaxIdForAppointment;
     private DAO () {
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:datbase.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:database.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,6 +107,7 @@ public class DAO {
         if (instance == null) instance = new DAO();
         return instance;
     }
+
     public static void removeInstance() {
         if (instance == null) return;
         instance.close();
@@ -120,6 +121,7 @@ public class DAO {
             e.printStackTrace();
         }
     }
+
 
     public void addOffice(Office office) throws OfficeWithThisUsernameAlreadyExist {
         try {
@@ -508,9 +510,12 @@ public class DAO {
         }
     }
 
-   public void returnBaseToDefault() throws SQLException {
-        File dbfile = new File("database.db");
-        dbfile.delete();
+    public void resetBaseToDefault() throws SQLException {
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate("DELETE FROM appointments");
+        stmt.executeUpdate("DELETE FROM patients");
+        stmt.executeUpdate("DELETE FROM doctors");
+        stmt.executeUpdate("DELETE FROM offices");
         regenerateDatabase();
     }
 }

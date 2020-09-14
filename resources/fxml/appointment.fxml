@@ -50,7 +50,7 @@
                <font>
                   <Font size="18.0" />
                </font></CheckBox>
-                <Button mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="51.0" prefWidth="156.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                <Button fx:id="addButton" mnemonicParsing="false" onAction="#makeAppointmentAction" prefHeight="51.0" prefWidth="156.0" style="-fx-background-color: transparent;" text="%add" textFill="DEEPSKYBLUE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
                     <font>
                         <Font size="24.0" />
                     </font></Button>

@@ -4,36 +4,65 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.ResourceBundle;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class DoctorController {
     private DAO dao;
     private Office office;
     private Doctor doctor;
-    private ObservableList<String> months= FXCollections.observableArrayList("January","February","March","April", "May", "June", "July", "August","September", "October", "November", "December");
+    private ObservableList<Month> months= FXCollections.observableArrayList(Month.JANUARY,Month.FEBRUARY, Month.MARCH, Month.APRIL, Month.MAY, Month.JUNE,
+            Month.JULY, Month.AUGUST, Month.SEPTEMBER, Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER);
 
     public TextField nameFld;
     public TextField lastNameFld;
     public TextField JMBGFld;
     public Spinner daySpinner1;
-    public ChoiceBox monthChoiceBox1;
+    public ChoiceBox<Month> monthChoiceBox1;
     public TextField yearFld1;
     public Spinner daySpinner2;
-    public ChoiceBox monthChoiceBox2;
+    public ChoiceBox<Month> monthChoiceBox2;
     public TextField yearFld2;
     public TextField POBFld;
     public TextField addressFld;
     public TextField specialtyFld;
     public TextField emailFld;
     public Button addButton;
+    private boolean edit;
 
-    public DoctorController(Doctor doctor, Office office) {
+    public DoctorController(Doctor doctor, Office office, boolean edit) {
         dao=DAO.getInstance();
         this.doctor=doctor;
         this.office=office;
+        this.edit=edit;
+    }
+
+    private void open() {
+        Stage stage=(Stage) addButton.getScene().getWindow();
+        Parent root = null;
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"),bundle);
+        DoctorsController doctorsController = new DoctorsController(office);
+        loader.setController(doctorsController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Doctors");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
+        stage.show();
     }
 
     @FXML
@@ -98,10 +127,12 @@ public class DoctorController {
             doctor.setBirthPlace(POBFld.getText());
             doctor.setAddress(addressFld.getText());
             doctor.setEmail(emailFld.getText());
-            doctor.setBirthDate(LocalDate.of(Integer.parseInt(yearFld1.getText()), months.indexOf(monthChoiceBox1.getValue()) + 1, Integer.parseInt(daySpinner1.getValue().toString())));
-            doctor.setEmploymentDate(LocalDate.of(Integer.parseInt(yearFld2.getText()), months.indexOf(monthChoiceBox2.getValue()) + 1, Integer.parseInt(daySpinner2.getValue().toString())));
+            doctor.setBirthDate(LocalDate.of(Integer.parseInt(yearFld1.getText()), monthChoiceBox1.getValue().getValue(), Integer.parseInt(daySpinner1.getValue().toString())));
+            doctor.setEmploymentDate(LocalDate.of(Integer.parseInt(yearFld2.getText()), monthChoiceBox2.getValue().getValue(), Integer.parseInt(daySpinner2.getValue().toString())));
             doctor.setSpecialization(specialtyFld.getText());
-            closeAction(null);
+            if (edit) dao.editDoctor(doctor);
+            else  dao.addDoctor(doctor, office.getId());
+            open();
         }
     }
 

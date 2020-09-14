@@ -32,7 +32,7 @@ class PatientControllerTest {
         Office office=dao.getOfficeWithUsername("username2");
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
-        ctrl = new PatientController(null,office);
+        ctrl = new PatientController(null,office, true);
         loader.setController(ctrl);
         Parent root = loader.load();
         stage.setTitle("Patient");

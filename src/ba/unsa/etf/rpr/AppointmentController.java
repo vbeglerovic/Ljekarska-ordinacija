@@ -151,7 +151,7 @@ public class AppointmentController {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
-            PatientController patientController = new PatientController(null,office);
+            PatientController patientController = new PatientController(null,office, false);
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");

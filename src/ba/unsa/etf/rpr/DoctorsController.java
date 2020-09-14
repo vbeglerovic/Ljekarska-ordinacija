@@ -112,26 +112,18 @@ public class DoctorsController {
     }
 
     public void addDoctorAction (ActionEvent actionEvent) {
-        Stage stage=new Stage();
+        Stage stage=(Stage) closeButton.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"),bundle);
-            DoctorController doctorController = new DoctorController(null,office);
+            DoctorController doctorController = new DoctorController(null,office,false);
             loader.setController(doctorController);
             root = loader.load();
             stage.setTitle("Doctor");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
-
-            stage.setOnHiding(event -> {
-                Doctor doctor = doctorController.getDoctor();
-                if (doctor != null) {
-                    dao.addDoctor(doctor,office.getId());
-                    doctorsList.setAll(dao.doctors(office.getId()));
-                }
-            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,26 +135,17 @@ public class DoctorsController {
             showAlert("Select the doctor whose data you want to change!");
             return;
         }
-        Stage stage=new Stage();
+        Stage stage=(Stage) closeButton.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"),bundle);
-            DoctorController doctorController = new DoctorController(d,office);
+            DoctorController doctorController = new DoctorController(d,office, true);
             loader.setController(doctorController);
             root = loader.load();
             stage.setTitle("Doctor");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
-            stage.show();
-
-            stage.setOnHiding( event -> {
-                Doctor doctor = doctorController.getDoctor();
-                if (doctor!= null) {
-                    dao.editDoctor(doctor);
-                    doctorsList.setAll(dao.doctors(office.getId()));
-                }
-            } );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,7 +154,7 @@ public class DoctorsController {
     public void deleteDoctorAction (ActionEvent actionEvent) {
         Doctor doctor = tableViewDoctors.getSelectionModel().getSelectedItem();
         if (doctor == null) {
-            showAlert("Select the doctor you want to delete!");
+            showAlert("Select doctor you want to delete!");
             return;
         }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

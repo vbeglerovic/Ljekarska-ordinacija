@@ -28,6 +28,7 @@ public class PatientsController {
     private ObservableList<Patient> patientsList;
     private Office office;
 
+
     public TableColumn<Patient, String> colPatientName;
     public TableColumn<Patient, String> colPatientLastName;
     public TableColumn<Patient,String> colPatientJMBG;
@@ -109,26 +110,18 @@ public class PatientsController {
     }
 
     public void addPatientAction (ActionEvent actionEvent) {
-        Stage stage = new Stage();
+        Stage stage = (Stage) closeButton.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
-            PatientController patientController = new PatientController(null,office);
+            PatientController patientController = new PatientController(null,office,false);
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
-
-            stage.setOnHiding(event -> {
-                Patient patient = patientController.getPatient();
-                if (patient != null) {
-                    dao.addPatient(patient,office.getId());
-                    patientsList.setAll(dao.patients(office.getId()));
-                }
-            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,12 +133,12 @@ public class PatientsController {
             showAlert("Select the patient whose data you want to change!");
             return;
         }
-        Stage stage = new Stage();
+        Stage stage =(Stage) closeButton.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
-            PatientController patientController = new PatientController(p,office);
+            PatientController patientController = new PatientController(p,office,true);
             loader.setController(patientController);
             root = loader.load();
             stage.setTitle("Patient");

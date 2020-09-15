@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PrintAppointmentReport extends JFrame {
+public class PrintReportForAppointment extends JFrame {
     public void showReport(Connection conn, Integer appointmentId, String doctor, Integer patientId) throws JRException {
       String masterReportSource = getClass().getResource("/reports/medicalReport.jrxml").getFile();
       String subReportSource = getClass().getResource("/reports/patientSubreport.jrxml").getFile();

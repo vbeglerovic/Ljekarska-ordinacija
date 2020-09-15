@@ -16,13 +16,14 @@ import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 
-public class DoctorsController {
+public class DoctorsController implements ControllerInterface {
 
     private DAO dao;
     private ObservableList<Doctor> doctorsList;
@@ -47,9 +48,9 @@ public class DoctorsController {
         doctorsList= FXCollections.observableList(dao.doctors(office.getId()));
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
         alert.setContentText(message);
 
         alert.showAndWait();
@@ -132,7 +133,10 @@ public class DoctorsController {
     public void editDoctorAction (ActionEvent actionEvent) {
         Doctor d = tableViewDoctors.getSelectionModel().getSelectedItem();
         if (d == null) {
-            showAlert("Select the doctor whose data you want to change!");
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                showAlert(Alert.AlertType.INFORMATION, "Information Dialog", "Izaberite doktora čije podatke želite izmijeniti!");
+            else
+                showAlert(Alert.AlertType.INFORMATION, "Information Dialog", "Select the doctor whose data you want to change!");
             return;
         }
         Stage stage=(Stage) closeButton.getScene().getWindow();
@@ -154,9 +158,14 @@ public class DoctorsController {
     public void deleteDoctorAction (ActionEvent actionEvent) {
         Doctor doctor = tableViewDoctors.getSelectionModel().getSelectedItem();
         if (doctor == null) {
-            showAlert("Select doctor you want to delete!");
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+            showAlert(Alert.AlertType.INFORMATION, "Information Dialog","Izaberite doktora kojeg želite ukloniti!");
+            else
+                showAlert(Alert.AlertType.INFORMATION, "Information Dialog","Choose doctor ");
             return;
         }
+        if (Locale.getDefault().equals(new Locale("bs","BA")))
+            showAlert(Alert.AlertType.CONFIRMATION, "Confirmation", "");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setContentText("Are you sure you want to delete doctor " + doctor.getFirstName() + " " + doctor.getLastName()+"?");

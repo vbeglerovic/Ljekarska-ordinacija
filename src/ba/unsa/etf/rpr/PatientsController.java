@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
-public class PatientsController {
+public class PatientsController implements ControllerInterface {
 
     private DAO dao;
     private ObservableList<Patient> patientsList;

@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS "appointments" (
 	"anamnesis"	TEXT,
 	"diagnosis"	TEXT,
 	"recommendation" TEXT,
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("id"),
+    FOREIGN KEY("office_id") REFERENCES offices ("id")
 );
 CREATE TABLE IF NOT EXISTS "patients" (
 	"id"	INTEGER,
@@ -33,7 +34,8 @@ CREATE TABLE IF NOT EXISTS "patients" (
 	"email"	TEXT,
 	"active"	INTEGER,
 	"office_id"	INTEGER,
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("id"),
+    FOREIGN KEY("office_id") REFERENCES offices ("id")
 );
 CREATE TABLE IF NOT EXISTS "doctors" (
 	"id"	INTEGER,
@@ -48,7 +50,8 @@ CREATE TABLE IF NOT EXISTS "doctors" (
 	"specialty"	TEXT,
 	"active"	INTEGER,
 	"office_id"	INTEGER NOT NULL,
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("id"),
+    FOREIGN KEY("office_id") REFERENCES offices ("id")
 );
 INSERT INTO "offices" VALUES (1,'Office1','Address1','username1','password1');
 INSERT INTO "offices" VALUES (2,'Office2','Address2','username2','password2');

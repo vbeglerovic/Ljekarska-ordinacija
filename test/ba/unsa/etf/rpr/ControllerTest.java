@@ -49,7 +49,6 @@ class ControllerTest {
         dao.resetBaseToDefault();
     }
 
-
     @Test
     public void register(FxRobot robot) {
         robot.lookup("#btnRegister").tryQuery().isPresent();

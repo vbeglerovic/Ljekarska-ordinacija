@@ -14,10 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
-
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,9 +38,7 @@ class DoctorControllerTest {
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
-
         stage.toFront();
-
         theStage = stage;
     }
 
@@ -64,19 +60,17 @@ class DoctorControllerTest {
         robot.write("1999");
         robot.clickOn("#POBFld");
         robot.write("Sarajevo");
-
         robot.clickOn("#emailFld");
         robot.write("beglerovicvildana@gmail.com");
         robot.clickOn("#yearFld2");
         robot.write("2020");
-
         robot.clickOn("#specialtyFld");
         robot.write("Hirurg");
-
         robot.clickOn("#addButton");
         robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
         assertTrue(robot.lookup("#nameFld").tryQuery().isPresent());
     }
+
     @Test
     public void invalidYearFormat(FxRobot robot) {
         robot.lookup("#nameFld").tryQuery().isPresent();

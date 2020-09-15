@@ -4,8 +4,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,12 +17,11 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import java.sql.SQLException;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(ApplicationExtension.class)
 class AppointmentsControllerTest {
@@ -52,7 +53,7 @@ class AppointmentsControllerTest {
     }
 
     @Test
-    public void test2DeleteAppointment (FxRobot robot) throws SQLException {
+    public void testDeleteAppointment (FxRobot robot) throws SQLException {
         robot.clickOn("2020-09-12");
         robot.clickOn("#btnDelete");
 
@@ -70,7 +71,7 @@ class AppointmentsControllerTest {
     }
 
     @Test
-    public void test1EditAppointmentFromPast (FxRobot robot) throws SQLException {
+    public void testEditAppointmentFromPast (FxRobot robot) throws SQLException {
         robot.clickOn("2020-09-12");
         robot.clickOn("#editAppointment");
 

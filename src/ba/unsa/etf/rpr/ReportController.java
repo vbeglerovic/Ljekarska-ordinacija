@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
-public class ReportController {
+public class ReportController implements ControllerInterface {
 
     private Office office;
     private Appointment appointment;

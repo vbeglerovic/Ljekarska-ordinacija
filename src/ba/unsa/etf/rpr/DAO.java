@@ -391,7 +391,7 @@ public class DAO {
         return null;
     }
 
-    private Doctor getDoctor(int id) {
+    public Doctor getDoctor(int id) {
         try {
             getDoctorStatement.setInt(1,id);
             ResultSet rs=getDoctorStatement.executeQuery();
@@ -545,8 +545,23 @@ public class DAO {
         stmt.executeUpdate("DELETE FROM patients");
         stmt.executeUpdate("DELETE FROM doctors");
         stmt.executeUpdate("DELETE FROM offices");
+        File file=new File("database.db");
+        file.delete();
         regenerateDatabase();
     }
 
+    public ArrayList<Office> getOffices() {
+        ArrayList<Office> offices=new ArrayList<>();
+        try {
+            ResultSet rs=getOfficesStatement.executeQuery();
+            while (rs.next()) {
+                Office office = new Office(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                offices.add(office);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return offices;
+    }
 }
 

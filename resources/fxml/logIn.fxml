@@ -11,7 +11,7 @@
          <children>
             <MenuBar layoutX="370.0" layoutY="42.0" prefHeight="27.0" prefWidth="87.0" style="-fx-background-color: transparent;">
               <menus>
-                <Menu mnemonicParsing="false" text="%language">
+                <Menu fx:id="language" mnemonicParsing="false" text="%language">
                   <items>
                     <MenuItem mnemonicParsing="true" onAction="#bosnianAction" text="%bosnian" />
                       <MenuItem mnemonicParsing="true" onAction="#englishAction" text="%english" />
@@ -19,7 +19,6 @@
                 </Menu>
               </menus>
             </MenuBar>
-                  <HBox layoutX="124.0" layoutY="108.0" prefHeight="100.0" prefWidth="200.0" />
             <GridPane layoutX="-163.0" layoutY="227.0" prefHeight="281.0" prefWidth="326.0" style="-fx-background-color: #BBFFFF; -fx-border-color: black;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -77,6 +76,21 @@
                   </Label>
                </children>
             </GridPane>
+            <Label fx:id="invalidUsernameLabel" layoutX="176.0" layoutY="296.0" prefHeight="27.0" prefWidth="223.0" text="%invalid.username" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="usernameLabel" layoutX="179.0" layoutY="323.0" prefHeight="27.0" prefWidth="215.0" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidPasswordLabel" layoutX="177.0" layoutY="387.0" prefHeight="27.0" prefWidth="236.0" text="%invalid.password" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

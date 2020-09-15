@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 
-public class PatientController {
+public class PatientController implements ControllerInterface {
 
     private DAO dao;
     private Patient patient;

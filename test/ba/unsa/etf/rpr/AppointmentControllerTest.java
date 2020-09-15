@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,9 +37,7 @@ class AppointmentControllerTest {
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
-
         stage.toFront();
-
         theStage = stage;
     }
 
@@ -49,6 +48,7 @@ class AppointmentControllerTest {
 
     @Test
     public void enterAllData(FxRobot robot) {
+        //nije izabrano vrijeme pregleda
         robot.lookup("#patientsChoiceBox").tryQuery().isPresent();
         robot.clickOn("#patientsChoiceBox");
         robot.clickOn("Amar Beglerović");
@@ -59,5 +59,13 @@ class AppointmentControllerTest {
         robot.clickOn("#addButton");
         robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
         assertTrue(robot.lookup("#addButton").tryQuery().isPresent());
+    }
+
+    @Test
+    public void choiceBoxes(FxRobot robot) {
+        ChoiceBox<Doctor> choiceBox1 = robot.lookup("#doctorsChoiceBox").queryAs(ChoiceBox.class);
+        assertEquals(1, choiceBox1.getItems().size());
+        ChoiceBox<Doctor> choiceBox2 = robot.lookup("#patientsChoiceBox").queryAs(ChoiceBox.class);
+        assertEquals(1, choiceBox2.getItems().size());
     }
 }

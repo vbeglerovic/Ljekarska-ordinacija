@@ -1,10 +1,11 @@
 package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
@@ -22,9 +23,24 @@ public class Controller {
 
     public TextField fldUsername;
     public PasswordField fldPassword;
+    public Label invalidUsernameLabel, usernameLabel, invalidPasswordLabel;
 
     public Controller() {
         dao = DAO.getInstance();
+    }
+
+    @FXML
+    public void initialize() {
+        invalidUsernameLabel.setVisible(false);
+        usernameLabel.setVisible(false);
+        invalidPasswordLabel.setVisible(false);
+        fldUsername.textProperty().addListener((obs, oldValue, newValue)-> {
+            invalidUsernameLabel.setVisible(false);
+            usernameLabel.setVisible(false);
+        });
+        fldPassword.textProperty().addListener((obs, oldValue, newValue)-> {
+            invalidPasswordLabel.setVisible(false);
+        });
     }
 
     public void registerAction(ActionEvent actionEvent) {
@@ -48,18 +64,14 @@ public class Controller {
     public void signInAction(ActionEvent actionEvent) {
         Office office= dao.getOfficeWithUsername(fldUsername.getText());
         if (office == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid username!");
-            alert.showAndWait();
+            invalidUsernameLabel.setVisible(true);
+            usernameLabel.setText(fldUsername.getText()+"!");
+            usernameLabel.setVisible(true);
+            return;
         }
         else if (!office.getPassword().equals(fldPassword.getText())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid password!");
-            alert.showAndWait();
+            invalidPasswordLabel.setVisible(true);
+            return;
         } else {
             Stage stage = (Stage) fldUsername.getScene().getWindow();
             Parent root = null;

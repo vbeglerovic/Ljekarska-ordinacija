@@ -1,15 +1,11 @@
 package ba.unsa.etf.rpr;
 
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +13,12 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(ApplicationExtension.class)
 class PatientsControllerTest {
@@ -51,12 +47,6 @@ class PatientsControllerTest {
    @BeforeEach
     public void resetDatabase() throws SQLException {
         dao.resetBaseToDefault();
-    }
-
-    @Test
-    public void testTableView(FxRobot robot) throws SQLException {
-        TableView tableViewPatients = robot.lookup("#tableViewPatients").queryAs(TableView.class);
-        assertEquals(1, tableViewPatients.getItems().size());
     }
 
     @Test
@@ -133,24 +123,4 @@ class PatientsControllerTest {
         Patient patient = dao.getPatient(1);
         assertEquals("Donji Hotonj 22", patient.getAddress());
     }
-
-    @Test
-    public void testDeletePatient (FxRobot robot) throws SQLException {
-        robot.clickOn("Sanela");
-        robot.clickOn("#btnRemovePatient");
-
-        robot.lookup(".dialog-pane").tryQuery().isPresent();
-
-        DialogPane dialogPane = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
-        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
-        robot.clickOn(okButton);
-
-        TableView tableViewPatients = robot.lookup("#tableViewPatients").queryAs(TableView.class);
-        assertEquals(0, tableViewPatients.getItems().size());
-
-         DAO dao=DAO.getInstance();
-        assertEquals(0, dao.patients(office.getId()).size());
-    }
-
-
 }

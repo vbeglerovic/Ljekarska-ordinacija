@@ -3,10 +3,7 @@ package ba.unsa.etf.rpr;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(ApplicationExtension.class)
 class RegisterControllerTest {
@@ -38,9 +35,7 @@ class RegisterControllerTest {
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         stage.setResizable(false);
         stage.show();
-
         stage.toFront();
-
         theStage = stage;
     }
 
@@ -74,6 +69,25 @@ class RegisterControllerTest {
 
         robot.clickOn("#registerBtn");
         assertTrue(robot.lookup("#btnLogIn").tryQuery().isPresent());
+    }
+
+    @Test
+    public void invalidUsername(FxRobot robot) {
+        robot.lookup("#registerBtn").tryQuery().isPresent();
+
+        robot.clickOn("#fldName");
+        robot.write("Office3");
+        robot.clickOn("#fldAddress");
+        robot.write("Address3");
+        robot.clickOn("#fldUsername");
+        robot.write("username2");
+        robot.clickOn("#fldPassword");
+        robot.write("password3");
+        robot.clickOn("#repeatPasswordFld");
+        robot.write("password3");
+        robot.clickOn("#registerBtn");
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+        assertTrue(robot.lookup("#registerBtn").tryQuery().isPresent());
     }
 
 

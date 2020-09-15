@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
-public class AppointmentController {
+public class AppointmentController implements ControllerInterface{
 
     private Appointment appointment;
     private DAO dao;
@@ -59,7 +59,7 @@ public class AppointmentController {
         alert.showAndWait();
     }
 
-    private void showListAction () throws ThereAreNoFreeTerms {
+    private void showListAction () throws NoFreeTerms {
         if (doctorsChoiceBox.getValue()==null || datePicker.getValue()==null) return;
         ArrayList<LocalTime> free=new ArrayList<>();
         ArrayList<LocalTime> reservedAppointments=dao.getAppointments(doctorsChoiceBox.getValue(),datePicker.getValue(),office.getId());
@@ -70,7 +70,7 @@ public class AppointmentController {
             }
         }
         if (free.size()==0) {
-            throw new ThereAreNoFreeTerms("There are no free terms.");
+            throw new NoFreeTerms("There are no free terms.");
         }
         listView.setItems(FXCollections.observableArrayList(free));
         listView.getSelectionModel().clearSelection();
@@ -130,7 +130,7 @@ public class AppointmentController {
            if (datePicker.getValue()!=null) {
                try {
                    showListAction();
-               } catch (ThereAreNoFreeTerms thereAreNoFreeTerms) {
+               } catch (NoFreeTerms noFreeTerms) {
                    showInfoDialog();
                    return;
                }
@@ -140,7 +140,7 @@ public class AppointmentController {
            if (doctorsChoiceBox.getSelectionModel().getSelectedItem()!=null) {
                try {
                    showListAction();
-               } catch (ThereAreNoFreeTerms thereAreNoFreeTerms) {
+               } catch (NoFreeTerms noFreeTerms) {
                    showInfoDialog();
                    return;
                }

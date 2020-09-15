@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 
-public class RegisterController {
+public class RegisterController implements ControllerInterface {
 
     private DAO dao;
     private Office office;

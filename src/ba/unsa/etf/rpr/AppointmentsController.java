@@ -23,11 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
-public class AppointmentsController {
+public class AppointmentsController implements ControllerInterface{
 
     private DAO dao;
     private ObservableList<Appointment> appointmentsList;
@@ -131,30 +132,24 @@ public class AppointmentsController {
         }
     }
 
-    public List<Appointment> filterAppointment(Function<Appointment,Boolean> comp) {
-        ArrayList<Appointment> result = new ArrayList<>();
-            for (Appointment a : appointments) {
-                if (comp.apply(a)) {
-                    result.add(a);
-                }
-            }
-        return result;
+    public List<Appointment> filterAppointments(Predicate<Appointment> predicate) {
+      return appointments.stream().filter(predicate).collect(Collectors.toList());
     }
 
     public List<Appointment> afterDate(LocalDate localDate) {
-        return filterAppointment((Appointment a) -> { return a.getDate().isAfter(localDate) || a.getDate().equals(localDate);});
+        return filterAppointments((Appointment a) -> { return a.getDate().isAfter(localDate) || a.getDate().equals(localDate);});
     }
 
     public List<Appointment> beforeDate(LocalDate localDate) {
-        return filterAppointment((Appointment a) -> { return a.getDate().isBefore(localDate) || a.getDate().equals(localDate);});
+        return filterAppointments((Appointment a) -> { return a.getDate().isBefore(localDate) || a.getDate().equals(localDate);});
     }
 
     public List<Appointment> appointmentsOfPatient (String patient) {
-        return filterAppointment((Appointment a) -> { return a.getPatient().toString().equals(patient);});
+        return filterAppointments((Appointment a) -> { return a.getPatient().toString().equals(patient);});
     }
 
     public List<Appointment> appointmentsOfDoctor (String doctor) {
-        return filterAppointment((Appointment a) -> { return a.getDoctor().toString().equals(doctor);});
+        return filterAppointments((Appointment a) -> { return a.getDoctor().toString().equals(doctor);});
     }
 
     public void search (ActionEvent actionEvent) {
@@ -221,7 +216,7 @@ public class AppointmentsController {
         }
         if (a!=null) {
             try {
-                new PrintAppointmentReport().showReport(DAO.getConn(), a.getId(), a.getDoctor().toString(), a.getPatient().getId());
+                new PrintReportForAppointment().showReport(DAO.getConn(), a.getId(), a.getDoctor().toString(), a.getPatient().getId());
             } catch (JRException e) {
                 e.printStackTrace();
             }

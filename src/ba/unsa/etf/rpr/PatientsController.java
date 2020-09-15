@@ -17,6 +17,7 @@ import net.sf.jasperreports.engine.JRException;
 
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -27,7 +28,6 @@ public class PatientsController implements ControllerInterface {
     private DAO dao;
     private ObservableList<Patient> patientsList;
     private Office office;
-
 
     public TableColumn<Patient, String> colPatientName;
     public TableColumn<Patient, String> colPatientLastName;
@@ -53,7 +53,7 @@ public class PatientsController implements ControllerInterface {
         tableViewPatients.setItems(patientsList);
         colPatientName.setCellValueFactory(new PropertyValueFactory("firstName"));
         colPatientLastName.setCellValueFactory(new PropertyValueFactory("lastName"));
-        colPatientJMBG.setCellValueFactory(new PropertyValueFactory("JMBG"));
+        colPatientJMBG.setCellValueFactory(new PropertyValueFactory("identityNumber"));
         colPatientGender.setCellValueFactory(new PropertyValueFactory("gender"));
         colPatientDOB.setCellValueFactory(new PropertyValueFactory("birthDate"));
         colPatientPOB.setCellValueFactory(new PropertyValueFactory("birthPlace"));
@@ -72,7 +72,7 @@ public class PatientsController implements ControllerInterface {
                     return  true;
                 } else if (patient.getLastName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
-                } else if (patient.getJMBG().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                } else if (patient.getIdentityNumber().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
                 } else if ((patient.getFirstName().toLowerCase()+" "+patient.getLastName()).toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
@@ -84,13 +84,15 @@ public class PatientsController implements ControllerInterface {
         sortedData.comparatorProperty().bind(tableViewPatients.comparatorProperty());
         tableViewPatients.setItems(sortedData);
     }
+
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
         alert.setContentText(message);
-
         alert.showAndWait();
     }
+
     public void closeAction (ActionEvent actionEvent) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         Parent root = null;
@@ -130,7 +132,12 @@ public class PatientsController implements ControllerInterface {
     public void editPatientAction (ActionEvent actionEvent) {
         Patient p = tableViewPatients.getSelectionModel().getSelectedItem();
         if (p == null) {
-            showAlert("Select the patient whose data you want to change!");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Odaberite pacijenta čije podatke želite izmijeniti!";
+            else
+                message = "Select patient whose data you want to edit!";
+            showAlert(message);
             return;
         }
         Stage stage =(Stage) closeButton.getScene().getWindow();
@@ -161,12 +168,22 @@ public class PatientsController implements ControllerInterface {
     public void deletePatientAction (ActionEvent actionEvent) {
         Patient patient = tableViewPatients.getSelectionModel().getSelectedItem();
         if (patient == null){
-            showAlert("Select the patient you want to delete!");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Odaberite pacijenta kojeg želite ukloniti!";
+            else
+                message = "Select patient you want to remove!";
+            showAlert(message);
             return;
         }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        String message;
+        if (Locale.getDefault().equals(new Locale("bs","BA")))
+            message = "Da li ste sigurni da želite obrisati pacijenta " + patient.getFirstName() + " " + patient.getLastName()+"?";
+        else
+            message ="Are you sure you want to delete patient " + patient.getFirstName() + " " + patient.getLastName()+"?";
         alert.setTitle("Confirmation");
-        alert.setContentText("Are you sure you want to delete patient " + patient.getFirstName() + " " + patient.getLastName()+"?");
+        alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             dao.deletePatient(patient.getId());

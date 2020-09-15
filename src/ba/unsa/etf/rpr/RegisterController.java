@@ -6,13 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
@@ -30,7 +28,7 @@ public class RegisterController implements ControllerInterface {
     public PasswordField repeatPasswordFld;
     public Button closeButton;
     private boolean edit;
-
+    public Label informationLabel;
 
     public RegisterController(Office office, boolean edit) {
         this.office=office;
@@ -38,11 +36,11 @@ public class RegisterController implements ControllerInterface {
         this.edit=edit;
     }
 
-    private void showAlert(Exception e) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText(e.getMessage());
+        alert.setContentText(message);
         alert.showAndWait();
     }
     private void openMainStage() {
@@ -82,6 +80,7 @@ public class RegisterController implements ControllerInterface {
     }
     @FXML
     public void initialize() {
+        informationLabel.setVisible(false);
         if (office!=null) {
             fldName.setText(office.getName());
             fldAddress.setText(office.getAddress());
@@ -116,6 +115,9 @@ public class RegisterController implements ControllerInterface {
                 repeatPasswordFld.getStyleClass().add("notOk");
             }
         });
+            fldUsername.textProperty().addListener((obs, oldValue, newValue)->{
+                informationLabel.setVisible(false);
+        });
     }
 
     public void closeAction (ActionEvent actionEvent) {
@@ -125,11 +127,13 @@ public class RegisterController implements ControllerInterface {
 
     public void registerAction (ActionEvent actionEvent) {
         if (fldName.getText().isEmpty() || fldAddress.getText().isEmpty() || fldUsername.getText().isEmpty() || fldPassword.getText().isEmpty() || repeatPasswordFld.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("You have to enter all data!");
-            alert.showAndWait();
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Morate unijeti sve podatke!";
+            else {
+                message = "You have to enter all data!";
+            }
+            showAlert(message);
             return;
         }
         if (!repeatPasswordFld.getText().equals(fldPassword.getText())) return;
@@ -138,8 +142,8 @@ public class RegisterController implements ControllerInterface {
             try {
                 dao.addOffice(office);
                 openLogInStage();
-            } catch (OfficeWithThisUsernameAlreadyExist officeWithThisUsernameAlreadyExist) {
-               showAlert(officeWithThisUsernameAlreadyExist);
+            } catch (OfficeWithThisUsernameAlreadyExists officeWithThisUsernameAlreadyExists) {
+                informationLabel.setVisible(true);
                 return;
             }
         } else {
@@ -150,8 +154,8 @@ public class RegisterController implements ControllerInterface {
             try {
                 dao.editOffice(office);
                 openMainStage();
-            } catch (OfficeWithThisUsernameAlreadyExist officeWithThisUsernameAlreadyExist) {
-                showAlert(officeWithThisUsernameAlreadyExist);
+            } catch (OfficeWithThisUsernameAlreadyExists officeWithThisUsernameAlreadyExists) {
+                informationLabel.setVisible(true);
                 return;
             }
 

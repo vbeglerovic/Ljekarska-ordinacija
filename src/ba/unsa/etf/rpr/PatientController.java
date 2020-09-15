@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
@@ -47,7 +48,7 @@ public class PatientController implements ControllerInterface {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setContentText(message);
-
+        alert.setHeaderText(null);
         alert.showAndWait();
     }
 
@@ -67,7 +68,7 @@ public class PatientController implements ControllerInterface {
         if (patient != null) {
             nameFld.setText(patient.getFirstName());
             lastNameFld.setText(patient.getLastName());
-            JMBGFld.setText(patient.getJMBG());
+            JMBGFld.setText(patient.getIdentityNumber());
             addressFld.setText(patient.getAddress());
             emailFld.setText(patient.getEmail());
             POBFld.setText(patient.getBirthPlace());
@@ -122,12 +123,17 @@ public class PatientController implements ControllerInterface {
     public void addPatient (ActionEvent actionEvent) {
         if (patient == null) patient = new Patient();
         if (nameFld.getText().isEmpty() || lastNameFld.getText().isEmpty() || JMBGFld.getText().isEmpty() || POBFld.getText().isEmpty() || addressFld.getText().isEmpty()) {
-            showAlert("You have to enter all data except email!");
+            String message, title;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Morate unijeti sve podatke (email adresa nije obavezna)!";
+            else
+                message = "You have to enter all data (email address is optional)!!";
+            showAlert(message);
             return;
         }
         patient.setFirstName(nameFld.getText());
         patient.setLastName(lastNameFld.getText());
-        patient.setJMBG(JMBGFld.getText());
+        patient.setIdentityNumber(JMBGFld.getText());
         patient.setBirthPlace(POBFld.getText());
         patient.setAddress(addressFld.getText());
         patient.setEmail(emailFld.getText());

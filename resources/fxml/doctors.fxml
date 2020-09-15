@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane maxHeight="800.0" maxWidth="1000.0" minHeight="800.0" minWidth="1000.0" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #BBFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
         <center>
-            <Pane>
-    <TableView fx:id="tableViewDoctors" layoutX="28.0" layoutY="65.0" prefHeight="535.0" prefWidth="944.0" style="-fx-background-color: #00BFFF;">
+            <Pane prefHeight="555.0" prefWidth="1000.0">
+    <TableView fx:id="tableViewDoctors" layoutX="17.0" layoutY="89.0" prefHeight="518.0" prefWidth="963.0" style="-fx-background-color: #00BFFF;">
             <columns>
                 <TableColumn fx:id="colDoctorName" prefWidth="74.0" text="%first.name" />
                 <TableColumn fx:id="colDoctorLastName" prefWidth="76.0" text="%last.name" />
-                <TableColumn fx:id="colDoctorJMBG" prefWidth="74.0" text="%jmb" />
+                <TableColumn fx:id="colDoctorJMBG" prefWidth="74.0" text="%id" />
                 <TableColumn fx:id="colDoctorDOB" prefWidth="95.0" text="%birth.date" />
                 <TableColumn fx:id="colDoctorPOB" prefWidth="86.0" text="%birth.place" />
                 <TableColumn fx:id="colDoctorAddress" prefWidth="144.0" text="%address" />
-                <TableColumn fx:id="colDoctorDOE" prefWidth="112.0" text="%employment.date" />
-                <TableColumn fx:id="colDoctorEmail" prefWidth="179.0" text="%email" />
+                <TableColumn fx:id="colDoctorDOE" prefWidth="130.0" text="%employment.date" />
+                <TableColumn fx:id="colDoctorEmail" prefWidth="180.0" text="%email" />
                 <TableColumn fx:id="colDoctorSpecialty" prefWidth="103.0" text="%specialty" />
             </columns>
         </TableView>
-                <Label layoutX="64.0" layoutY="14.0" prefHeight="32.0" prefWidth="103.0" text="%search">
+                <Label layoutX="64.0" layoutY="30.0" prefHeight="32.0" prefWidth="103.0" text="%search">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="searchFld" layoutX="167.0" layoutY="14.0" prefHeight="33.0" prefWidth="277.0" promptText="%name.surname">
+                <TextField fx:id="searchFld" layoutX="167.0" layoutY="30.0" prefHeight="33.0" prefWidth="277.0" promptText="%name.surname">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -33,40 +34,42 @@
             </Pane>
         </center>
     <bottom>
-        <Pane prefHeight="78.0" prefWidth="1000.0">
-        <ToolBar layoutX="453.0" prefHeight="53.0" prefWidth="533.0" style="-fx-background-color: #00BFFF;">
+        <ToolBar layoutX="350.0" prefHeight="53.0" prefWidth="636.0" style="-fx-background-color: #00BFFF;">
             <items>
-            <Button mnemonicParsing="false" onAction="#printReportAction" prefHeight="40.0" prefWidth="100.0" text="%report">
+            <Button mnemonicParsing="false" onAction="#printReportAction" prefHeight="40.0" prefWidth="120.0" text="%report">
                <font>
                   <Font size="14.0" />
                </font></Button>
-                <Button onAction="#editDoctorAction" prefHeight="40.0" prefWidth="100.0" text="%edit">
+                <Button onAction="#editDoctorAction" prefHeight="40.0" prefWidth="120.0" text="%edit">
                <font>
                   <Font size="14.0" />
                </font></Button>
-                <Button fx:id="btnRemove" onAction="#deleteDoctorAction" prefHeight="40.0" prefWidth="100.0" text="%remove">
+                <Button fx:id="btnRemove" onAction="#deleteDoctorAction" prefHeight="40.0" prefWidth="120.0" text="%remove">
                <font>
                   <Font size="14.0" />
                </font></Button>
-                <Button fx:id="addDoctorBtn" onAction="#addDoctorAction" prefHeight="40.0" prefWidth="100.0" text="%add">
+                <Button fx:id="addDoctorBtn" onAction="#addDoctorAction" prefHeight="40.0" prefWidth="120.0" text="%add">
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Button fx:id="closeButton" onAction="#closeAction" prefHeight="40.0" prefWidth="100.0" text="%cancel">
+            <Button fx:id="closeButton" onAction="#closeAction" prefHeight="40.0" prefWidth="120.0" text="%cancel">
                <font>
                   <Font size="14.0" />
                </font></Button>
             </items>
+         <BorderPane.margin>
+            <Insets bottom="35.0" left="300.0" right="70.0" top="5.0" />
+         </BorderPane.margin>
         </ToolBar>
-        </Pane>
     </bottom>
     <top>
-        <Pane>
       <Label layoutX="377.0" layoutY="2.0" prefHeight="70.0" prefWidth="247.0" text="%doctors">
          <font>
             <Font size="48.0" />
          </font>
+         <BorderPane.margin>
+            <Insets left="380.0" top="10.0" />
+         </BorderPane.margin>
       </Label>
-        </Pane>
     </top>
 </BorderPane>

@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
@@ -52,11 +53,65 @@ public class AppointmentController implements ControllerInterface{
         }
     }
 
-    private void showInfoDialog() {
+    @FXML
+    public void initialize() {
+        patientsChoiceBox.setItems(patients);
+        doctorsChoiceBox.setItems(doctors);
+        if (appointment != null) {
+            doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
+            patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
+            datePicker.setValue(appointment.getDate());
+            if (appointment.getType().toLowerCase().equals("kontrola"))
+                controlCheckBox.setSelected(true);
+            listView.setItems(FXCollections.observableList(allAppointments));
+            listView.getSelectionModel().select(appointment.getTime());
+        }
+        doctorsChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue)-> {
+            if (datePicker.getValue()!=null) {
+                try {
+                    showListAction();
+                } catch (NoFreeTerms noFreeTerms) {
+                    String message;
+                    if (Locale.getDefault().equals(new Locale("bs","BA")))
+                        message = "Nema slobodnih termina na datum " + datePicker.getValue().toString() + " za doktora " + doctorsChoiceBox.getValue().toString() + "!";
+                    else
+                        message="There are no free terms on date "+datePicker.getValue().toString()+" for doctor "+doctorsChoiceBox.getValue().toString()+"!";
+                    showDialog(message);
+                    return;
+                }
+            }
+        });
+        datePicker.valueProperty().addListener((obs, oldValue, newValue)->{
+            if (doctorsChoiceBox.getSelectionModel().getSelectedItem()!=null) {
+                try {
+                    showListAction();
+                } catch (NoFreeTerms noFreeTerms) {
+                    String message;
+                    if (Locale.getDefault().equals(new Locale("bs","BA")))
+                        message = "Nema slobodnih termina na datum " + datePicker.getValue().toString() + " za doktora " + doctorsChoiceBox.getValue().toString() + "!";
+                    else
+                        message="There are no free terms on date "+datePicker.getValue().toString()+" for doctor "+doctorsChoiceBox.getValue().toString()+"!";
+                    showDialog(message);
+                    return;
+                }
+            }
+        });
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+
+                setDisable(empty || date.compareTo(today) < 0 );
+            }
+        });
+    }
+
+
+    private void showDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setContentText("There are no free terms on date "+datePicker.getValue().toString()+" for doctor "+doctorsChoiceBox.getSelectionModel().getSelectedItem().toString()+".");
-        alert.showAndWait();
+        alert.setHeaderText(null);
+        alert.setContentText(message);
     }
 
     private void showListAction () throws NoFreeTerms {
@@ -112,50 +167,6 @@ public class AppointmentController implements ControllerInterface{
         stage.show();
     }
 
-
-    @FXML
-    public void initialize() {
-        patientsChoiceBox.setItems(patients);
-        doctorsChoiceBox.setItems(doctors);
-       if (appointment != null) {
-           doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
-           patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
-           datePicker.setValue(appointment.getDate());
-           if (appointment.getType().toLowerCase().equals("control"))
-               controlCheckBox.setSelected(true);
-           listView.setItems(FXCollections.observableList(allAppointments));
-           listView.getSelectionModel().select(appointment.getTime());
-       }
-       doctorsChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue)-> {
-           if (datePicker.getValue()!=null) {
-               try {
-                   showListAction();
-               } catch (NoFreeTerms noFreeTerms) {
-                   showInfoDialog();
-                   return;
-               }
-           }
-       });
-       datePicker.valueProperty().addListener((obs, oldValue, newValue)->{
-           if (doctorsChoiceBox.getSelectionModel().getSelectedItem()!=null) {
-               try {
-                   showListAction();
-               } catch (NoFreeTerms noFreeTerms) {
-                   showInfoDialog();
-                   return;
-               }
-           }
-       });
-        datePicker.setDayCellFactory(picker -> new DateCell() {
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                LocalDate today = LocalDate.now();
-
-                setDisable(empty || date.compareTo(today) < 0 );
-            }
-        });
-    }
-
     public void closeAction (ActionEvent actionEvent) {
         appointment=null;
         if (edit) openStageWithAllAppointments();
@@ -165,11 +176,12 @@ public class AppointmentController implements ControllerInterface{
     public void makeAppointmentAction (ActionEvent actionEvent) {
         if (appointment==null) appointment=new Appointment();
         if (patientsChoiceBox.getValue()==null || doctorsChoiceBox.getValue()==null || datePicker.getValue()==null || listView.getSelectionModel().getSelectedItem()==null ) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("You have to enter all information!");
-            alert.showAndWait();
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Popunite sve podatke!";
+            else
+                message="Enter all data!";
+            showDialog(message);
             return;
         }
         DateTimeFormatter tf=DateTimeFormatter.ofPattern("HH:mm");
@@ -177,8 +189,7 @@ public class AppointmentController implements ControllerInterface{
         appointment.setDate(datePicker.getValue());
         appointment.setPatient(patientsChoiceBox.getValue());
         appointment.setDoctor(doctorsChoiceBox.getValue());
-        if (controlCheckBox.isSelected()) appointment.setType("Control");
-        else appointment.setType("First appointment");
+        if (controlCheckBox.isSelected()) appointment.setType("Kontrola");
         if (edit) {
             dao.editAppointment(appointment);
             openStageWithAllAppointments();

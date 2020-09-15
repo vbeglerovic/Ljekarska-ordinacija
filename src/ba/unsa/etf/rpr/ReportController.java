@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -64,7 +65,7 @@ public class ReportController implements ControllerInterface {
             genderFld.setText(appointment.getPatient().getGender().toString());
             DOBFld.setText(appointment.getPatient().getBirthDate().toString());
             dateTimeFld.setText(appointment.getDate()+" "+appointment.getTime().toString());
-            jmbFld.setText(appointment.getPatient().getJMBG());
+            jmbFld.setText(appointment.getPatient().getIdentityNumber());
             addressFld.setText(appointment.getPatient().getAddress());
         }
     }
@@ -75,9 +76,13 @@ public class ReportController implements ControllerInterface {
     }
 
     public void addReportAction (ActionEvent actionEvent) {
+        String message;
+        if (Locale.getDefault().equals(new Locale("bs","BA")))
+            message = "Da li ste sigurni da želite dodati izvještaj?";
+        else
+            message = "Are you sure you want to add report?";
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setContentText("Are you sure you want to add report?");
+        alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             appointment.setAnamnesis(anamnesisFld.getText());

@@ -7,18 +7,18 @@ public abstract class Person {
     private int id;
     private String firstName;
     private String lastName;
-    private String JMBG;
+    private String identityNumber;
     private LocalDate birthDate;
     private String birthPlace;
     private String address;
     private String email;
     private boolean active;
 
-    public Person(int id, String firstName, String lastName, String JMBG, LocalDate birthDate, String birthPlace, String address, String email, boolean active) {
+    public Person(int id, String firstName, String lastName, String identityNumber, LocalDate birthDate, String birthPlace, String address, String email, boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.JMBG = JMBG;
+        this.identityNumber = identityNumber;
         this.birthDate = birthDate;
         this.birthPlace = birthPlace;
         this.address = address;
@@ -54,12 +54,12 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    public String getJMBG() {
-        return JMBG;
+    public String getIdentityNumber() {
+        return identityNumber;
     }
 
-    public void setJMBG(String JMBG) {
-        this.JMBG = JMBG;
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 
     public LocalDate getBirthDate() {

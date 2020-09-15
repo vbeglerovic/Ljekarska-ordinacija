@@ -19,10 +19,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -51,8 +48,8 @@ public class AppointmentsController implements ControllerInterface{
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
         alert.setContentText(message);
-
         alert.showAndWait();
     }
 
@@ -94,10 +91,24 @@ public class AppointmentsController implements ControllerInterface{
 
     public void deleteAppointmentAction (ActionEvent actionEvent) {
         Appointment appointment = tableViewAppointments.getSelectionModel().getSelectedItem();
-        if (appointment == null) return;
+        if (appointment == null) {
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs", "BA")))
+                message = "Izaberite pregled koji želite otkazati!";
+            else
+                message = "Select appointment that you want to remove!";
+            showAlert(message);
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        String message;
+        if (Locale.getDefault().equals(new Locale("bs","BA")))
+            message = "Da li ste sigurni da želite otkazati pregled?";
+        else
+            message = "Are you sure you want to remove appointment?";
         alert.setTitle("Confirmation");
-        alert.setContentText("Are you sure you want to cancel appointment?");
+        alert.setContentText(message);
+        alert.showAndWait();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             dao.deleteAppointment(appointment.getId());
@@ -108,11 +119,21 @@ public class AppointmentsController implements ControllerInterface{
     public void editAppointmentAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (a == null) {
-            showAlert("Select appointment you want to edit!");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Izaberite pregled čije podatke želite izmijeniti!";
+            else
+                message = "Select appointment that you want to edit!";
+            showAlert(message);
             return;
         }
         if (LocalDateTime.of(a.getDate(), a.getTime()).isBefore(LocalDateTime.now())){
-            showAlert("You can't change data for appointments from past!");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Ne možete mijenjati podatke za preglede koji su već obavljeni!";
+            else
+                message = "You can not change data for appointments from past!";
+            showAlert(message);
             return;
         }
         Stage stage=(Stage) closeButton.getScene().getWindow();
@@ -167,11 +188,13 @@ public class AppointmentsController implements ControllerInterface{
                     appointments = beforeDate(d2);
                 }
             } catch (DateTimeParseException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid date format ! \n Correct: yyyy-HH-mm");
-                alert.showAndWait();
+                String message;
+                if (Locale.getDefault().equals(new Locale("bs","BA")))
+                    message = "Neispravan format datuma!\nIspravan yyyy-HH-mm!";
+                else
+                    message = "Invalid date format !\nCorrect: yyyy-HH-mm!";
+                showAlert(message);
+                return;
             }
         tableViewAppointments.setItems(FXCollections.observableList(appointments));
     }
@@ -179,16 +202,31 @@ public class AppointmentsController implements ControllerInterface{
     public void addReportAction (ActionEvent actionEvent) {
         Appointment a = tableViewAppointments.getSelectionModel().getSelectedItem();
         if (a == null) {
-            showAlert("Select appointment you want to add report!");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Izaberite pregled kojem želite dodati izvještaj!";
+            else
+                message = "Select appointment you want to add report!";
+            showAlert(message);
             return;
         }
         if (a.getRecommendation()!=null || a.getDiagnosis()!=null || a.getRecommendation()!=null) {
-            showAlert("Report has already been written");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Izvještaj je već dodan!";
+            else
+                message = "Report has already been added!";
+            showAlert(message);
             return;
         }
         LocalDateTime lt=LocalDateTime.of(a.getDate(),a.getTime());
         if (lt.isAfter(LocalDateTime.now())) {
-            showAlert("You can not add report for future appointments!");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Ne možete dodati izvještaj za pregled koji nije obavljen!";
+            else
+                message = "You can not add report for future appointments!";
+            showAlert(message);
             return;
         }
         Stage stage=(Stage) closeButton.getScene().getWindow();
@@ -210,8 +248,22 @@ public class AppointmentsController implements ControllerInterface{
 
     public void viewReportAction(ActionEvent actionEvent) {
         Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
+        if (a==null) {
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Izaberite pregled čiji izvještaj želite vidjeti!";
+            else
+                message = "Select appointment whose report you want to review!";
+            showAlert(message);
+            return;
+        }
         if (a.getRecommendation()==null && a.getDiagnosis()==null && a.getAnamnesis()==null) {
-            showAlert("Report has not been added!");
+            String message;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Izvještaj nije dodan!";
+            else
+                message = "Report has not been added!";
+            showAlert(message);
             return;
         }
         if (a!=null) {
@@ -222,5 +274,4 @@ public class AppointmentsController implements ControllerInterface{
             }
         }
     }
-
 }

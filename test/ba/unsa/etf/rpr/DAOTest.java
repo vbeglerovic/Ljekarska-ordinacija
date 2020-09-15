@@ -32,8 +32,8 @@ class DAOTest {
         Office office=new Office(0, "Office3", "address3", "username3", "password3");
         try {
             dao.addOffice(office);
-        } catch (OfficeWithThisUsernameAlreadyExist officeWithThisUsernameAlreadyExist) {
-            officeWithThisUsernameAlreadyExist.printStackTrace();
+        } catch (OfficeWithThisUsernameAlreadyExists officeWithThisUsernameAlreadyExists) {
+            officeWithThisUsernameAlreadyExists.printStackTrace();
         }
         assertEquals(3, dao.getOffices().size());
     }
@@ -48,8 +48,8 @@ class DAOTest {
         office.setUsername("username3");
         try {
             dao.editOffice(office);
-        } catch (OfficeWithThisUsernameAlreadyExist officeWithThisUsernameAlreadyExist) {
-            officeWithThisUsernameAlreadyExist.printStackTrace();
+        } catch (OfficeWithThisUsernameAlreadyExists officeWithThisUsernameAlreadyExists) {
+            officeWithThisUsernameAlreadyExists.printStackTrace();
         }
         ArrayList<Office> offices = dao.getOffices();
         assertEquals("username3", offices.get(1).getUsername());
@@ -63,7 +63,7 @@ class DAOTest {
         DAO dao = DAO.getInstance();
         Office office = dao.getOfficeWithUsername("username2");
         office.setUsername("username1");
-        Exception exception = assertThrows(OfficeWithThisUsernameAlreadyExist.class,
+        Exception exception = assertThrows(OfficeWithThisUsernameAlreadyExists.class,
                 () -> dao.addOffice(office));
 
         ArrayList<Office> offices = dao.getOffices();

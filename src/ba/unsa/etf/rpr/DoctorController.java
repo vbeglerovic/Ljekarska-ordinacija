@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
@@ -46,7 +47,13 @@ public class DoctorController implements ControllerInterface{
         this.office=office;
         this.edit=edit;
     }
-
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
     private void open() {
         Stage stage=(Stage) addButton.getScene().getWindow();
         Parent root = null;
@@ -76,7 +83,7 @@ public class DoctorController implements ControllerInterface{
         if (doctor != null) {
             nameFld.setText(doctor.getFirstName());
             lastNameFld.setText(doctor.getLastName());
-            JMBGFld.setText(doctor.getJMBG());
+            JMBGFld.setText(doctor.getIdentityNumber());
             addressFld.setText(doctor.getAddress());
             emailFld.setText(doctor.getEmail());
             POBFld.setText(doctor.getBirthPlace());
@@ -115,15 +122,17 @@ public class DoctorController implements ControllerInterface{
         if (doctor == null) doctor= new Doctor();
         if (nameFld.getText().isEmpty() || lastNameFld.getText().isEmpty() || JMBGFld.getText().isEmpty() || POBFld.getText().isEmpty()
                 || addressFld.getText().isEmpty() || specialtyFld.getText().isEmpty() || yearFld1.getText().isEmpty() || yearFld2.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("You have to enter all information except email!");
-            alert.showAndWait();
+            String message,title;
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+                message = "Morate unijeti sve podatke (email adresa nije obavezna)!";
+            else
+                message = "You have to enter all (email is optional)!";
+            showAlert(message);
+            return;
         } else {
             doctor.setFirstName(nameFld.getText());
             doctor.setLastName(lastNameFld.getText());
-            doctor.setJMBG(JMBGFld.getText());
+            doctor.setIdentityNumber(JMBGFld.getText());
             doctor.setBirthPlace(POBFld.getText());
             doctor.setAddress(addressFld.getText());
             doctor.setEmail(emailFld.getText());

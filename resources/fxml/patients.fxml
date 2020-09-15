@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -15,11 +16,11 @@
             <font>
                 <Font size="14.0" />
             </font></Label>
-      <TableView fx:id="tableViewPatients" layoutX="21.0" layoutY="76.0" prefHeight="528.0" prefWidth="958.0" style="-fx-background-color: #00BFFF;">
+      <TableView fx:id="tableViewPatients" layoutX="21.0" layoutY="76.0" prefHeight="532.0" prefWidth="958.0" style="-fx-background-color: #00BFFF;">
         <columns>
           <TableColumn fx:id="colPatientName" prefWidth="75.0" text="%first.name" />
           <TableColumn fx:id="colPatientLastName" prefWidth="75.0" text="%last.name" />
-          <TableColumn fx:id="colPatientJMBG" prefWidth="78.0" text="%jmb" />
+          <TableColumn fx:id="colPatientJMBG" prefWidth="78.0" text="%id" />
             <TableColumn fx:id="colPatientGender" prefWidth="67.0" text="%gender" />
           <TableColumn fx:id="colPatientDOB" prefWidth="115.0" text="%birth.date" />
           <TableColumn fx:id="colPatientPOB" prefWidth="122.0" text="%birth.place" />
@@ -31,8 +32,6 @@
     </Pane>
 </center>
     <bottom>
-        <Pane prefHeight="83.0" prefWidth="1000.0">
-         <children>
          <ToolBar layoutX="403.0" layoutY="-1.0" prefHeight="53.0" prefWidth="580.0" style="-fx-background-color: #00BFFF;">
            <items>
                <Button mnemonicParsing="false" onAction="#printReportAction" prefHeight="40.0" prefWidth="100.0" text="%report">
@@ -56,17 +55,19 @@
                         <Font size="14.0" />
                      </font></Button>
            </items>
+         <BorderPane.margin>
+            <Insets bottom="35.0" left="390.0" right="30.0" top="20.0" />
+         </BorderPane.margin>
          </ToolBar>
-         </children>
-        </Pane>
     </bottom>
     <top>
-        <Pane>
       <Label layoutX="365.0" prefHeight="70.0" prefWidth="255.0" text="%patients">
          <font>
             <Font size="48.0" />
          </font>
+         <BorderPane.margin>
+            <Insets left="380.0" top="15.0" />
+         </BorderPane.margin>
       </Label>
-        </Pane>
     </top>
 </BorderPane>

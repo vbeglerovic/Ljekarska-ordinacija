@@ -42,7 +42,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-                <Label prefHeight="32.0" prefWidth="186.0" text="%jmb" GridPane.rowIndex="2">
+                <Label prefHeight="35.0" prefWidth="224.0" text="%identity.number" GridPane.rowIndex="2">
                <font>
                   <Font size="24.0" />
                </font></Label>

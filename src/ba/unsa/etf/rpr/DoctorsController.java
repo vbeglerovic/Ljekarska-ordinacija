@@ -48,11 +48,11 @@ public class DoctorsController implements ControllerInterface {
         doctorsList= FXCollections.observableList(dao.doctors(office.getId()));
     }
 
-    private void showAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
         alert.setContentText(message);
-
         alert.showAndWait();
     }
 
@@ -61,7 +61,7 @@ public class DoctorsController implements ControllerInterface {
         tableViewDoctors.setItems(doctorsList);
         colDoctorName.setCellValueFactory(new PropertyValueFactory("firstName"));
         colDoctorLastName.setCellValueFactory(new PropertyValueFactory("lastName"));
-        colDoctorJMBG.setCellValueFactory(new PropertyValueFactory("JMBG"));
+        colDoctorJMBG.setCellValueFactory(new PropertyValueFactory("identityNumber"));
         colDoctorDOB.setCellValueFactory(new PropertyValueFactory("birthDate"));
         colDoctorPOB.setCellValueFactory(new PropertyValueFactory("birthPlace"));
         colDoctorAddress.setCellValueFactory(new PropertyValueFactory("address"));
@@ -79,7 +79,7 @@ public class DoctorsController implements ControllerInterface {
                     return  true;
                 } else if (doctor.getLastName().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
-                } else if (doctor.getJMBG().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
+                } else if (doctor.getIdentityNumber().toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
                 } else if ((doctor.getFirstName().toLowerCase()+" "+doctor.getLastName()).toLowerCase().indexOf(lowerCaseFilter)!=-1) {
                     return true;
@@ -134,9 +134,9 @@ public class DoctorsController implements ControllerInterface {
         Doctor d = tableViewDoctors.getSelectionModel().getSelectedItem();
         if (d == null) {
             if (Locale.getDefault().equals(new Locale("bs","BA")))
-                showAlert(Alert.AlertType.INFORMATION, "Information Dialog", "Izaberite doktora čije podatke želite izmijeniti!");
+                showAlert("Izaberite doktora čije podatke želite izmijeniti!");
             else
-                showAlert(Alert.AlertType.INFORMATION, "Information Dialog", "Select the doctor whose data you want to change!");
+                showAlert("Select doctor whose data you want to change!");
             return;
         }
         Stage stage=(Stage) closeButton.getScene().getWindow();
@@ -159,16 +159,18 @@ public class DoctorsController implements ControllerInterface {
         Doctor doctor = tableViewDoctors.getSelectionModel().getSelectedItem();
         if (doctor == null) {
             if (Locale.getDefault().equals(new Locale("bs","BA")))
-            showAlert(Alert.AlertType.INFORMATION, "Information Dialog","Izaberite doktora kojeg želite ukloniti!");
+            showAlert("Izaberite doktora kojeg želite ukloniti!");
             else
-                showAlert(Alert.AlertType.INFORMATION, "Information Dialog","Choose doctor ");
+                showAlert("Select doctor you want to remove!");
             return;
         }
+        String message;
         if (Locale.getDefault().equals(new Locale("bs","BA")))
-            showAlert(Alert.AlertType.CONFIRMATION, "Confirmation", "");
+            message="Da li ste sigurni da želite obrisati doktora "+ doctor.getFirstName() + " " + doctor.getLastName()+"?";
+        else message="Are you sure you want to remove doctor " + doctor.getFirstName() + " " + doctor.getLastName()+"?";
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.setContentText("Are you sure you want to delete doctor " + doctor.getFirstName() + " " + doctor.getLastName()+"?");
+        alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             dao.deleteDoctor(doctor.getId());

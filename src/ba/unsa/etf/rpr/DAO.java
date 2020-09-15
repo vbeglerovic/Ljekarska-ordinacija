@@ -45,7 +45,7 @@ public class DAO {
                 addAppointmentStatement=conn.prepareStatement("INSERT INTO appointments VALUES (?,?,?,?,?,?,?,?,?,?)");
                 addReportStatement=conn.prepareStatement("UPDATE appointments SET anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
 
-                deleteDoctorStatement=conn.prepareStatement("DELETE FROM doctors WHERE JMBG=?");
+                deleteDoctorStatement=conn.prepareStatement("DELETE FROM doctors WHERE identity_number=?");
                 deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
                 deletePatientStatement=conn.prepareStatement("DELETE FROM patients WHERE id=?");
                 deleteAppointmentStatement=conn.prepareStatement("DELETE FROM appointments WHERE id=?");
@@ -60,8 +60,8 @@ public class DAO {
                 getAppointementStatement=conn.prepareStatement("SELECT * FROM appointments WHERE id=?");
                 getAppointmentsByDate=conn.prepareStatement("SELECT * FROM appointments WHERE doctor_id=? AND date=? AND office_id=?");
 
-                updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=?, active=? WHERE id=?");
-                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=?, active=? WHERE id=?");
+                updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, identity_number=?, gender=?, birth_date=?, birth_place=?, address=?, status=?, email=?, active=? WHERE id=?");
+                updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, identity_number=?, birth_date=?, birth_place=?, address=?, email=?, employment_date=?, specialty=?, active=? WHERE id=?");
                 updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
                 updateOfficeStatement=conn.prepareStatement("UPDATE offices SET name=?, address=?, username=?, password=? WHERE id=?");
 
@@ -124,12 +124,12 @@ public class DAO {
     }
 
 
-    public void addOffice(Office office) throws OfficeWithThisUsernameAlreadyExist {
+    public void addOffice(Office office) throws OfficeWithThisUsernameAlreadyExists {
         try {
             getOfficeWithUsernameStatement.setString(1,office.getUsername());
             ResultSet rs=getOfficeWithUsernameStatement.executeQuery();
             if (rs.next())
-                throw new OfficeWithThisUsernameAlreadyExist("Office with this username already exists!");
+                throw new OfficeWithThisUsernameAlreadyExists("Office with this username already exists!");
             ResultSet rs2 = getMaxIdForOffice.executeQuery();
             int id = 1;
             if (rs2.next()) {
@@ -170,7 +170,7 @@ public class DAO {
             addPatientStatement.setInt(1,id);
             addPatientStatement.setString(2,patient.getFirstName());
             addPatientStatement.setString(3,patient.getLastName());
-            addPatientStatement.setString(4,patient.getJMBG());
+            addPatientStatement.setString(4,patient.getIdentityNumber());
             addPatientStatement.setString(5, patient.getGender().toString());
             addPatientStatement.setString(6,patient.getBirthDate().toString());
             addPatientStatement.setString(7,patient.getBirthPlace());
@@ -246,7 +246,7 @@ public class DAO {
         try {
             updatePatientStatment.setString(1, patient.getFirstName());
             updatePatientStatment.setString(2, patient.getLastName());
-            updatePatientStatment.setString(3, patient.getJMBG());
+            updatePatientStatment.setString(3, patient.getIdentityNumber());
             updatePatientStatment.setString(4, patient.getGender().toString());
             updatePatientStatment.setString(5, patient.getBirthDate().toString());
             updatePatientStatment.setString(6, patient.getBirthPlace());
@@ -445,7 +445,7 @@ public class DAO {
             addDoctorStatement.setInt(1,3);
             addDoctorStatement.setString(2,doctor.getFirstName());
             addDoctorStatement.setString(3,doctor.getLastName());
-            addDoctorStatement.setString(4,doctor.getJMBG());
+            addDoctorStatement.setString(4,doctor.getIdentityNumber());
             addDoctorStatement.setString(5, doctor.getBirthDate().toString());
             addDoctorStatement.setString(6,doctor.getBirthPlace());
             addDoctorStatement.setString(7,doctor.getAddress());
@@ -466,7 +466,7 @@ public class DAO {
         try {
             updateDoctorStatment.setString(1, doctor.getFirstName());
             updateDoctorStatment.setString(2, doctor.getLastName());
-            updateDoctorStatment.setString(3, doctor.getJMBG());
+            updateDoctorStatment.setString(3, doctor.getIdentityNumber());
             updateDoctorStatment.setString(4, doctor.getBirthDate().toString());
             updateDoctorStatment.setString(5, doctor.getBirthPlace());
             updateDoctorStatment.setString(6, doctor.getAddress());
@@ -512,7 +512,7 @@ public class DAO {
     }
 
 
-    public void editOffice(Office office) throws OfficeWithThisUsernameAlreadyExist {
+    public void editOffice(Office office) throws OfficeWithThisUsernameAlreadyExists {
         try {
             getOfficeWithUsernameStatement.setString(1,office.getUsername());
             ResultSet rs=getOfficeWithUsernameStatement.executeQuery();
@@ -520,7 +520,7 @@ public class DAO {
             if (rs.next()) {
                 office1 = new Office(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                 if (office1.getId() != office.getId())
-                    throw new OfficeWithThisUsernameAlreadyExist("Office with this username already exists!");
+                    throw new OfficeWithThisUsernameAlreadyExists("Office with this username already exists!");
             }
 
         } catch (SQLException e) {

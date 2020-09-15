@@ -35,6 +35,22 @@ public class AppointmentController {
     public CheckBox controlCheckBox;
     public ListView<LocalTime> listView;
     public Button closeButton;
+    private boolean edit;
+
+    public AppointmentController(Appointment appointment, Office office, boolean edit) {
+        this.appointment=appointment;
+        this.office=office;
+        this.edit=edit;
+        dao=DAO.getInstance();
+        patients=FXCollections.observableArrayList(dao.patients(office.getId()));
+        doctors=FXCollections.observableArrayList(dao.doctors(office.getId()));
+        LocalTime lt=LocalTime.of(8,0);
+        allAppointments=new ArrayList<>();
+        for (int i=0; i<28; i++) {
+            allAppointments.add(lt);
+            lt=lt.plusMinutes(30);
+        }
+    }
 
     private void showInfoDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -60,20 +76,42 @@ public class AppointmentController {
         listView.getSelectionModel().clearSelection();
         listView.setVisible(true);
     }
-
-    public AppointmentController(Appointment appointment, Office office) {
-        this.appointment=appointment;
-        this.office=office;
-        dao=DAO.getInstance();
-        patients=FXCollections.observableArrayList(dao.patients(office.getId()));
-        doctors=FXCollections.observableArrayList(dao.doctors(office.getId()));
-        LocalTime lt=LocalTime.of(8,0);
-        allAppointments=new ArrayList<>();
-        for (int i=0; i<28; i++) {
-            allAppointments.add(lt);
-            lt=lt.plusMinutes(30);
+    private void openStageWithAllAppointments() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Parent root = null;
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
+        AppointmentsController appointmentsController = new AppointmentsController(office);
+        loader.setController(appointmentsController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        stage.setTitle("Appointments");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
+        stage.show();
     }
+
+    private void openMainStage() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Parent root = null;
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
+        OfficeController officeController = new OfficeController(office);
+        loader.setController(officeController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Office");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(true);
+        stage.show();
+    }
+
 
     @FXML
     public void initialize() {
@@ -120,8 +158,8 @@ public class AppointmentController {
 
     public void closeAction (ActionEvent actionEvent) {
         appointment=null;
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        if (edit) openStageWithAllAppointments();
+        else openMainStage();
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
@@ -141,37 +179,15 @@ public class AppointmentController {
         appointment.setDoctor(doctorsChoiceBox.getValue());
         if (controlCheckBox.isSelected()) appointment.setType("Control");
         else appointment.setType("First appointment");
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
-
-    public void addPatientAction (ActionEvent actionEvent) {
-        Stage stage = new Stage();
-        Parent root = null;
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"),bundle);
-            PatientController patientController = new PatientController(null,office, false);
-            loader.setController(patientController);
-            root = loader.load();
-            stage.setTitle("Patient");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(true);
-            stage.show();
-
-            stage.setOnHiding(event -> {
-                Patient patient = patientController.getPatient();
-                if (patient != null) {
-                    dao.addPatient(patient,office.getId());
-                    patients=FXCollections.observableArrayList(dao.patients(office.getId()));
-                    patientsChoiceBox.setItems(patients);
-
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (edit) {
+            dao.editAppointment(appointment);
+            openStageWithAllAppointments();
+        } else {
+            dao.addAppointment(appointment,office.getId());
+            openMainStage();
         }
     }
+
 
     public Appointment getAppointment() {
         return appointment;

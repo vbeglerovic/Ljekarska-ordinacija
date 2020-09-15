@@ -18,6 +18,7 @@ public class ReportController {
 
     private Office office;
     private Appointment appointment;
+    private DAO dao;
 
     public TextField patientFld;
     public TextField genderFld;
@@ -32,8 +33,27 @@ public class ReportController {
     public Button closeButton;
 
     public ReportController(Office office, Appointment appointment) {
+        dao=DAO.getInstance();
         this.appointment=appointment;
         this.office=office;
+    }
+
+    private void open() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Parent root = null;
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
+        AppointmentsController appointmentsController = new AppointmentsController(office);
+        loader.setController(appointmentsController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Appointments");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
+        stage.show();
     }
 
     @FXML
@@ -51,8 +71,7 @@ public class ReportController {
 
     public void closeAction (ActionEvent actionEvent) {
         appointment=null;
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+       open();
     }
 
     public void addReportAction (ActionEvent actionEvent) {
@@ -64,8 +83,8 @@ public class ReportController {
             appointment.setAnamnesis(anamnesisFld.getText());
             appointment.setDiagnosis((diagnosisFld.getText()));
             appointment.setRecommendation(recommendationFld.getText());
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            dao.addReport(appointment);
+            open();
         }
     }
 

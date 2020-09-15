@@ -137,8 +137,8 @@ public class DoctorController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) addButton.getScene().getWindow();
-        stage.close();
+        doctor=null;
+        open();
     }
 
     public Doctor getDoctor () {

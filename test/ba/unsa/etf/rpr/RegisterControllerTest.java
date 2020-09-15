@@ -31,7 +31,7 @@ class RegisterControllerTest {
     public void start (Stage stage) throws Exception {
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);
-        ctrl = new RegisterController();
+        ctrl = new RegisterController(null,false);
         loader.setController(ctrl);
         Parent root = loader.load();
         stage.setTitle("Register");

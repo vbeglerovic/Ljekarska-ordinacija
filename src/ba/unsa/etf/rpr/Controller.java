@@ -32,7 +32,7 @@ public class Controller {
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);
-        RegisterController registerController = new RegisterController();
+        RegisterController registerController = new RegisterController(null,false);
         loader.setController(registerController);
         try {
             root = loader.load();

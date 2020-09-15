@@ -114,26 +114,18 @@ public class AppointmentsController {
             showAlert("You can't change data for appointments from past!");
             return;
         }
-        Stage stage=new Stage();
+        Stage stage=(Stage) closeButton.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"),bundle);
-            AppointmentController appointmentController = new AppointmentController(a, office);
+            AppointmentController appointmentController = new AppointmentController(a, office,true);
             loader.setController(appointmentController);
             root = loader.load();
             stage.setTitle("Appointment");
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
-
-            stage.setOnHiding( event -> {
-                Appointment appointment = appointmentController.getAppointment();
-                if (appointment != null) {
-                    dao.editAppointment(appointment);
-                    appointmentsList.setAll(dao.appointments(office.getId()));
-                }
-            } );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,7 +191,12 @@ public class AppointmentsController {
             showAlert("Report has already been written");
             return;
         }
-        Stage stage=new Stage();
+        LocalDateTime lt=LocalDateTime.of(a.getDate(),a.getTime());
+        if (lt.isAfter(LocalDateTime.now())) {
+            showAlert("You can not add report for future appointments!");
+            return;
+        }
+        Stage stage=(Stage) closeButton.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -208,17 +205,9 @@ public class AppointmentsController {
             loader.setController(reportController);
             root = loader.load();
             stage.setTitle("Report");
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
-
-            stage.setOnHiding( event -> {
-                Appointment appointment = reportController.getAppointment();
-                if (appointment != null) {
-                    dao.addReport(appointment);
-                    appointmentsList.setAll(dao.appointments(office.getId()));
-                }
-            } );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -226,6 +215,10 @@ public class AppointmentsController {
 
     public void viewReportAction(ActionEvent actionEvent) {
         Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
+        if (a.getRecommendation()==null && a.getDiagnosis()==null && a.getAnamnesis()==null) {
+            showAlert("Report has not been added!");
+            return;
+        }
         if (a!=null) {
             try {
                 new PrintAppointmentReport().showReport(DAO.getConn(), a.getId(), a.getDoctor().toString(), a.getPatient().getId());

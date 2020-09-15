@@ -12,8 +12,8 @@
    </stylesheets>
    <center>
       <Pane>
-         <Button fx:id="btnSignOut" layoutX="684.0" layoutY="41.0" onAction="#signOutAction" prefHeight="40.0" prefWidth="40.0" />
-      <ImageView fitHeight="480.0" fitWidth="776.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
+         <Button fx:id="btnSignOut" layoutX="651.0" layoutY="50.0" onAction="#signOutAction" prefHeight="40.0" prefWidth="40.0" />
+      <ImageView fitHeight="412.0" fitWidth="752.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/image2.jpg" />
          </image>
@@ -27,9 +27,14 @@
    <left>
       <Pane prefHeight="600.0" prefWidth="225.0" style="-fx-background-color: #00BFFF;">
          <children>
-            <VBox layoutY="187.0" prefHeight="414.0" prefWidth="225.0">
+            <VBox layoutY="142.0" prefHeight="516.0" prefWidth="225.0">
                <children>
-                  <Button fx:id="patientsBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="98.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients">
+                  <Button fx:id="profileButton" mnemonicParsing="false" onAction="#profileAction" prefHeight="89.0" prefWidth="227.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%profile" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="patientsBtn" alignment="CENTER" onAction="#patientsAction" prefHeight="119.0" prefWidth="225.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%patients">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
@@ -37,7 +42,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" onAction="#reviewAction" prefHeight="102.0" prefWidth="224.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%appointments">
+                  <Button mnemonicParsing="false" onAction="#appointmentsAction" prefHeight="102.0" prefWidth="224.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="%appointments">
                      <font>
                         <Font size="14.0" />
                      </font></Button>

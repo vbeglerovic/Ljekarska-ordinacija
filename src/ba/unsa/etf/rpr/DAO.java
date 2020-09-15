@@ -19,7 +19,7 @@ public class DAO {
     private PreparedStatement addPatientStatement, updatePatientStatment, deletePatientStatement,getAppointmentsByDate,addReportStatement;
     private PreparedStatement addAppointmentStatement, getAppointmentsStatement, getPatientStatement,getDoctorStatement,getDoctorsStatement,addDoctorStatement;
     private PreparedStatement deleteDoctorStatement,updateDoctorStatment,getAppointementStatement,deleteAppointmentStatement,updateAppointmentStatment,markPatientAsInactiveStatement,markDoctorAsInactiveStatement ;
-    private PreparedStatement getMaxIdForOffice, getMaxIdForPatient, getMaxIdForDoctor, getMaxIdForAppointment;
+    private PreparedStatement getMaxIdForOffice, getMaxIdForPatient, getMaxIdForDoctor, getMaxIdForAppointment, updateOfficeStatement;
     private DAO () {
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -63,6 +63,7 @@ public class DAO {
                 updatePatientStatment=conn.prepareStatement("UPDATE patients SET firstName=?, lastName=?, JMBG=?, gender=?, DOB=?, POB=?, address=?, status=?, email=?, active=? WHERE id=?");
                 updateDoctorStatment=conn.prepareStatement("UPDATE doctors SET firstName=?, lastName=?, JMBG=?, DOE=?, POB=?, address=?, email=?, DOE=?, specialty=?, active=? WHERE id=?");
                 updateAppointmentStatment=conn.prepareStatement("UPDATE appointments SET date=?, time=?, doctor_id=?, patient_id=?, type=?, anamnesis=?, diagnosis=?, recommendation=? WHERE id=?");
+                updateOfficeStatement=conn.prepareStatement("UPDATE offices SET name=?, address=?, username=?, password=? WHERE id=?");
 
                 markPatientAsInactiveStatement=conn.prepareStatement("UPDATE patients SET active=0 WHERE id=?");
                 markDoctorAsInactiveStatement=conn.prepareStatement("UPDATE doctors SET active=0 WHERE id=?");
@@ -510,6 +511,34 @@ public class DAO {
         }
     }
 
+
+    public void editOffice(Office office) throws OfficeWithThisUsernameAlreadyExist {
+        try {
+            getOfficeWithUsernameStatement.setString(1,office.getUsername());
+            ResultSet rs=getOfficeWithUsernameStatement.executeQuery();
+            Office office1;
+            if (rs.next()) {
+                office1 = new Office(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                if (office1.getId() != office.getId())
+                    throw new OfficeWithThisUsernameAlreadyExist("Office with this username already exists!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            updateOfficeStatement.setString(1,office.getName());
+            updateOfficeStatement.setString(2, office.getAddress());
+            updateOfficeStatement.setString(3, office.getUsername());
+            updateOfficeStatement.setString(4, office.getPassword());
+            updateOfficeStatement.setInt(5, office.getId());
+            updateOfficeStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void resetBaseToDefault() throws SQLException {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("DELETE FROM appointments");
@@ -518,5 +547,6 @@ public class DAO {
         stmt.executeUpdate("DELETE FROM offices");
         regenerateDatabase();
     }
+
 }
 

@@ -4,28 +4,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="711.0" prefWidth="633.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="800.0" maxWidth="1000.0" minHeight="800.0" minWidth="1000.0" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="181.0" layoutY="30.0" prefHeight="53.0" prefWidth="305.0" text="%medical.report">
+      <Label layoutX="364.0" layoutY="28.0" prefHeight="53.0" prefWidth="305.0" text="%medical.report">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
       <ToolBar layoutX="473.0" layoutY="346.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: transparent;" />
-      <Button layoutX="273.0" layoutY="636.0" mnemonicParsing="false" onAction="#addReportAction" prefHeight="51.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="%add" underline="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <GridPane layoutX="26.0" layoutY="112.0" prefHeight="132.0" prefWidth="581.0" style="-fx-border-color: black;">
+      <GridPane layoutX="41.0" layoutY="112.0" prefHeight="132.0" prefWidth="912.0" style="-fx-border-color: black;">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="20.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="130.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="159.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="5.0" prefWidth="19.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="96.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="477.0" minWidth="10.0" prefWidth="156.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="477.0" minWidth="8.0" prefWidth="8.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="1.0" prefWidth="1.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="156.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="199.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="5.0" prefWidth="81.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="161.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="477.0" minWidth="10.0" prefWidth="218.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="477.0" minWidth="8.0" prefWidth="44.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -52,43 +47,37 @@
             </Label>
          </children>
       </GridPane>
-    <Button fx:id="closeButton" layoutX="542.0" layoutY="657.0" mnemonicParsing="false" onAction="#closeAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: transparent;" text="%cancel" underline="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <GridPane layoutX="26.0" layoutY="269.0" prefHeight="40.0" prefWidth="581.0" style="-fx-border-color: black;">
+      <GridPane layoutX="41.0" layoutY="269.0" prefHeight="40.0" prefWidth="912.0" style="-fx-border-color: black;">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="6.0" prefWidth="6.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="138.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="166.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="0.0" prefWidth="16.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="95.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="160.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="6.0" prefWidth="6.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="6.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="137.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="207.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="0.0" prefWidth="89.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="169.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="225.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="6.0" prefWidth="48.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="21.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="17.0" minHeight="9.0" prefHeight="9.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="21.0" minHeight="6.0" prefHeight="11.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="%doctor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label prefHeight="29.0" prefWidth="45.0" text="%doctor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="doctorFld" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="doctorFld" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="dateTimeFld" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <Label text="%date.time" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <GridPane layoutX="26.0" layoutY="333.0" prefHeight="303.0" prefWidth="581.0" style="-fx-border-color: black;">
+      <GridPane layoutX="42.0" layoutY="333.0" prefHeight="394.0" prefWidth="912.0" style="-fx-border-color: black;">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="0.0" prefWidth="12.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="409.0" minWidth="10.0" prefWidth="129.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="488.0" minWidth="10.0" prefWidth="429.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="429.0" minWidth="7.0" prefWidth="7.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="0.0" prefWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="409.0" minWidth="10.0" prefWidth="216.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="646.0" minWidth="10.0" prefWidth="624.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="429.0" minWidth="7.0" prefWidth="50.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="37.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
@@ -98,13 +87,27 @@
             <RowConstraints maxHeight="28.0" minHeight="7.0" prefHeight="16.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="17.0" prefWidth="77.0" text="%anamnesis" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextArea fx:id="anamnesisFld" prefHeight="55.0" prefWidth="410.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label prefHeight="53.0" prefWidth="66.0" text="%diagnosis" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label prefHeight="51.0" prefWidth="111.0" text="%recommendation" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextArea fx:id="diagnosisFld" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextArea fx:id="recommendationFld" prefHeight="67.0" prefWidth="410.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label prefHeight="17.0" prefWidth="77.0" text="%anamnesis" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="anamnesisFld" prefHeight="98.0" prefWidth="534.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label prefHeight="53.0" prefWidth="66.0" text="%diagnosis" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label prefHeight="51.0" prefWidth="111.0" text="%recommendation" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextArea fx:id="diagnosisFld" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextArea fx:id="recommendationFld" prefHeight="67.0" prefWidth="410.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
       </GridPane>
+      <ToolBar layoutX="730.0" layoutY="737.0" prefHeight="49.0" prefWidth="256.0" style="-fx-background-color: white;">
+         <items>
+            <Button mnemonicParsing="false" onAction="#addReportAction" prefHeight="39.0" prefWidth="121.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="%add">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+          <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeAction" prefHeight="39.0" prefWidth="108.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="%cancel">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </items>
+      </ToolBar>
    </children>
 </Pane>

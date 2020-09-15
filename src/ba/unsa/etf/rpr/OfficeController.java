@@ -36,32 +36,24 @@ public class OfficeController {
         }
     }
     public void makeAppointmentAction (ActionEvent actionEvent) {
-        Stage stage=new Stage();
+        Stage stage=(Stage) btnSignOut.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"),bundle);
-            AppointmentController appointmentController = new AppointmentController(null, office);
+            AppointmentController appointmentController = new AppointmentController(null, office,false);
             loader.setController(appointmentController);
             root = loader.load();
             stage.setTitle("Appointment");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
-
-            stage.setOnHiding( event -> {
-                Appointment appointment = appointmentController.getAppointment();
-                if (appointment != null) {
-                        dao.addAppointment(appointment, office.getId());
-                }
-            } );
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void reviewAction (ActionEvent actionEvent) {
+    public void appointmentsAction (ActionEvent actionEvent) {
         Stage stage=(Stage) btnSignOut.getScene().getWindow();
-        //Stage stage=new Stage();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
@@ -130,6 +122,24 @@ public class OfficeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void  profileAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnSignOut.getScene().getWindow();
+        Parent root = null;
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);
+        RegisterController registerController = new RegisterController(office,true);
+        loader.setController(registerController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Register");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(false);
+        stage.show();
     }
 
 }

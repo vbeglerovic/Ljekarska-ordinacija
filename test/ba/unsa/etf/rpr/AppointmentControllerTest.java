@@ -29,7 +29,7 @@ class AppointmentControllerTest {
     public void start (Stage stage) throws Exception {
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointment.fxml"),bundle);
-        ctrl = new AppointmentController(null,office);
+        ctrl = new AppointmentController(null,office,true);
         loader.setController(ctrl);
         Parent root = loader.load();
         stage.setTitle("Appointment");

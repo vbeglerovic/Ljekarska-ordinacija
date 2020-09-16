@@ -11,7 +11,6 @@ import java.util.HashMap;
 public class PrintReport extends JFrame {
         public void showReport(Connection conn, String reportSrcFile, int officeId) throws JRException {
             String reportsDir = getClass().getResource("/reports/").getFile();
-
             JasperReport jasperReport = JasperCompileManager.compileReport(reportSrcFile);
             HashMap<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("reportsDirPath", reportsDir);

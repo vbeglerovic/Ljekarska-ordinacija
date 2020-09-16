@@ -64,28 +64,28 @@
 FROM patients
 WHERE id=$P{patient}]]>
 	</queryString>
-	<field name="firstName" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="firstName"/>
+	<field name="first_name" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="first_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patients"/>
 	</field>
-	<field name="lastName" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="lastName"/>
+	<field name="last_name" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="last_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patients"/>
 	</field>
-	<field name="JMBG" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="JMBG"/>
+	<field name="identity_number" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="identity_number"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patients"/>
 	</field>
 	<field name="gender" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.label" value="gender"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patients"/>
 	</field>
-	<field name="DOB" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="DOB"/>
+	<field name="birth_date" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="birth_date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patients"/>
 	</field>
-	<field name="POB" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="POB"/>
+	<field name="birth_place" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="birth_place"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patients"/>
 	</field>
 	<field name="address" class="java.lang.Object">
@@ -149,7 +149,7 @@ WHERE id=$P{patient}]]>
 				<textElement>
 					<font fontName="Arial" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{first_name}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="90" y="30" width="100" height="30" uuid="4822ed7d-596c-47e3-9d16-a260cf5fd4aa">
@@ -159,7 +159,7 @@ WHERE id=$P{patient}]]>
 				<textElement>
 					<font fontName="Arial" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{last_name}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="90" y="70" width="100" height="30" uuid="ec930000-e878-4912-b9a1-b83b36389ba0">
@@ -169,7 +169,7 @@ WHERE id=$P{patient}]]>
 				<textElement>
 					<font fontName="Arial" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{DOB}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{birth_date}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Column header" positionType="Float" x="510" y="-10" width="80" height="30" forecolor="#000000" uuid="848964d1-bc12-48ff-a95f-7292a0c1f2c7">
@@ -179,7 +179,7 @@ WHERE id=$P{patient}]]>
 				<textElement>
 					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[JMBG:]]></text>
+				<text><![CDATA[id:]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="590" y="-10" width="100" height="30" uuid="0cc525c0-2e12-4f28-934d-4960e27da650">
@@ -189,7 +189,7 @@ WHERE id=$P{patient}]]>
 				<textElement>
 					<font fontName="Arial" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{JMBG}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{identity_number}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Column header" positionType="Float" x="510" y="30" width="80" height="30" forecolor="#000000" uuid="66c8daf2-26a5-4a0d-8378-36b439913da7">

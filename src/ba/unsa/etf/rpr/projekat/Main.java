@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
@@ -13,6 +14,7 @@ import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception{
+        Locale.setDefault(new Locale("en", "US"));
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"),bundle);
         MainController ctrl = new MainController();

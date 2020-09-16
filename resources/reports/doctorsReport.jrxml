@@ -19,24 +19,24 @@
 FROM doctors
 WHERE office_id=$P{office}]]>
 	</queryString>
-	<field name="firstName" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="firstName"/>
+	<field name="first_name" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="first_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
 	</field>
-	<field name="lastName" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="lastName"/>
+	<field name="last_name" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="last_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
 	</field>
-	<field name="JMBG" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="JMBG"/>
+	<field name="identity_number" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="identity_number"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
 	</field>
-	<field name="DOB" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="DOB"/>
+	<field name="birth_date" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="birth_date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
 	</field>
-	<field name="POB" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="POB"/>
+	<field name="birth_place" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="birth_place"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
 	</field>
 	<field name="address" class="java.lang.Object">
@@ -47,8 +47,8 @@ WHERE office_id=$P{office}]]>
 		<property name="com.jaspersoft.studio.field.label" value="email"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
 	</field>
-	<field name="DOE" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="DOE"/>
+	<field name="employment_date" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="employment_date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
 	</field>
 	<field name="specialty" class="java.lang.Object">
@@ -94,7 +94,7 @@ WHERE office_id=$P{office}]]>
 				<reportElement style="Column header" x="178" y="0" width="89" height="15" forecolor="#736343" uuid="8968dd6b-8fdc-45aa-b0e4-3b27c7d0f825">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="760c5eb8-3b12-4d51-8eaf-67687e5141d6"/>
 				</reportElement>
-				<text><![CDATA[JMBG]]></text>
+				<text><![CDATA[identity_number]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="267" y="0" width="89" height="15" forecolor="#736343" uuid="00c0f23d-33e5-46e9-9cd0-2f88874b946b">
@@ -142,31 +142,31 @@ WHERE office_id=$P{office}]]>
 					<reportElement style="Detail" x="0" y="0" width="89" height="15" uuid="76757063-ae3f-4d11-9f99-7384173dff7a">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49edb84b-6be4-4144-9533-e82dd7089c31"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{first_name}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="89" y="0" width="89" height="15" uuid="3ffa7f63-8ddc-41ed-b3c9-09581c1a8cd2">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c9689a2-f552-4a88-a250-1772eecb67da"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{last_name}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="178" y="0" width="89" height="15" uuid="aff96b8b-1a1d-4ee0-ac9a-b279f6732128">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="760c5eb8-3b12-4d51-8eaf-67687e5141d6"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{JMBG}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{identity_number}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="267" y="0" width="89" height="15" uuid="c88529cc-2dea-4005-b515-6a110b13c561">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4bba9618-04a1-4e44-969b-1c31d11392fb"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{DOB}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{birth_date}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="356" y="0" width="89" height="15" uuid="976d882f-e55a-4407-b00b-90ae5f6b6b89">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d34a58c-4003-4b2c-9133-4fa8209f4598"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{POB}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{birth_place}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="445" y="0" width="89" height="15" uuid="c774c0cf-647a-42f5-95df-d9e32f728f77">
@@ -184,7 +184,7 @@ WHERE office_id=$P{office}]]>
 					<reportElement style="Detail" x="623" y="0" width="89" height="15" uuid="9dbd7396-c069-416d-8cb0-bca29f298863">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3c8a25ac-7aa6-4ce3-8275-cc4628617d41"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{DOE}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{employment_date}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="712" y="0" width="89" height="15" uuid="3d7db94d-0baa-4f23-b0be-e22167838dce">

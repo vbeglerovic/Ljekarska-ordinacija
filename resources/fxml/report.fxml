@@ -34,7 +34,7 @@
             <Label prefHeight="17.0" prefWidth="84.0" text="%birth.date" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="%gender" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="%address" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Label prefHeight="17.0" prefWidth="31.0" text="%jmb" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="141.0" text="%identity.number" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <TextField fx:id="patientFld" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="DOBFld" prefHeight="26.0" prefWidth="134.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="genderFld" prefHeight="11.0" prefWidth="134.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />

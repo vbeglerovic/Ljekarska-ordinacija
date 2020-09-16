@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS "appointments" (
 	"time"	TEXT,
 	"patient_id" INTEGER,
 	"doctor_id"	INTEGER,
-	"type"	TEXT,
+	"first_appointment"	INTEGER,
 	"office_id"	INTEGER,
 	"anamnesis"	TEXT,
 	"diagnosis"	TEXT,
@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS "appointments" (
 );
 CREATE TABLE IF NOT EXISTS "patients" (
 	"id"	INTEGER,
-	"firstName"	TEXT,
-	"lastName"	TEXT,
+	"first_name"	TEXT,
+	"last_name"	TEXT,
 	"identity_number"	TEXT,
 	"gender"	TEXT,
 	"birth_date"	TEXT,
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS "patients" (
 );
 CREATE TABLE IF NOT EXISTS "doctors" (
 	"id"	INTEGER,
-	"firstName"	TEXT,
-	"lastName"	TEXT,
+	"first_name"	TEXT,
+	"last_name"	TEXT,
 	"identity_number"	TEXT,
 	"birth_date"	TEXT,
 	"birth_place" TEXT,
@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS "doctors" (
 );
 INSERT INTO "offices" VALUES (1,'Office1','Address1','username1','password1');
 INSERT INTO "offices" VALUES (2,'Office2','Address2','username2','password2');
-INSERT INTO "appointments" VALUES (1,'2020-09-12','10:00',1,1,'Prvi pregled',1,NULL,NULL,NULL);
-INSERT INTO "appointments" VALUES (2,'2020-09-12','10:00',2,2,'Prvi pregled',2,NULL,NULL,NULL);
+INSERT INTO "appointments" VALUES (1,'2020-09-12','10:00',1,1,1,1,NULL,NULL,NULL);
+INSERT INTO "appointments" VALUES (2,'2020-09-12','10:00',2,2,1,2,NULL,NULL,NULL);
 INSERT INTO "patients" VALUES (1,'Sanela','Beglerović','124563987','FEMALE','1964-02-02','Sarajevo','Gornji Hotonj 22','EMPLOYEE','sanela1964@gmail.com',1,1);
 INSERT INTO "patients" VALUES (2,'Amar','Beglerović','875946123','MALE','1998-06-06','Sarajevo','Gornji Hotonj 22','STUDENT','amar.beglerovic@gmail.com',1,2);
 INSERT INTO "doctors" VALUES (1,'Vildana','Beglerović','123456789','1999-07-07','Sarajevo','Donji Hotonj 21','beglerovic.vildana@gmail.com','2020-01-01','Pedijatar',1,1);

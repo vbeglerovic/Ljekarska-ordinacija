@@ -41,7 +41,7 @@
                   <Font size="24.0" />
                </font></Label>
                 <DatePicker fx:id="datePicker" prefHeight="35.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <CheckBox fx:id="firstAppointmenctCheckBox" mnemonicParsing="false" prefHeight="54.0" prefWidth="252.0" style="-fx-background-color: transparent;" text="%first.appointment" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <CheckBox fx:id="firstAppointmentCheckBox" mnemonicParsing="false" prefHeight="54.0" prefWidth="252.0" style="-fx-background-color: transparent;" text="%first.appointment" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font></CheckBox>

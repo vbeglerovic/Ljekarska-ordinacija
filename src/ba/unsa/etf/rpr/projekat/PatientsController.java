@@ -178,10 +178,11 @@ public class PatientsController implements ControllerInterface {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         String message;
         if (Locale.getDefault().equals(new Locale("bs","BA")))
-            message = "Da li ste sigurni da želite obrisati pacijenta " + patient.getFirstName() + " " + patient.getLastName()+"?";
+            message = "Da li ste sigurni da želite ukloniti pacijenta " + patient.getFirstName() + " " + patient.getLastName()+"?";
         else
             message ="Are you sure you want to delete patient " + patient.getFirstName() + " " + patient.getLastName()+"?";
         alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

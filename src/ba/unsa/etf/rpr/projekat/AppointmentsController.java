@@ -101,7 +101,17 @@ public class AppointmentsController implements ControllerInterface{
             showAlert(message);
             return;
         }
+        LocalDateTime lt=LocalDateTime.of(appointment.getDate(), appointment.getTime());
+        if (lt.isBefore(LocalDateTime.now()) && (appointment.getRecommendation()!=null || appointment.getDiagnosis()!=null || appointment.getAnamnesis()!=null)) {
+            if (Locale.getDefault().equals(new Locale("bs", "BA")))
+                showAlert("Ne možete obrisati preglede koji su obavljeni!");
+            else
+                showAlert("You can not delete appointment from past!");
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
         String message;
         if (Locale.getDefault().equals(new Locale("bs","BA")))
             message = "Da li ste sigurni da želite otkazati pregled?";

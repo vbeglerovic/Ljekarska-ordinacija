@@ -82,6 +82,8 @@ public class ReportController implements ControllerInterface {
         else
             message = "Are you sure you want to add report?";
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

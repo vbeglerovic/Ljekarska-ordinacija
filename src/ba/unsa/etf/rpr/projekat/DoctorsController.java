@@ -166,9 +166,11 @@ public class DoctorsController implements ControllerInterface {
         }
         String message;
         if (Locale.getDefault().equals(new Locale("bs","BA")))
-            message="Da li ste sigurni da želite obrisati doktora "+ doctor.getFirstName() + " " + doctor.getLastName()+"?";
+            message="Da li ste sigurni da želite ukloniti doktora "+ doctor.getFirstName() + " " + doctor.getLastName()+"?";
         else message="Are you sure you want to remove doctor " + doctor.getFirstName() + " " + doctor.getLastName()+"?";
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

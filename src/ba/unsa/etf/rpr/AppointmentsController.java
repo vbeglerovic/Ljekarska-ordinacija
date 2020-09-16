@@ -38,8 +38,8 @@ public class AppointmentsController implements ControllerInterface{
     public TableColumn<Appointment,Patient> colAppointmentPatient;
     public TableColumn<Appointment,Doctor> colAppointmentDoctor;
     public TableColumn<Appointment,String> colAppointmentType;
-    public TextField d1Fld;
-    public TextField d2Fld;
+    public DatePicker datePicker1;
+    public DatePicker datePicker2;
     public TextField patientFld;
     public TextField doctorFld;
     public TableView<Appointment> tableViewAppointments;
@@ -108,7 +108,6 @@ public class AppointmentsController implements ControllerInterface{
             message = "Are you sure you want to remove appointment?";
         alert.setTitle("Confirmation");
         alert.setContentText(message);
-        alert.showAndWait();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             dao.deleteAppointment(appointment.getId());
@@ -177,25 +176,10 @@ public class AppointmentsController implements ControllerInterface{
         appointments=dao.appointments(office.getId());
         if (!doctorFld.getText().isEmpty())  appointments=appointmentsOfDoctor(doctorFld.getText());
         if (!patientFld.getText().isEmpty()) appointments=appointmentsOfPatient(patientFld.getText());
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            try {
-                if (!d1Fld.getText().isEmpty()) {
-                    LocalDate d1 = LocalDate.parse(d1Fld.getText(), df);
-                    appointments = afterDate(d1);
-                }
-                if (!d2Fld.getText().isEmpty()) {
-                    LocalDate d2 = LocalDate.parse(d2Fld.getText(), df);
-                    appointments = beforeDate(d2);
-                }
-            } catch (DateTimeParseException e) {
-                String message;
-                if (Locale.getDefault().equals(new Locale("bs","BA")))
-                    message = "Neispravan format datuma!\nIspravan yyyy-HH-mm!";
-                else
-                    message = "Invalid date format !\nCorrect: yyyy-HH-mm!";
-                showAlert(message);
-                return;
-            }
+        if (datePicker1.getValue()!=null)
+        appointments = afterDate(datePicker1.getValue());
+        if (datePicker2.getValue()!=null)
+        appointments = beforeDate(datePicker2.getValue());
         tableViewAppointments.setItems(FXCollections.observableList(appointments));
     }
 

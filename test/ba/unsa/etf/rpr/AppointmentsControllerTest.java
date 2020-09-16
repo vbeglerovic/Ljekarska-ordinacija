@@ -69,17 +69,4 @@ class AppointmentsControllerTest {
         DAO dao=DAO.getInstance();
         assertEquals(0, dao.appointments(office.getId()).size());
     }
-
-    @Test
-    public void testEditAppointmentFromPast (FxRobot robot) throws SQLException {
-        robot.clickOn("2020-09-12");
-        robot.clickOn("#editAppointment");
-
-        DialogPane dialogPane = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
-        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
-        robot.clickOn(okButton);
-        assertTrue(robot.lookup("#editAppointment").tryQuery().isPresent());
-
-        Platform.runLater(() -> theStage.show());
-    }
 }

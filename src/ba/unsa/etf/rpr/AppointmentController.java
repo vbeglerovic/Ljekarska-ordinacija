@@ -33,7 +33,7 @@ public class AppointmentController implements ControllerInterface{
     public ChoiceBox<Patient> patientsChoiceBox;
     public ChoiceBox<Doctor> doctorsChoiceBox;
     public DatePicker datePicker;
-    public CheckBox controlCheckBox;
+    public CheckBox firstAppointmentCheckBox;
     public ListView<LocalTime> listView;
     public Button closeButton;
     private boolean edit;
@@ -61,8 +61,8 @@ public class AppointmentController implements ControllerInterface{
             doctorsChoiceBox.getSelectionModel().select(appointment.getDoctor());
             patientsChoiceBox.getSelectionModel().select(appointment.getPatient());
             datePicker.setValue(appointment.getDate());
-            if (appointment.getType().toLowerCase().equals("kontrola"))
-                controlCheckBox.setSelected(true);
+            if (appointment.getType().toLowerCase().equals("prvi pregled") || appointment.getType().toLowerCase().equals("first appointment"))
+                firstAppointmentCheckBox.setSelected(true);
             listView.setItems(FXCollections.observableList(allAppointments));
             listView.getSelectionModel().select(appointment.getTime());
         }
@@ -189,7 +189,13 @@ public class AppointmentController implements ControllerInterface{
         appointment.setDate(datePicker.getValue());
         appointment.setPatient(patientsChoiceBox.getValue());
         appointment.setDoctor(doctorsChoiceBox.getValue());
-        if (controlCheckBox.isSelected()) appointment.setType("Kontrola");
+
+        if ( firstAppointmentCheckBox.isSelected()) {
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+               appointment.setType("Prvi pregled");
+            else
+               appointment.setType("First appointment");
+        }
         if (edit) {
             dao.editAppointment(appointment);
             openStageWithAllAppointments();

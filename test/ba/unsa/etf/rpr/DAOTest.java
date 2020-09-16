@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,5 +121,30 @@ class DAOTest {
         dao.addDoctor(doctor,1);
         ArrayList<Doctor> doctors = dao.doctors(1);
         assertEquals(2, doctors.size());
+    }
+
+    @Test
+    void addAppointment() {
+        DAO.removeInstance();
+        File dbfile = new File("database.db");
+        dbfile.delete();
+        DAO dao = DAO.getInstance();
+        Patient patient=dao.getPatient(1);
+        Doctor doctor=dao.getDoctor(1);
+        Appointment appointment=new Appointment(0, LocalDate.of(2020,12,6), LocalTime.of(10,30), patient , doctor, "komtrola", null, null, null);
+        dao.addAppointment(appointment, 1);
+        assertEquals(2, dao.appointments(1).size());
+    }
+
+    @Test
+    void editAppointment() {
+        DAO.removeInstance();
+        File dbfile = new File("database.db");
+        dbfile.delete();
+        DAO dao = DAO.getInstance();
+        Appointment appointment=dao.appointments(1).get(0);
+        appointment.setTime(LocalTime.of(11,30));
+        dao.editAppointment(appointment);
+        assertEquals("11:30", dao.appointments(1).get(0).getTime().toString());
     }
 }

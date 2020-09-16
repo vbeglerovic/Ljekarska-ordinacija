@@ -107,7 +107,6 @@ public class AppointmentsController implements ControllerInterface{
             message = "Da li ste sigurni da želite otkazati pregled?";
         else
             message = "Are you sure you want to remove appointment?";
-        alert.setTitle("Confirmation");
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
@@ -251,7 +250,7 @@ public class AppointmentsController implements ControllerInterface{
             if (Locale.getDefault().equals(new Locale("bs","BA")))
                 message = "Izaberite pregled čiji izvještaj želite vidjeti!";
             else
-                message = "Select appointment whose report you want to review!";
+                message = "Select appointment whose report you want to view!";
             showAlert(message);
             return;
         }

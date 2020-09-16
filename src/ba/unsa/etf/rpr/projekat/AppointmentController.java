@@ -35,6 +35,7 @@ public class AppointmentController implements ControllerInterface{
     public CheckBox firstAppointmentCheckBox;
     public ListView<LocalTime> listView;
     public Button closeButton, addButton;
+    //sljedeci atribut se koristi da se odredi koji prozor treba otvoriti nakon zatvaranja trenutnog
     private boolean edit;
 
     public AppointmentController(Appointment appointment, Office office, boolean edit) {
@@ -44,6 +45,8 @@ public class AppointmentController implements ControllerInterface{
         dao=DAO.getInstance();
         patients=FXCollections.observableArrayList(dao.patients(office.getId()));
         doctors=FXCollections.observableArrayList(dao.doctors(office.getId()));
+        //allAppointments cu koristiti da nadjem sve slobodne termine
+        //svaki pregled traje pola sata
         LocalTime lt=LocalTime.of(8,0);
         allAppointments=new ArrayList<>();
         for (int i=0; i<28; i++) {
@@ -105,7 +108,6 @@ public class AppointmentController implements ControllerInterface{
         });
     }
 
-
     private void showDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -131,6 +133,7 @@ public class AppointmentController implements ControllerInterface{
         listView.getSelectionModel().clearSelection();
         listView.setVisible(true);
     }
+
     private void openStageWithAllAppointments() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         Parent root = null;

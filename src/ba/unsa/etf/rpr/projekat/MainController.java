@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -62,6 +63,17 @@ public class MainController {
     }
 
     public void signInAction(ActionEvent actionEvent) {
+        if (fldUsername.getText().isEmpty() || fldPassword.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            if (Locale.getDefault().equals(new Locale("bs","BA")))
+            alert.setContentText("Unesite korisničko ime i šifru!");
+            else
+                alert.setContentText("Enter username and password!");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
         Office office= dao.getOfficeWithUsername(fldUsername.getText());
         if (office == null) {
             invalidUsernameLabel.setVisible(true);

@@ -544,6 +544,8 @@ public class DAO {
 
     }
 
+    //sljedece metode se koritsti za testove
+
     public void resetBaseToDefault() throws SQLException {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("DELETE FROM appointments");

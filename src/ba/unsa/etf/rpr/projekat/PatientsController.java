@@ -60,7 +60,6 @@ public class PatientsController implements ControllerInterface {
         colPatientAddress.setCellValueFactory(new PropertyValueFactory("address"));
         colPatientStatus.setCellValueFactory(new PropertyValueFactory("status"));
         colPatientEmail.setCellValueFactory(new PropertyValueFactory("email"));
-
         FilteredList<Patient> filteredData=new FilteredList<>(patientsList, b->true);
         searchFld.textProperty().addListener((observable,oldValue, newValue)->{
             filteredData.setPredicate(patient -> {

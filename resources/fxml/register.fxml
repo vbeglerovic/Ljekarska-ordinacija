@@ -74,6 +74,22 @@
                         <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
                         </Label>
+                   <TextField fx:id="fldAddress" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                       <font>
+                           <Font size="18.0" />
+                       </font>
+                       <GridPane.margin>
+                           <Insets left="10.0" right="10.0" />
+                       </GridPane.margin>
+                   </TextField>
+                   <TextField fx:id="fldUsername" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                       <font>
+                           <Font size="18.0" />
+                       </font>
+                       <GridPane.margin>
+                           <Insets left="10.0" right="10.0" />
+                       </GridPane.margin>
+                   </TextField>
                         <PasswordField fx:id="fldPassword" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font size="18.0" />
@@ -82,22 +98,6 @@
                         <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
                         </PasswordField>
-                        <TextField fx:id="fldUsername" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </GridPane.margin>
-                        </TextField>
-                        <TextField fx:id="fldAddress" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </GridPane.margin>
-                        </TextField>
                         <PasswordField fx:id="repeatPasswordFld" prefHeight="26.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="18.0" />

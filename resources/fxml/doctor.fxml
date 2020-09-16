@@ -62,6 +62,25 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                    <children>
+                        <Spinner fx:id="daySpinner1" prefHeight="35.0">
+                            <HBox.margin>
+                                <Insets top="7.0" />
+                            </HBox.margin></Spinner>
+                        <ChoiceBox fx:id="monthChoiceBox1" prefHeight="35.0" prefWidth="150.0">
+                            <HBox.margin>
+                                <Insets left="10.0" top="7.0" />
+                            </HBox.margin></ChoiceBox>
+                        <TextField fx:id="yearFld1" prefHeight="35.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" top="7.0" />
+                            </HBox.margin></TextField>
+                    </children>
+                </HBox>
                 <Label prefHeight="35.0" prefWidth="179.0" text="%birth.place" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
@@ -94,48 +113,29 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                    <children>
+                        <Spinner fx:id="daySpinner2" prefHeight="35.0">
+                            <HBox.margin>
+                                <Insets top="7.0" />
+                            </HBox.margin></Spinner>
+                        <ChoiceBox fx:id="monthChoiceBox2" prefHeight="35.0" prefWidth="150.0">
+                            <HBox.margin>
+                                <Insets left="10.0" top="7.0" />
+                            </HBox.margin></ChoiceBox>
+                        <TextField fx:id="yearFld2" prefHeight="35.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" top="7.0" />
+                            </HBox.margin></TextField>
+                    </children>
+                </HBox>
                 <TextField fx:id="specialtyFld" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <font>
                   <Font size="14.0" />
                </font></TextField>
-                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                    <children>
-                        <Spinner fx:id="daySpinner1" prefHeight="35.0">
-                     <HBox.margin>
-                        <Insets top="7.0" />
-                     </HBox.margin></Spinner>
-                        <ChoiceBox fx:id="monthChoiceBox1" prefHeight="35.0" prefWidth="150.0">
-                     <HBox.margin>
-                        <Insets left="10.0" top="7.0" />
-                     </HBox.margin></ChoiceBox>
-                        <TextField fx:id="yearFld1" prefHeight="35.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" top="7.0" />
-                     </HBox.margin></TextField>
-                    </children>
-                </HBox>
-                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
-                    <children>
-                        <Spinner fx:id="daySpinner2" prefHeight="35.0">
-                     <HBox.margin>
-                        <Insets top="7.0" />
-                     </HBox.margin></Spinner>
-                        <ChoiceBox fx:id="monthChoiceBox2" prefHeight="35.0" prefWidth="150.0">
-                     <HBox.margin>
-                        <Insets left="10.0" top="7.0" />
-                     </HBox.margin></ChoiceBox>
-                        <TextField fx:id="yearFld2" prefHeight="35.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" top="7.0" />
-                     </HBox.margin></TextField>
-                    </children>
-                </HBox>
             </children>
         </GridPane>
       <Label layoutX="408.0" layoutY="46.0" prefHeight="71.0" prefWidth="233.0" text="%doctor">

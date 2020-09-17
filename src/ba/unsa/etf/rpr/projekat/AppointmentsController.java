@@ -256,32 +256,6 @@ public class AppointmentsController implements ControllerInterface{
         }
     }
 
-    public class PrintReportForAppointment2 extends JFrame {
-        public void showReport(Connection conn, Integer appointmentId, String doctor, Integer patientId) throws JRException {
-            String reportsDir = getClass().getResource("/reports/").getFile();
-            String masterReportSource = getClass().getResource("/reports/medicalReport.jrxml").getFile();
-            String subReportSource = getClass().getResource("/reports/patientSubreport.jrxml").getFile();
-            JasperReport jasperMasterReport = JasperCompileManager.compileReport(masterReportSource);
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportSource);
-            JasperReport jasperReport = JasperCompileManager.compileReport(masterReportSource);
-            HashMap<String, Object> parameters = new HashMap<String, Object>();
-            parameters.put("reportsDirPath", reportsDir);
-            parameters.put("subreportParameter", jasperSubReport);
-            parameters.put("appointment", appointmentId);
-            parameters.put("doctor", doctor);
-            parameters.put("patient", patientId);
-            ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-            list.add(parameters);
-            JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, conn);
-            JRViewer viewer = new JRViewer(print);
-            viewer.setOpaque(true);
-            viewer.setVisible(true);
-            this.add(viewer);
-            this.setSize(700, 500);
-            this.setVisible(true);
-        }
-    }
-
     public void viewReportAction(ActionEvent actionEvent) {
         Appointment a=tableViewAppointments.getSelectionModel().getSelectedItem();
         if (a==null) {
@@ -304,7 +278,7 @@ public class AppointmentsController implements ControllerInterface{
         }
         if (a!=null) {
             try {
-                new PrintReportForAppointment2().showReport(DAO.getConn(), a.getId(), a.getDoctor().toString(), a.getPatient().getId());
+                new PrintReportForAppointment().showReport(DAO.getConn(), a.getId(), a.getDoctor().toString(), a.getPatient().getId());
             } catch (JRException e) {
                 e.printStackTrace();
             }

@@ -3,11 +3,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="proba123" pageWidth="750" pageHeight="200" columnWidth="710" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MedicalOffice.xml"/>
-	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
-	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
-	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
-	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
-	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+	<style name="Title" forecolor="#FFFFFF" fontName="Constantia" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Constantia" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Constantia" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Constantia"/>
+	<style name="Row" mode="Transparent" fontName="Constantia">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
 			<style mode="Opaque" backcolor="#EEEFF0"/>
@@ -117,7 +117,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Constantia" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[First name:]]></text>
 			</staticText>
@@ -127,7 +127,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Constantia" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Last name:]]></text>
 			</staticText>
@@ -137,7 +137,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Constantia" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Birth date:]]></text>
 			</staticText>
@@ -147,7 +147,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="false"/>
+					<font fontName="Constantia" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{first_name}]]></textFieldExpression>
 			</textField>
@@ -157,7 +157,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="false"/>
+					<font fontName="Constantia" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{last_name}]]></textFieldExpression>
 			</textField>
@@ -167,7 +167,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="false"/>
+					<font fontName="Constantia" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{birth_date}]]></textFieldExpression>
 			</textField>
@@ -177,7 +177,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Constantia" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[id:]]></text>
 			</staticText>
@@ -187,7 +187,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="false"/>
+					<font fontName="Constantia" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{identity_number}]]></textFieldExpression>
 			</textField>
@@ -197,7 +197,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Constantia" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Address:]]></text>
 			</staticText>
@@ -207,7 +207,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="false"/>
+					<font fontName="Constantia" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
@@ -218,7 +218,7 @@ WHERE id=$P{patient}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Constantia" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Gender:]]></text>
 			</staticText>

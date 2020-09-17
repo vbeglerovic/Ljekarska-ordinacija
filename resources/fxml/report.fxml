@@ -97,7 +97,7 @@
       </GridPane>
       <ToolBar layoutX="620.0" layoutY="685.0" prefHeight="49.0" prefWidth="312.0" style="-fx-background-color: white;">
          <items>
-            <Button mnemonicParsing="false" onAction="#addReportAction" prefHeight="39.0" prefWidth="121.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="%add">
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addReportAction" prefHeight="39.0" prefWidth="121.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="%add">
                <font>
                   <Font size="18.0" />
                </font>

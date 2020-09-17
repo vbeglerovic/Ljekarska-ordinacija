@@ -36,48 +36,6 @@ public class RegisterController implements ControllerInterface {
         this.edit=edit;
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    private void openMainStage() {
-        Stage stage = (Stage) informationLabel.getScene().getWindow();
-        Parent root = null;
-        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
-        OfficeController officeController = new OfficeController(office);
-        loader.setController(officeController);
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage.setTitle("Office");
-        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        stage.setResizable(true);
-        stage.show();
-    }
-    private void openLogInStage() {
-        Stage stage=(Stage) informationLabel.getScene().getWindow();
-        Parent root=null;
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"),bundle);
-            MainController ctrl = new MainController();
-            loader.setController(ctrl);
-            root = loader.load();
-            stage.setTitle("Log In");
-            stage.setResizable(false);
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     @FXML
     public void initialize() {
         informationLabel.setVisible(false);
@@ -115,9 +73,54 @@ public class RegisterController implements ControllerInterface {
                 repeatPasswordFld.getStyleClass().add("notOk");
             }
         });
-            fldUsername.textProperty().addListener((obs, oldValue, newValue)->{
-                informationLabel.setVisible(false);
+        fldUsername.textProperty().addListener((obs, oldValue, newValue)->{
+            informationLabel.setVisible(false);
         });
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void openMainStage() {
+        Stage stage = (Stage) informationLabel.getScene().getWindow();
+        Parent root = null;
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
+        OfficeController officeController = new OfficeController(office);
+        loader.setController(officeController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Office");
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setResizable(true);
+        stage.show();
+    }
+
+    private void openLogInStage() {
+        Stage stage=(Stage) informationLabel.getScene().getWindow();
+        Parent root=null;
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"),bundle);
+            MainController ctrl = new MainController();
+            loader.setController(ctrl);
+            root = loader.load();
+            stage.setTitle("Log In");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void closeAction (ActionEvent actionEvent) {

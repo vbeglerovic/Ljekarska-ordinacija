@@ -31,7 +31,7 @@ public class ReportController implements ControllerInterface {
     public TextArea anamnesisFld;
     public TextArea diagnosisFld;
     public TextArea recommendationFld;
-    public Button closeButton;
+    public Button closeButton, addButton;
 
     public ReportController(Office office, Appointment appointment) {
         dao=DAO.getInstance();
@@ -59,6 +59,7 @@ public class ReportController implements ControllerInterface {
 
     @FXML
     public void initialize() {
+        addButton.setDisable(true);
         if (appointment!=null) {
             patientFld.setText(appointment.getPatient().toString());
             doctorFld.setText(appointment.getDoctor().toString());
@@ -68,6 +69,25 @@ public class ReportController implements ControllerInterface {
             jmbFld.setText(appointment.getPatient().getIdentityNumber());
             addressFld.setText(appointment.getPatient().getAddress());
         }
+        //mora se popuniti barem neko od polja da bi se mogao dodati izvjestaj
+        anamnesisFld.textProperty().addListener((obs, oldValue, newValue)-> {
+            if (newValue.isEmpty() && recommendationFld.getText().isEmpty() && diagnosisFld.getText().isEmpty())
+                addButton.setDisable(true);
+            else
+                addButton.setDisable(false);
+        });
+        recommendationFld.textProperty().addListener((obs, oldValue, newValue)-> {
+            if (newValue.isEmpty() && anamnesisFld.getText().isEmpty() && diagnosisFld.getText().isEmpty())
+                addButton.setDisable(true);
+            else
+                addButton.setDisable(false);
+        });
+        diagnosisFld.textProperty().addListener((obs, oldValue, newValue)-> {
+            if (newValue.isEmpty() && anamnesisFld.getText().isEmpty() && recommendationFld.getText().isEmpty())
+                addButton.setDisable(true);
+            else
+                addButton.setDisable(false);
+        });
     }
 
     public void closeAction (ActionEvent actionEvent) {

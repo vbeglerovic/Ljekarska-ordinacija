@@ -135,7 +135,7 @@ public class AppointmentController implements ControllerInterface{
     }
 
     private void openStageWithAllAppointments() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Stage stage = (Stage) listView.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
@@ -153,7 +153,7 @@ public class AppointmentController implements ControllerInterface{
     }
 
     private void openMainStage() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Stage stage = (Stage) listView.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);

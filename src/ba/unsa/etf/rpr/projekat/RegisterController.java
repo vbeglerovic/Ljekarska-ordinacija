@@ -44,7 +44,7 @@ public class RegisterController implements ControllerInterface {
         alert.showAndWait();
     }
     private void openMainStage() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Stage stage = (Stage) informationLabel.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
@@ -61,7 +61,7 @@ public class RegisterController implements ControllerInterface {
         stage.show();
     }
     private void openLogInStage() {
-        Stage stage=(Stage) closeButton.getScene().getWindow();
+        Stage stage=(Stage) informationLabel.getScene().getWindow();
         Parent root=null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");

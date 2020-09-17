@@ -95,7 +95,7 @@ public class DoctorsController implements ControllerInterface {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Stage stage = (Stage) tableViewDoctors.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
@@ -113,7 +113,7 @@ public class DoctorsController implements ControllerInterface {
     }
 
     public void addDoctorAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) closeButton.getScene().getWindow();
+        Stage stage=(Stage) tableViewDoctors.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -139,7 +139,7 @@ public class DoctorsController implements ControllerInterface {
                 showAlert("Select doctor whose data you want to change!");
             return;
         }
-        Stage stage=(Stage) closeButton.getScene().getWindow();
+        Stage stage=(Stage) tableViewDoctors.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");

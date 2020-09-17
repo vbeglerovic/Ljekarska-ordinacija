@@ -113,7 +113,7 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <ToolBar layoutX="726.0" layoutY="707.0" prefHeight="63.0" prefWidth="242.0" style="-fx-background-color: #00BFFF;">
+      <ToolBar layoutX="648.0" layoutY="635.0" prefHeight="63.0" prefWidth="242.0" style="-fx-background-color: #00BFFF;">
          <items>
                         <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#registerAction" prefHeight="40.0" prefWidth="110.0" text="%add">
                            <font>

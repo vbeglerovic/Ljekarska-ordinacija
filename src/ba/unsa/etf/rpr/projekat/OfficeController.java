@@ -48,7 +48,7 @@ public class OfficeController {
     }
 
     public void makeAppointmentAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) btnSignOut.getScene().getWindow();
+        Stage stage=(Stage) labelDate.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -65,7 +65,7 @@ public class OfficeController {
         }
     }
     public void appointmentsAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) btnSignOut.getScene().getWindow();
+        Stage stage=(Stage) labelDate.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);
@@ -83,7 +83,7 @@ public class OfficeController {
     }
 
     public void patientsAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) btnSignOut.getScene().getWindow();
+        Stage stage=(Stage) labelDate.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"),bundle);
@@ -101,7 +101,7 @@ public class OfficeController {
     }
 
     public void doctorsAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) btnSignOut.getScene().getWindow();
+        Stage stage=(Stage) labelDate.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"),bundle);
@@ -119,7 +119,7 @@ public class OfficeController {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage=(Stage) btnSignOut.getScene().getWindow();
+        Stage stage=(Stage) labelDate.getScene().getWindow();
         Parent root=null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -137,7 +137,7 @@ public class OfficeController {
     }
 
     public void  profileAction(ActionEvent actionEvent) {
-        Stage stage = (Stage) btnSignOut.getScene().getWindow();
+        Stage stage = (Stage) labelDate.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);

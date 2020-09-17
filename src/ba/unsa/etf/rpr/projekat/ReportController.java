@@ -40,7 +40,7 @@ public class ReportController implements ControllerInterface {
     }
 
     private void open() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Stage stage = (Stage) patientFld.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"),bundle);

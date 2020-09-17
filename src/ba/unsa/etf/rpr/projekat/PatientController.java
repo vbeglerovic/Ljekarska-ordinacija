@@ -98,7 +98,7 @@ public class PatientController implements ControllerInterface {
         });
     }
     private void open() {
-        Stage stage=(Stage) addButton.getScene().getWindow();
+        Stage stage=(Stage) statusChoiceBox.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"),bundle);

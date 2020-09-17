@@ -93,7 +93,7 @@ public class PatientsController implements ControllerInterface {
     }
 
     public void closeAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Stage stage = (Stage) tableViewPatients.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/office.fxml"),bundle);
@@ -111,7 +111,7 @@ public class PatientsController implements ControllerInterface {
     }
 
     public void addPatientAction (ActionEvent actionEvent) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        Stage stage = (Stage) tableViewPatients.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
@@ -139,7 +139,7 @@ public class PatientsController implements ControllerInterface {
             showAlert(message);
             return;
         }
-        Stage stage =(Stage) closeButton.getScene().getWindow();
+        Stage stage =(Stage) tableViewPatients.getScene().getWindow();
         Parent root = null;
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");

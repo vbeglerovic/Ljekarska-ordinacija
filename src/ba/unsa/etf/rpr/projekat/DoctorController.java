@@ -55,7 +55,7 @@ public class DoctorController implements ControllerInterface{
         alert.showAndWait();
     }
     private void open() {
-        Stage stage=(Stage) addButton.getScene().getWindow();
+        Stage stage=(Stage) monthChoiceBox1.getScene().getWindow();
         Parent root = null;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctors.fxml"),bundle);

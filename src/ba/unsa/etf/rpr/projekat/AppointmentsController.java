@@ -60,7 +60,7 @@ public class AppointmentsController implements ControllerInterface{
     public AppointmentsController(Office office) {
         dao=DAO.getInstance();
         this.office=office;
-        appointmentsList= FXCollections.observableArrayList(dao.appointments(office.getId()));
+        appointmentsList= FXCollections.observableArrayList(dao.appointments(office.getId()).stream().sorted(Appointment::compareTo).collect(Collectors.toList()));
         patientsList=FXCollections.observableArrayList(dao.patients(office.getId()));
         appointments=new ArrayList<>();
     }
@@ -206,6 +206,7 @@ public class AppointmentsController implements ControllerInterface{
                 showAlert("Invalid date format! \n Correct: yyyy-HH-mm");
             return;
         }
+        appointmentsList.stream().sorted(Appointment::compareTo).collect(Collectors.toList());
         tableViewAppointments.setItems(FXCollections.observableList(appointments));
     }
 

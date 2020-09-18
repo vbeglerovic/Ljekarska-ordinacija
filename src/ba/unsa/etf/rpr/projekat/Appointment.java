@@ -1,11 +1,12 @@
 package ba.unsa.etf.rpr.projekat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Appointment  {
+public class Appointment implements Comparable<Appointment> {
     private Integer id;
     private LocalDate date;
     private LocalTime time;
@@ -118,6 +119,13 @@ public class Appointment  {
             return "Yes";
         }
         return "";
+    }
+    @Override
+    public int compareTo(Appointment o) {
+        LocalDateTime ld1=LocalDateTime.of(getDate(), getTime());
+        LocalDateTime ld2=LocalDateTime.of(o.getDate(), o.getTime());
+        if (ld1.isBefore(ld2)) return -1;
+        return 1;
     }
 
 }

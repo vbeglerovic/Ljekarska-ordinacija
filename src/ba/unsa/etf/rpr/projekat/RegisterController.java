@@ -161,7 +161,6 @@ public class RegisterController implements ControllerInterface {
                 informationLabel.setVisible(true);
                 return;
             }
-
         }
     }
 

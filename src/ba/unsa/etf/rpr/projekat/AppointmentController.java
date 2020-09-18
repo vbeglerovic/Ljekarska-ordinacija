@@ -35,7 +35,7 @@ public class AppointmentController implements ControllerInterface{
     public CheckBox firstAppointmentCheckBox;
     public ListView<LocalTime> listView;
     public Button closeButton, addButton;
-    //sljedeci atribut se koristi da se odredi koji prozor treba otvoriti nakon zatvaranja trenutnog
+    //sljedeci atribut se koristi da se odredi koju akciju treba izvrsiti nakon klika na dugme add
     private boolean edit;
 
     public AppointmentController(Appointment appointment, Office office, boolean edit) {
